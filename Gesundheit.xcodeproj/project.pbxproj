@@ -1,0 +1,476 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
+		E494FF2B1818458000E1E5C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */; };
+		E494FF2D1818458000E1E5C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2C1818458000E1E5C3 /* UIKit.framework */; };
+		E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E494FF311818458000E1E5C3 /* InfoPlist.strings */; };
+		E494FF351818458000E1E5C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF341818458000E1E5C3 /* main.m */; };
+		E494FF391818458000E1E5C3 /* TAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF381818458000E1E5C3 /* TAAppDelegate.m */; };
+		E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494FF3A1818458000E1E5C3 /* Main.storyboard */; };
+		E494FF3F1818458000E1E5C3 /* TAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF3E1818458000E1E5C3 /* TAViewController.m */; };
+		E494FF411818458000E1E5C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494FF401818458000E1E5C3 /* Images.xcassets */; };
+		E494FF481818458000E1E5C3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF471818458000E1E5C3 /* XCTest.framework */; };
+		E494FF491818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
+		E494FF4A1818458000E1E5C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2C1818458000E1E5C3 /* UIKit.framework */; };
+		E494FF521818458000E1E5C3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E494FF501818458000E1E5C3 /* InfoPlist.strings */; };
+		E494FF541818458000E1E5C3 /* GesundheitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF531818458000E1E5C3 /* GesundheitTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E494FF4B1818458000E1E5C3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E494FF1D1818458000E1E5C3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E494FF241818458000E1E5C3;
+			remoteInfo = Gesundheit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E494FF251818458000E1E5C3 /* Gesundheit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gesundheit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E494FF281818458000E1E5C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E494FF2C1818458000E1E5C3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E494FF301818458000E1E5C3 /* Gesundheit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Gesundheit-Info.plist"; sourceTree = "<group>"; };
+		E494FF321818458000E1E5C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E494FF341818458000E1E5C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E494FF361818458000E1E5C3 /* Gesundheit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gesundheit-Prefix.pch"; sourceTree = "<group>"; };
+		E494FF371818458000E1E5C3 /* TAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAAppDelegate.h; sourceTree = "<group>"; };
+		E494FF381818458000E1E5C3 /* TAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAAppDelegate.m; sourceTree = "<group>"; };
+		E494FF3B1818458000E1E5C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E494FF3D1818458000E1E5C3 /* TAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAViewController.h; sourceTree = "<group>"; };
+		E494FF3E1818458000E1E5C3 /* TAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAViewController.m; sourceTree = "<group>"; };
+		E494FF401818458000E1E5C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E494FF461818458000E1E5C3 /* GesundheitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GesundheitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E494FF471818458000E1E5C3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		E494FF4F1818458000E1E5C3 /* GesundheitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GesundheitTests-Info.plist"; sourceTree = "<group>"; };
+		E494FF511818458000E1E5C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E494FF531818458000E1E5C3 /* GesundheitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GesundheitTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E494FF221818458000E1E5C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E494FF2B1818458000E1E5C3 /* CoreGraphics.framework in Frameworks */,
+				E494FF2D1818458000E1E5C3 /* UIKit.framework in Frameworks */,
+				E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E494FF431818458000E1E5C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E494FF481818458000E1E5C3 /* XCTest.framework in Frameworks */,
+				E494FF4A1818458000E1E5C3 /* UIKit.framework in Frameworks */,
+				E494FF491818458000E1E5C3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E494FF1C1818458000E1E5C3 = {
+			isa = PBXGroup;
+			children = (
+				E494FF2E1818458000E1E5C3 /* Gesundheit */,
+				E494FF4D1818458000E1E5C3 /* GesundheitTests */,
+				E494FF271818458000E1E5C3 /* Frameworks */,
+				E494FF261818458000E1E5C3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E494FF261818458000E1E5C3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E494FF251818458000E1E5C3 /* Gesundheit.app */,
+				E494FF461818458000E1E5C3 /* GesundheitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E494FF271818458000E1E5C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E494FF281818458000E1E5C3 /* Foundation.framework */,
+				E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */,
+				E494FF2C1818458000E1E5C3 /* UIKit.framework */,
+				E494FF471818458000E1E5C3 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E494FF2E1818458000E1E5C3 /* Gesundheit */ = {
+			isa = PBXGroup;
+			children = (
+				E494FF371818458000E1E5C3 /* TAAppDelegate.h */,
+				E494FF381818458000E1E5C3 /* TAAppDelegate.m */,
+				E494FF3A1818458000E1E5C3 /* Main.storyboard */,
+				E494FF3D1818458000E1E5C3 /* TAViewController.h */,
+				E494FF3E1818458000E1E5C3 /* TAViewController.m */,
+				E494FF401818458000E1E5C3 /* Images.xcassets */,
+				E494FF2F1818458000E1E5C3 /* Supporting Files */,
+			);
+			path = Gesundheit;
+			sourceTree = "<group>";
+		};
+		E494FF2F1818458000E1E5C3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E494FF301818458000E1E5C3 /* Gesundheit-Info.plist */,
+				E494FF311818458000E1E5C3 /* InfoPlist.strings */,
+				E494FF341818458000E1E5C3 /* main.m */,
+				E494FF361818458000E1E5C3 /* Gesundheit-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E494FF4D1818458000E1E5C3 /* GesundheitTests */ = {
+			isa = PBXGroup;
+			children = (
+				E494FF531818458000E1E5C3 /* GesundheitTests.m */,
+				E494FF4E1818458000E1E5C3 /* Supporting Files */,
+			);
+			path = GesundheitTests;
+			sourceTree = "<group>";
+		};
+		E494FF4E1818458000E1E5C3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E494FF4F1818458000E1E5C3 /* GesundheitTests-Info.plist */,
+				E494FF501818458000E1E5C3 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E494FF241818458000E1E5C3 /* Gesundheit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E494FF571818458000E1E5C3 /* Build configuration list for PBXNativeTarget "Gesundheit" */;
+			buildPhases = (
+				E494FF211818458000E1E5C3 /* Sources */,
+				E494FF221818458000E1E5C3 /* Frameworks */,
+				E494FF231818458000E1E5C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gesundheit;
+			productName = Gesundheit;
+			productReference = E494FF251818458000E1E5C3 /* Gesundheit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E494FF451818458000E1E5C3 /* GesundheitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E494FF5A1818458000E1E5C3 /* Build configuration list for PBXNativeTarget "GesundheitTests" */;
+			buildPhases = (
+				E494FF421818458000E1E5C3 /* Sources */,
+				E494FF431818458000E1E5C3 /* Frameworks */,
+				E494FF441818458000E1E5C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E494FF4C1818458000E1E5C3 /* PBXTargetDependency */,
+			);
+			name = GesundheitTests;
+			productName = GesundheitTests;
+			productReference = E494FF461818458000E1E5C3 /* GesundheitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E494FF1D1818458000E1E5C3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TA;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Jhaybie;
+				TargetAttributes = {
+					E494FF451818458000E1E5C3 = {
+						TestTargetID = E494FF241818458000E1E5C3;
+					};
+				};
+			};
+			buildConfigurationList = E494FF201818458000E1E5C3 /* Build configuration list for PBXProject "Gesundheit" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E494FF1C1818458000E1E5C3;
+			productRefGroup = E494FF261818458000E1E5C3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E494FF241818458000E1E5C3 /* Gesundheit */,
+				E494FF451818458000E1E5C3 /* GesundheitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E494FF231818458000E1E5C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
+				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
+				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E494FF441818458000E1E5C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E494FF521818458000E1E5C3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E494FF211818458000E1E5C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E494FF3F1818458000E1E5C3 /* TAViewController.m in Sources */,
+				E494FF351818458000E1E5C3 /* main.m in Sources */,
+				E494FF391818458000E1E5C3 /* TAAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E494FF421818458000E1E5C3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E494FF541818458000E1E5C3 /* GesundheitTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E494FF4C1818458000E1E5C3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E494FF241818458000E1E5C3 /* Gesundheit */;
+			targetProxy = E494FF4B1818458000E1E5C3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E494FF311818458000E1E5C3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E494FF321818458000E1E5C3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E494FF3A1818458000E1E5C3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E494FF3B1818458000E1E5C3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E494FF501818458000E1E5C3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E494FF511818458000E1E5C3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E494FF551818458000E1E5C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E494FF561818458000E1E5C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E494FF581818458000E1E5C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gesundheit/Gesundheit-Prefix.pch";
+				INFOPLIST_FILE = "Gesundheit/Gesundheit-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E494FF591818458000E1E5C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gesundheit/Gesundheit-Prefix.pch";
+				INFOPLIST_FILE = "Gesundheit/Gesundheit-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E494FF5B1818458000E1E5C3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Gesundheit.app/Gesundheit";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gesundheit/Gesundheit-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "GesundheitTests/GesundheitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		E494FF5C1818458000E1E5C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Gesundheit.app/Gesundheit";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Gesundheit/Gesundheit-Prefix.pch";
+				INFOPLIST_FILE = "GesundheitTests/GesundheitTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E494FF201818458000E1E5C3 /* Build configuration list for PBXProject "Gesundheit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E494FF551818458000E1E5C3 /* Debug */,
+				E494FF561818458000E1E5C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E494FF571818458000E1E5C3 /* Build configuration list for PBXNativeTarget "Gesundheit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E494FF581818458000E1E5C3 /* Debug */,
+				E494FF591818458000E1E5C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E494FF5A1818458000E1E5C3 /* Build configuration list for PBXNativeTarget "GesundheitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E494FF5B1818458000E1E5C3 /* Debug */,
+				E494FF5C1818458000E1E5C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E494FF1D1818458000E1E5C3 /* Project object */;
+}
