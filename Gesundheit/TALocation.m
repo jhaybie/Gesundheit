@@ -44,6 +44,7 @@
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
      }];
+    
     return forecastArray;
 }
 
