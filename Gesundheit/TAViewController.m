@@ -18,4 +18,18 @@
     [super viewDidLoad];
 }
 
+- (void) showResults
+{
+    
+    
+    NSDictionary *tempDict;
+    NSArray *tempArray;
+    for (NSDictionary *dict in forecastData) {
+        forecastData = [tempDict objectForKey:@"city"];
+        forecastData = [tempDict objectForKey:@"desc"];
+        forecastData = [tempDict objectForKey:@"predominantType"];
+        publicTimeline = [tempDict objectForKey:@"state"];
+    }
+}
+
 @end
