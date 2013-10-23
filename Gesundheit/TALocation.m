@@ -32,10 +32,6 @@
         NSLog(@"Received placemarks: %@", placemarks);
         
     }];
-
-    
-    
-//    [geocoder reverseGeocodeLocation:location completionHandler:<#^(NSArray *placemarks, NSError *error)completionHandler#>]
     return zip;
 }
 
