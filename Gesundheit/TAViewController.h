@@ -10,4 +10,10 @@
 
 @interface TAViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UILabel *levelLabel;
+@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
+@property (strong, nonatomic) IBOutlet UITextView *description;
+@property (strong, nonatomic) IBOutlet UILabel *cityLabel;
+@property (strong, nonatomic) IBOutlet UILabel *stateLabel;
+
 @end
