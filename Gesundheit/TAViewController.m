@@ -16,7 +16,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void) showResults
+{
+    
+    
+    NSDictionary *tempDict;
+    NSArray *tempArray;
+    for (NSDictionary *dict in forecastData) {
+        forecastData = [tempDict objectForKey:@"city"];
+        forecastData = [tempDict objectForKey:@"desc"];
+        forecastData = [tempDict objectForKey:@"predominantType"];
+        publicTimeline = [tempDict objectForKey:@"state"];
+    }
 }
 
 @end
