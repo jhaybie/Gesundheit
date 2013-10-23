@@ -19,9 +19,7 @@
     CLLocationCoordinate2D coordinate = [location coordinate];
     NSDictionary *address;
     
-    
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    
     
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (error){
