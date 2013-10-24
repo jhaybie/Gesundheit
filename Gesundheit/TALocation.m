@@ -34,24 +34,24 @@ NSArray *weeklyForecast;
 //    return zip;
 //}
 
--(NSArray *) fetchPollenData {
-    NSString *zip = @"60654";// [self getCurrentLocationZip];
-    weeklyForecast = [[NSArray alloc] init];
-    NSString *address = [NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip];
-    NSURL *url = [NSURL URLWithString:address];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
-                                                                    options:0
-                                                                      error:&connectionError];
-        weeklyForecast = [initialDump objectForKey:@"dayList"];
-        NSLog(@"%@, %@", [initialDump objectForKey:@"city"], [initialDump objectForKey:@"state"]);
-        NSLog(@"%@", [weeklyForecast[0] objectForKey:@"desc"]);
-    }];
-    return weeklyForecast;
-}
+//-(NSArray *) fetchPollenData {
+//    NSString *zip = @"60654";// [self getCurrentLocationZip];
+//    weeklyForecast = [[NSArray alloc] init];
+//    NSString *address = [NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip];
+//    NSURL *url = [NSURL URLWithString:address];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//        NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
+//                                                                    options:0
+//                                                                      error:&connectionError];
+//        weeklyForecast = [initialDump objectForKey:@"dayList"];
+//        NSLog(@"%@, %@", [initialDump objectForKey:@"city"], [initialDump objectForKey:@"state"]);
+//        NSLog(@"%@", [weeklyForecast[0] objectForKey:@"desc"]);
+//    }];
+//    return weeklyForecast;
+//}
 
 @end

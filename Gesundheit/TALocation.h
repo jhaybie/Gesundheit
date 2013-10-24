@@ -17,6 +17,6 @@
 @property (strong, nonatomic) NSString *predominantType;
 @property (nonatomic) float level;
 
--(NSArray *) fetchPollenData;
+//-(NSArray *) fetchPollenData;
 
 @end
