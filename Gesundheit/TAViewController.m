@@ -107,8 +107,8 @@
 //    TALocation *location = [[TALocation alloc] init];
     if (weeklyForecast.count > 0) {
         _desciptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
-        _cityLabel.text = location.city;
-        _stateAbbreviationLabel.text = location.state.uppercaseString;
+        _cityLabel.text = [NSString stringWithFormat:@"%@, %@", location.city, location.state.uppercaseString];
+        //_stateAbbreviationLabel.text = location.state.uppercaseString;
         _prodominateTypeLabel.text = location.predominantType;
         _allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
         NSLog(@"%@", [NSString stringWithFormat:@"%@", [weeklyForecast[0] objectForKey:@"level"]]);
