@@ -8,12 +8,17 @@
 
 #import "TAViewController.h"
 #import "TALocation.h"
+#import "TAAppDelegate.h" 
 
 @interface TAViewController ()
 
 @end
 
-@implementation TAViewController
+@implementation TAViewController{
+    
+    NSFetchedResultsController *fetcher;
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,6 +36,20 @@
         tempArray = [tempDict objectForKey:@"predominantType"];
         tempArray = [tempDict objectForKey:@"state"];
     }
+}
+
+-(void)saveToCoreData
+
+{
+    NSFetchRequest *rq = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
+    fetcher = [[NSFetchedResultsController alloc] initWithFetchRequest:rq
+                                                  managedObjectContext:[UIApplication moc]
+                                                    sectionNameKeyPath:nil
+                                                             cacheName:nil];
+    
+
+    [fetcher performFetch:nil];
+    fetcher.delegate = self;
 }
 
 @end

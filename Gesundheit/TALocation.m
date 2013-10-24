@@ -30,6 +30,7 @@
         NSLog(@"Received placemarks: %@", placemarks);
         
     }];
+    
     return zip;
 }
 

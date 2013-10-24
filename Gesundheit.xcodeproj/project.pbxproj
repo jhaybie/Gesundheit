@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8FC5266E18196C81004BD44E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FC5266D18196C81004BD44E /* CoreData.framework */; };
+		8FC5267118196E04004BD44E /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8FC5266F18196E04004BD44E /* Model.xcdatamodeld */; };
+		8FC5267418198AD9004BD44E /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FC5267318198AD9004BD44E /* Location.m */; };
 		E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
 		E494FF2B1818458000E1E5C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */; };
 		E494FF2D1818458000E1E5C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2C1818458000E1E5C3 /* UIKit.framework */; };
@@ -37,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8FC5266D18196C81004BD44E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8FC5267018196E04004BD44E /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		8FC5267218198AD9004BD44E /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		8FC5267318198AD9004BD44E /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		E494FF251818458000E1E5C3 /* Gesundheit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gesundheit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494FF281818458000E1E5C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -67,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FC5266E18196C81004BD44E /* CoreData.framework in Frameworks */,
 				E494FF631818723600E1E5C3 /* CoreLocation.framework in Frameworks */,
 				E494FF6118186EA400E1E5C3 /* MapKit.framework in Frameworks */,
 				E494FF2B1818458000E1E5C3 /* CoreGraphics.framework in Frameworks */,
@@ -110,6 +118,7 @@
 		E494FF271818458000E1E5C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8FC5266D18196C81004BD44E /* CoreData.framework */,
 				E494FF621818723600E1E5C3 /* CoreLocation.framework */,
 				E494FF6018186EA400E1E5C3 /* MapKit.framework */,
 				E494FF281818458000E1E5C3 /* Foundation.framework */,
@@ -130,6 +139,9 @@
 				E494FF3E1818458000E1E5C3 /* TAViewController.m */,
 				E494FF5D18186E6300E1E5C3 /* TALocation.h */,
 				E494FF5E18186E6300E1E5C3 /* TALocation.m */,
+				8FC5266F18196E04004BD44E /* Model.xcdatamodeld */,
+				8FC5267218198AD9004BD44E /* Location.h */,
+				8FC5267318198AD9004BD44E /* Location.m */,
 				E494FF401818458000E1E5C3 /* Images.xcassets */,
 				E494FF2F1818458000E1E5C3 /* Supporting Files */,
 			);
@@ -265,7 +277,9 @@
 			files = (
 				E494FF3F1818458000E1E5C3 /* TAViewController.m in Sources */,
 				E494FF5F18186E6300E1E5C3 /* TALocation.m in Sources */,
+				8FC5267118196E04004BD44E /* Model.xcdatamodeld in Sources */,
 				E494FF351818458000E1E5C3 /* main.m in Sources */,
+				8FC5267418198AD9004BD44E /* Location.m in Sources */,
 				E494FF391818458000E1E5C3 /* TAAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +489,7 @@
 				E494FF591818458000E1E5C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E494FF5A1818458000E1E5C3 /* Build configuration list for PBXNativeTarget "GesundheitTests" */ = {
 			isa = XCConfigurationList;
@@ -483,8 +498,23 @@
 				E494FF5C1818458000E1E5C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8FC5266F18196E04004BD44E /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8FC5267018196E04004BD44E /* Model.xcdatamodel */,
+			);
+			currentVersion = 8FC5267018196E04004BD44E /* Model.xcdatamodel */;
+			name = Model.xcdatamodeld;
+			path = ../Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E494FF1D1818458000E1E5C3 /* Project object */;
 }

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-
+ 
 @interface TALocation : NSObject <CLLocationManagerDelegate>
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
