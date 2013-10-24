@@ -24,6 +24,12 @@
 @implementation TAViewController {
     NSArray *weeklyForecast;
     TALocation *location;
+    UIColor *darkGreenColor;
+    UIColor *greenColor;
+    UIColor *yellowColor;
+    UIColor *orangeColor;
+    UIColor *redColor;
+    
 }
 
 - (void)viewDidLoad
@@ -31,6 +37,13 @@
     [super viewDidLoad];
     weeklyForecast = [self fetchPollenData];
     location = [[TALocation alloc] init];
+    darkGreenColor = [UIColor colorWithRed:34.0f/255.0f green:139.0f/255.0f blue:34.0f/255.0f alpha:1];
+    greenColor = [UIColor colorWithRed:124.0f/255.0f green:252.0f/255.0f blue:0.0f/255.0f alpha:1];
+    yellowColor = [UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    orangeColor = [UIColor colorWithRed:255.0f/255.0f green:140.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    redColor = [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+
+    
 }
 
 -(NSArray *) fetchPollenData {
@@ -73,15 +86,20 @@
 {
     if (_allergenLevelLabel.text.floatValue >= 0.1 && _allergenLevelLabel.text.floatValue <= 2.4) {
 //        _allergenLevelLabel.textColor = [UIColor redColor];
-        _allergenLevelLabel.textColor = [UIColor colorWithRed:34.0f/255.0f green:139.0f/255.0f blue:34.0f/255.0f alpha:1.0];
+        _allergenLevelLabel.backgroundColor = darkGreenColor;
+        _desciptionTextView.backgroundColor = darkGreenColor;
     }else if   (_allergenLevelLabel.text.floatValue >= 2.5 && _allergenLevelLabel.text.floatValue <= 4.8) {
-        _allergenLevelLabel.textColor = [UIColor colorWithRed:124.0f/255.0f green:252.0f/255.0f blue:0.0f/255.0f alpha:1];
+            _allergenLevelLabel.backgroundColor = greenColor;
+        _desciptionTextView.backgroundColor = greenColor;
     }else if (_allergenLevelLabel.text.floatValue >= 4.9 && _allergenLevelLabel.text.floatValue >= 7.2) {
-        _allergenLevelLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+        _allergenLevelLabel.backgroundColor = yellowColor;
+        _desciptionTextView.backgroundColor = yellowColor;
     }else if (_allergenLevelLabel.text.floatValue >= 7.3 && _allergenLevelLabel.text.floatValue <= 9.6) {
-        _allergenLevelLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:140.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+        _allergenLevelLabel.backgroundColor = orangeColor;
+        _desciptionTextView.backgroundColor = orangeColor;
     }else {
-        _allergenLevelLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+        _allergenLevelLabel.backgroundColor = redColor;
+        _desciptionTextView.backgroundColor = redColor;
     }
 }
 - (void) showResults
