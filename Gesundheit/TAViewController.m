@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *desciptionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *prodominateTypeLabel;
 - (IBAction)onPollenLevelTapShowLegendViewController:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *currentDayOfTheWeekLabel;
 
 @end
 
@@ -32,6 +33,22 @@
     
 }
 
+- (void)getCurrentDate
+{
+    NSDateFormatter *DateFormatter=[[NSDateFormatter alloc] init];
+    [DateFormatter setDateFormat:@"yyyy-MM-dd"];
+    _currentDateLabel.text = [DateFormatter stringFromDate:[NSDate date]];
+}
+
+- (void)getCurrentDayOfTheWeek
+{
+    NSDateFormatter *theDateFormatter=[[NSDateFormatter alloc] init];
+    [theDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [theDateFormatter setDateFormat:@"EEEE"];
+    NSString *weekDay =  [theDateFormatter stringFromDate:[NSDate date]];
+    _currentDayOfTheWeekLabel.text = weekDay;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,6 +61,11 @@
     redColor = [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
 
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self getCurrentDate];
 }
 
 -(NSArray *) fetchPollenData {
@@ -68,23 +90,6 @@
     return weeklyForecast;
 }
 
-//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-//    
-//    TALegendViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"legendViewController"];
-//    [self.navigationController pushViewController:lvc animated:YES];
-//    
-//    
-//}
-
-//low (0 - 2.4)
-//low-medium (2.5 - 4.8)
-//medium (4.9 - 7.2)
-//medium - high (7.3 - 9.6)
-//  High (9.7 - 12)
-
-
-// jhay !!!!!!!
-
 - (void) allergenLevelChangeFontColor
 {
     if (_allergenLevelLabel.text.floatValue >= 0.1 && _allergenLevelLabel.text.floatValue <= 2.4) {
@@ -107,7 +112,6 @@
 }
 - (void) showResults
 {
-//    TALocation *location = [[TALocation alloc] init];
     if (weeklyForecast.count > 0) {
         _desciptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
         _cityLabel.text = [NSString stringWithFormat:@"%@, %@", location.city, location.state.uppercaseString];
