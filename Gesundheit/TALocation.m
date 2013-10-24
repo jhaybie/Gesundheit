@@ -10,6 +10,7 @@
 
 @implementation TALocation
 
+NSArray *weeklyForecast;
 
 //- (NSString *) getCurrentLocationZip {
 //    NSString *zip = @"60076";
@@ -34,7 +35,6 @@
 //}
 
 -(NSArray *) fetchPollenData {
-    NSMutableArray *weeklyForecast;
     NSString *zip = @"60654";// [self getCurrentLocationZip];
     NSString *address = [NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip];
     NSURL *url = [NSURL URLWithString:address];
@@ -46,10 +46,9 @@
         NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
                                                                     options:0
                                                                       error:&connectionError];
-        NSArray *forecastArray = [initialDump objectForKey:@"dayList"];
+        weeklyForecast = [initialDump objectForKey:@"dayList"];
         NSLog(@"%@, %@", [initialDump objectForKey:@"city"], [initialDump objectForKey:@"state"]);
-        NSLog(@"%@", [forecastArray[0] desc]);
-        //return forecastArray;
+        NSLog(@"%@", [weeklyForecast[0] desc]);
     }];
     return weeklyForecast;
 }
