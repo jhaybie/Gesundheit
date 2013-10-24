@@ -19,23 +19,32 @@
 
 @end
 
-@implementation TAViewController
+@implementation TAViewController {
+    NSArray *weeklyForecast;
+}
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 }
 
 - (void) showResults
 {
-    
-    
+    TALocation *location = [[TALocation alloc] init];
+    weeklyForecast = [location fetchPollenData];
     NSDictionary *tempDict;
-    NSArray *tempArray;
-    for (NSDictionary *dict in tempArray) {
-        tempArray = [tempDict objectForKey:@"city"];
-        tempArray = [tempDict objectForKey:@"desc"];
-        tempArray = [tempDict objectForKey:@"predominantType"];
-        tempArray = [tempDict objectForKey:@"state"];
+
+    for (NSDictionary *dict in weeklyForecast) {
+        weeklyForecast = [tempDict objectForKey:@"city"];
+        weeklyForecast = [tempDict objectForKey:@"desc"];
+        weeklyForecast = [tempDict objectForKey:@"predominantType"];
+        weeklyForecast = [tempDict objectForKey:@"state"];
+        
+        location = weeklyForecast[0];
+        _desciptionTextView.text = [location desc];
+        _cityLabel.text = [location city];
+        _stateAbbreviationLabel.text = [location state];
+        _prodominateTypeLabel.text = [location predominantType];
     }
 }
 
