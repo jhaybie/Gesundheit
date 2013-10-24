@@ -32,7 +32,7 @@
 }
 
 -(NSArray *) fetchPollenData {
-    NSString *zip = @"60654";// [self getCurrentLocationZip];
+    NSString *zip = [self getCurrentLocationZip];
     weeklyForecast = [[NSArray alloc] init];
     NSString *address = [NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip];
     NSURL *url = [NSURL URLWithString:address];
@@ -75,6 +75,43 @@
     _allergenLevelLabel.font = jandaAppleFont;
     _stateAbbreviationLabel.font = airplaneFont;
     
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- (NSString *)getCurrentLocationZip {
+    NSString *zip;
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    CLLocation *currentLocation = locationManager.location;
+    CLGeocoder *test;
+    [test reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        //if (!error) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            NSLog(@"%@",[placemark description]);
+        //}
+    }];
+    return zip;
 }
 
 @end

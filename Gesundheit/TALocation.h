@@ -7,16 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
 
-@interface TALocation : NSObject <CLLocationManagerDelegate>
+@interface TALocation : NSObject
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSString *desc;
 @property (strong, nonatomic) NSString *predominantType;
 @property (nonatomic) float level;
-
-//-(NSArray *) fetchPollenData;
-
 @end
