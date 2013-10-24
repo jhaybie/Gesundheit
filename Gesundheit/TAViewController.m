@@ -10,6 +10,12 @@
 #import "TALocation.h"
 
 @interface TAViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *currentDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stateAbbreviationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *allergenLevelLabel;
+@property (weak, nonatomic) IBOutlet UITextView *desciptionTextView;
+@property (weak, nonatomic) IBOutlet UILabel *prodominateTypeLabel;
 
 @end
 
