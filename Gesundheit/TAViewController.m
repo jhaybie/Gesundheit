@@ -82,6 +82,9 @@
 //medium - high (7.3 - 9.6)
 //  High (9.7 - 12)
 
+
+// jhay !!!!!!!
+
 - (void) allergenLevelChangeFontColor
 {
     if (_allergenLevelLabel.text.floatValue >= 0.1 && _allergenLevelLabel.text.floatValue <= 2.4) {
