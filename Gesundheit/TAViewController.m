@@ -7,6 +7,7 @@
 //
 
 #import "TAViewController.h"
+#import "TALocation.h"
 
 @interface TAViewController ()
 
@@ -24,11 +25,11 @@
     
     NSDictionary *tempDict;
     NSArray *tempArray;
-    for (NSDictionary *dict in forecastData) {
-        forecastData = [tempDict objectForKey:@"city"];
-        forecastData = [tempDict objectForKey:@"desc"];
-        forecastData = [tempDict objectForKey:@"predominantType"];
-        publicTimeline = [tempDict objectForKey:@"state"];
+    for (NSDictionary *dict in tempArray) {
+        tempArray = [tempDict objectForKey:@"city"];
+        tempArray = [tempDict objectForKey:@"desc"];
+        tempArray = [tempDict objectForKey:@"predominantType"];
+        tempArray = [tempDict objectForKey:@"state"];
     }
 }
 
