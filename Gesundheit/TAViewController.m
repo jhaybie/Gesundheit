@@ -26,26 +26,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self showResults];
 }
 
 - (void) showResults
 {
     TALocation *location = [[TALocation alloc] init];
     weeklyForecast = [location fetchPollenData];
-    NSDictionary *tempDict;
+    
+    _desciptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
+    _cityLabel.text = [weeklyForecast[0] objectForKey:@"city"];
+    _stateAbbreviationLabel.text = [weeklyForecast[0] objectForKey:@"state"];;
+    _prodominateTypeLabel.text = [weeklyForecast[0] objectForKey:@"predominantType"];
+}
 
-    for (NSDictionary *dict in weeklyForecast) {
-        weeklyForecast = [tempDict objectForKey:@"city"];
-        weeklyForecast = [tempDict objectForKey:@"desc"];
-        weeklyForecast = [tempDict objectForKey:@"predominantType"];
-        weeklyForecast = [tempDict objectForKey:@"state"];
-        
-        location = weeklyForecast[0];
-        _desciptionTextView.text = [location desc];
-        _cityLabel.text = [location city];
-        _stateAbbreviationLabel.text = [location state];
-        _prodominateTypeLabel.text = [location predominantType];
-    }
+- (void) labelFonts
+{
+    UIFont *jandaAppleFont = [UIFont fontWithName:@"JandaAppleCobbler" size:17];
+    UIFont *airplaneFont = [UIFont fontWithName:@"Helvetica Neue LT Pro-Light" size:8];
 }
 
 @end
