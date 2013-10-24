@@ -108,6 +108,44 @@
     
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- (NSString *)getCurrentLocationZip {
+    NSString *zip;
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+    CLLocation *currentLocation = locationManager.location;
+    CLGeocoder *test;
+    [test reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        //if (!error) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            NSLog(@"%@",[placemark description]);
+        //}
+    }];
+    return zip;
+}
+
 - (IBAction)onPollenLevelTapShowLegendViewController:(id)sender {
 }
+
 @end
