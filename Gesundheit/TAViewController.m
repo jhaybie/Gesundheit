@@ -34,7 +34,7 @@
 }
 
 -(NSArray *) fetchPollenData {
-    NSString *zip = @"60654";// [self getCurrentLocationZip];
+    NSString *zip = [self getCurrentLocationZip];
     weeklyForecast = [[NSArray alloc] init];
     NSString *address = [NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip];
     NSURL *url = [NSURL URLWithString:address];
