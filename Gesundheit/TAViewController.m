@@ -8,6 +8,7 @@
 
 #import "TAViewController.h"
 #import "TALocation.h"
+#import "TALegendViewController.h"
 
 @interface TAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *currentDateLabel;
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *allergenLevelLabel;
 @property (weak, nonatomic) IBOutlet UITextView *desciptionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *prodominateTypeLabel;
+- (IBAction)onPollenLevelTapShowLegendViewController:(id)sender;
 
 @end
 
@@ -46,15 +48,42 @@
                                                                                              error:&connectionError];
                                weeklyForecast = [initialDump objectForKey:@"dayList"];
                                location.city = [initialDump objectForKey:@"city"];
-                               NSLog(@"%@", location.city);
                                location.state = [initialDump objectForKey:@"state"];
-                               NSLog(@"%@", location.state);
                                location.predominantType = [initialDump objectForKey:@"predominantType"];
                                [self showResults];
                            }];
     return weeklyForecast;
 }
 
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+//    
+//    TALegendViewController *lvc = [self.storyboard instantiateViewControllerWithIdentifier:@"legendViewController"];
+//    [self.navigationController pushViewController:lvc animated:YES];
+//    
+//    
+//}
+
+//low (0 - 2.4)
+//low-medium (2.5 - 4.8)
+//medium (4.9 - 7.2)
+//medium - high (7.3 - 9.6)
+//  High (9.7 - 12)
+
+- (void) allergenLevelChangeFontColor
+{
+    if (_allergenLevelLabel.text.floatValue >= 0.1 && _allergenLevelLabel.text.floatValue <= 2.4) {
+//        _allergenLevelLabel.textColor = [UIColor redColor];
+        _allergenLevelLabel.textColor = [UIColor colorWithRed:34.0f/255.0f green:139.0f/255.0f blue:34.0f/255.0f alpha:1.0];
+    }else if   (_allergenLevelLabel.text.floatValue >= 2.5 && _allergenLevelLabel.text.floatValue <= 4.8) {
+        _allergenLevelLabel.textColor = [UIColor colorWithRed:124.0f/255.0f green:252.0f/255.0f blue:0.0f/255.0f alpha:1];
+    }else if (_allergenLevelLabel.text.floatValue >= 4.9 && _allergenLevelLabel.text.floatValue >= 7.2) {
+        _allergenLevelLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    }else if (_allergenLevelLabel.text.floatValue >= 7.3 && _allergenLevelLabel.text.floatValue <= 9.6) {
+        _allergenLevelLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:140.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    }else {
+        _allergenLevelLabel.textColor = [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
+    }
+}
 - (void) showResults
 {
 //    TALocation *location = [[TALocation alloc] init];
@@ -64,7 +93,9 @@
         _stateAbbreviationLabel.text = location.state.uppercaseString;
         _prodominateTypeLabel.text = location.predominantType;
         _allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
+        NSLog(@"%@", [NSString stringWithFormat:@"%@", [weeklyForecast[0] objectForKey:@"level"]]);
     }
+    [self allergenLevelChangeFontColor];
 }
 
 - (void) labelFonts
@@ -77,4 +108,6 @@
     
 }
 
+- (IBAction)onPollenLevelTapShowLegendViewController:(id)sender {
+}
 @end
