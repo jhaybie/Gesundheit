@@ -21,12 +21,14 @@
 
 @implementation TAViewController {
     NSArray *weeklyForecast;
+    TALocation *location;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self showResults];
+    weeklyForecast = [self fetchPollenData];
+    location = [[TALocation alloc] init];
 }
 
 -(NSArray *) fetchPollenData {
@@ -43,8 +45,11 @@
                                                                                            options:0
                                                                                              error:&connectionError];
                                weeklyForecast = [initialDump objectForKey:@"dayList"];
-                               NSLog(@"%@, %@", [initialDump objectForKey:@"city"], [initialDump objectForKey:@"state"]);
-                               NSLog(@"%@", [weeklyForecast[0] objectForKey:@"desc"]);
+                               location.city = [initialDump objectForKey:@"city"];
+                               NSLog(@"%@", location.city);
+                               location.state = [initialDump objectForKey:@"state"];
+                               NSLog(@"%@", location.state);
+                               location.predominantType = [initialDump objectForKey:@"predominantType"];
                                [self showResults];
                            }];
     return weeklyForecast;
@@ -53,12 +58,12 @@
 - (void) showResults
 {
 //    TALocation *location = [[TALocation alloc] init];
-    weeklyForecast = [self fetchPollenData];
-    if (!weeklyForecast) {
+    if (weeklyForecast.count > 0) {
         _desciptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
-        _cityLabel.text = [weeklyForecast[0] objectForKey:@"city"];
-        _stateAbbreviationLabel.text = [weeklyForecast[0] objectForKey:@"state"];;
-        _prodominateTypeLabel.text = [weeklyForecast[0] objectForKey:@"predominantType"];
+        _cityLabel.text = location.city;
+        _stateAbbreviationLabel.text = location.state.uppercaseString;
+        _prodominateTypeLabel.text = location.predominantType;
+        _allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
     }
 }
 
