@@ -37,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		917DA6B61819725E00701561 /* JandaAppleCobbler.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JandaAppleCobbler.ttf; sourceTree = "<group>"; };
+		917DA6B71819729300701561 /* Airplanes in the Night Sky.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Airplanes in the Night Sky.ttf"; sourceTree = "<group>"; };
 		E494FF251818458000E1E5C3 /* Gesundheit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gesundheit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494FF281818458000E1E5C3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,6 +125,8 @@
 		E494FF2E1818458000E1E5C3 /* Gesundheit */ = {
 			isa = PBXGroup;
 			children = (
+				917DA6B71819729300701561 /* Airplanes in the Night Sky.ttf */,
+				917DA6B61819725E00701561 /* JandaAppleCobbler.ttf */,
 				E494FF371818458000E1E5C3 /* TAAppDelegate.h */,
 				E494FF381818458000E1E5C3 /* TAAppDelegate.m */,
 				E494FF3A1818458000E1E5C3 /* Main.storyboard */,
@@ -475,6 +479,7 @@
 				E494FF591818458000E1E5C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E494FF5A1818458000E1E5C3 /* Build configuration list for PBXNativeTarget "GesundheitTests" */ = {
 			isa = XCConfigurationList;
@@ -483,6 +488,7 @@
 				E494FF5C1818458000E1E5C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
