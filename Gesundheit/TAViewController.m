@@ -69,7 +69,7 @@
 
 - (void) labelFonts
 {
-    UIFont *jandaAppleFont = [UIFont fontWithName:@"JandaAppleCobbler" size:88];
+    UIFont *jandaAppleFont = [UIFont fontWithName:@"JandaAppleCobbler" size:55];
     UIFont *airplaneFont = [UIFont fontWithName:@"Airplanes in the Night Sky" size:17];
     _cityLabel.font = airplaneFont;
     _allergenLevelLabel.font = jandaAppleFont;
