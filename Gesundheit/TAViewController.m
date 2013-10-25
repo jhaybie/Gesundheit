@@ -128,13 +128,6 @@ UIColor  *darkGreenColor,
     cityAndStateLabel.font = airplaneFont;
 }
 
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
-    NSLog(@"Location changed [%i] %@", locations.count, [locations objectAtIndex:0]);
-}
-
-
-
 //    Hey jay take a look at this site i think it may help! sorry hope atleast what i found will help you
 
 //    here is the website:   http://stackoverflow.com/questions/14346516/xcode-ios-clgeocoder-reversegeocodelocation-return-addressstring   check it out!
@@ -152,8 +145,7 @@ UIColor  *darkGreenColor,
                completionHandler:^(NSArray *placemarks, NSError *error) {
         //if (!error) {
             CLPlacemark *placemark = [placemarks lastObject];
-                   startAddress = [NSString stringWithFormat:@"%@", placemark.postalCode];
-                   [weeklyForecast.copy addObject:startAddress];
+                   zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
 
             weeklyForecast = [self fetchPollenData];
         //}
