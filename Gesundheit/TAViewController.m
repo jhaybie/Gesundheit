@@ -7,14 +7,13 @@
 //
 
 #import "TAViewController.h"
-#import "TALocation.h"
 #import "TALegendViewController.h"
 
 @interface TAViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *allergenLevelLabel;
-@property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *currentDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *predominantTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *allergenLevelLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *cityAndStateLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *currentDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *predominantTypeLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @end
 
@@ -27,14 +26,16 @@
             predominantTypeLabel;
 
 
-NSArray *weeklyForecast;
-NSString *zip;
-TALocation *location;
-UIColor *darkGreenColor;
-UIColor *greenColor;
-UIColor *yellowColor;
-UIColor *orangeColor;
-UIColor *redColor;
+NSArray  *weeklyForecast;
+NSString *city,
+         *state,
+         *zip,
+         *predominantType;
+UIColor  *darkGreenColor,
+         *greenColor,
+         *yellowColor,
+         *orangeColor,
+         *redColor;
 
 
 - (void)getCurrentDate {
@@ -50,7 +51,6 @@ UIColor *redColor;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    location = [[TALocation alloc] init];
     darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
                                      green:139.0f/255.0f
                                       blue:34.0f/255.0f
@@ -81,9 +81,9 @@ UIColor *redColor;
                                                                                            options:0
                                                                                              error:&connectionError];
                                weeklyForecast = [initialDump objectForKey:@"dayList"];
-                               location.city = [initialDump objectForKey:@"city"];
-                               location.state = [initialDump objectForKey:@"state"];
-                               location.predominantType = [initialDump objectForKey:@"predominantType"];
+                               city = [initialDump objectForKey:@"city"];
+                               state = [initialDump objectForKey:@"state"];
+                               predominantType = [initialDump objectForKey:@"predominantType"];
                                [self showResults];
                            }];
     return weeklyForecast;
@@ -110,9 +110,9 @@ UIColor *redColor;
 - (void) showResults {
     if (weeklyForecast.count > 0) {
         allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
-        cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", location.city, location.state.uppercaseString];
+        cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", city, state.uppercaseString];
         descriptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
-        predominantTypeLabel.text = location.predominantType;
+        predominantTypeLabel.text = predominantType;
     }
     [self allergenLevelChangeFontColor];
 }
