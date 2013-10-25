@@ -73,7 +73,7 @@ UIColor  *darkGreenColor,
                                alpha:1.0];
 }
 
--(NSArray *) fetchPollenData {
+-(NSArray *)fetchPollenData {
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -89,7 +89,7 @@ UIColor  *darkGreenColor,
     return weeklyForecast;
 }
 
-- (void) allergenLevelChangeFontColor {
+- (void)allergenLevelChangeFontColor {
     float level = allergenLevelLabel.text.floatValue;
     UIColor *backgroundColor;
 
@@ -107,7 +107,7 @@ UIColor  *darkGreenColor,
     descriptionTextView.backgroundColor = backgroundColor;
 }
 
-- (void) showResults {
+- (void)showResults {
     if (weeklyForecast.count > 0) {
         allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
         cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", city, state.uppercaseString];
@@ -117,7 +117,7 @@ UIColor  *darkGreenColor,
     [self allergenLevelChangeFontColor];
 }
 
-- (void) labelFonts {
+- (void)labelFonts {
     UIFont *jandaAppleFont = [UIFont fontWithName:@"JandaAppleCobbler"
                                              size:55];
     UIFont *airplaneFont = [UIFont fontWithName:@"Airplanes in the Night Sky"

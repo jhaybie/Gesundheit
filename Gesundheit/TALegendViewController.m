@@ -14,11 +14,11 @@
 @property (weak, nonatomic) IBOutlet UITextView *mediumDisplayTextView;
 @property (weak, nonatomic) IBOutlet UITextView *mediumHighDisplayTextView;
 @property (weak, nonatomic) IBOutlet UITextView *highDisplayTextView;
-@property (weak, nonatomic) IBOutlet UILabel *lowLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lowMediumLabel;
-@property (weak, nonatomic) IBOutlet UILabel *mediumLabel;
-@property (weak, nonatomic) IBOutlet UILabel *mediumHighLabel;
-@property (weak, nonatomic) IBOutlet UILabel *highLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *lowLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *lowMediumLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *mediumLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *mediumHighLabel;
+@property (weak, nonatomic) IBOutlet UILabel    *highLabel;
 @end
 
 @implementation TALegendViewController
@@ -34,11 +34,11 @@
             highLabel;
 
 
-UIColor *darkGreenColor;
-UIColor *greenColor;
-UIColor *yellowColor;
-UIColor *orangeColor;
-UIColor *redColor;
+UIColor *darkGreenColor,
+        *greenColor,
+        *yellowColor,
+        *orangeColor,
+        *redColor;
 
 
 - (void)viewDidLoad {
@@ -66,7 +66,7 @@ UIColor *redColor;
     [self changeTextAndBackgroundColors];
 }
 
-- (void) changeTextAndBackgroundColors {
+- (void)changeTextAndBackgroundColors {
     lowDisplayTextView.backgroundColor = darkGreenColor;
     lowMediumDisplayTextView.backgroundColor = greenColor;
     mediumDisplayTextView.backgroundColor = yellowColor;
