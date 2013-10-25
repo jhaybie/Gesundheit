@@ -46,11 +46,11 @@ UIColor  *darkGreenColor,
 
 - (void)viewDidAppear:(BOOL)animated {
     [self getCurrentDate];
-    [self getCurrentLocationZip];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getCurrentLocationZip];
     darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
                                      green:139.0f/255.0f
                                       blue:34.0f/255.0f

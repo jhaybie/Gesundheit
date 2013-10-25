@@ -79,4 +79,8 @@ UIColor *darkGreenColor,
     highLabel.textColor = redColor;
 }
 
+- (IBAction)onViewTap:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end
