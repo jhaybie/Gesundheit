@@ -258,10 +258,10 @@
             </objects>
             <point key="canvasLocation" x="788" y="-418"/>
         </scene>
-        <!--View Controller-->
+        <!--Weekly Forecast View Controller-->
         <scene sceneID="Rkf-qo-UCv">
             <objects>
-                <viewController id="Vy9-4v-tWj" sceneMemberID="viewController">
+                <viewController id="Vy9-4v-tWj" customClass="TAWeeklyForecastViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9Am-Lm-Fxe"/>
                         <viewControllerLayoutGuide type="bottom" id="gxa-Oc-kCQ"/>
@@ -277,7 +277,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="lNs-8g-bgv" appends="YES" id="79z-Ft-guS"/>
@@ -286,7 +286,11 @@
                     <navigationItem key="navigationItem" id="5h7-Y0-AU2"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lHQ-pI-1Nd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="lNs-8g-bgv"/>
+                <tapGestureRecognizer id="lNs-8g-bgv">
+                    <connections>
+                        <action selector="onViewTap:" destination="Vy9-4v-tWj" id="bjB-xU-gwC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="788" y="249"/>
         </scene>
