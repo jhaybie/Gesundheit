@@ -128,8 +128,6 @@
 		E494FF2E1818458000E1E5C3 /* Gesundheit */ = {
 			isa = PBXGroup;
 			children = (
-				917DA6B71819729300701561 /* Airplanes in the Night Sky.ttf */,
-				917DA6B61819725E00701561 /* JandaAppleCobbler.ttf */,
 				E494FF371818458000E1E5C3 /* TAAppDelegate.h */,
 				E494FF381818458000E1E5C3 /* TAAppDelegate.m */,
 				E494FF5D18186E6300E1E5C3 /* TALocation.h */,
@@ -148,6 +146,8 @@
 		E494FF2F1818458000E1E5C3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				917DA6B71819729300701561 /* Airplanes in the Night Sky.ttf */,
+				917DA6B61819725E00701561 /* JandaAppleCobbler.ttf */,
 				E494FF301818458000E1E5C3 /* Gesundheit-Info.plist */,
 				E494FF311818458000E1E5C3 /* InfoPlist.strings */,
 				E494FF341818458000E1E5C3 /* main.m */,

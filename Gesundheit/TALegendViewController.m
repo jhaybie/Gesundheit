@@ -11,7 +11,6 @@
 @interface TALegendViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *lowDisplayTextView;
 @property (weak, nonatomic) IBOutlet UITextView *lowMediumDisplayTextView;
-
 @property (weak, nonatomic) IBOutlet UITextView *mediumDisplayTextView;
 @property (weak, nonatomic) IBOutlet UITextView *mediumHighDisplayTextView;
 @property (weak, nonatomic) IBOutlet UITextView *highDisplayTextView;
@@ -20,16 +19,27 @@
 @property (weak, nonatomic) IBOutlet UILabel *mediumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *mediumHighLabel;
 @property (weak, nonatomic) IBOutlet UILabel *highLabel;
-
 @end
 
-@implementation TALegendViewController {
-    UIColor *darkGreenColor;
-    UIColor *greenColor;
-    UIColor *yellowColor;
-    UIColor *orangeColor;
-    UIColor *redColor;
-}
+@implementation TALegendViewController
+@synthesize lowDisplayTextView,
+            lowLabel,
+            lowMediumDisplayTextView,
+            lowMediumLabel,
+            mediumDisplayTextView,
+            mediumLabel,
+            mediumHighDisplayTextView,
+            mediumHighLabel,
+            highDisplayTextView,
+            highLabel;
+
+
+UIColor *darkGreenColor;
+UIColor *greenColor;
+UIColor *yellowColor;
+UIColor *orangeColor;
+UIColor *redColor;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,17 +67,16 @@
 }
 
 - (void) changeTextAndBackgroundColors {
-    _lowDisplayTextView.backgroundColor = darkGreenColor;
-    _lowMediumDisplayTextView.backgroundColor = greenColor;
-    _mediumDisplayTextView.backgroundColor = yellowColor;
-    _mediumHighDisplayTextView.backgroundColor = orangeColor;
-    _highDisplayTextView.backgroundColor = redColor;
-    
-    _lowLabel.textColor = darkGreenColor;
-    _lowMediumLabel.textColor = greenColor;
-    _mediumLabel.textColor = yellowColor;
-    _mediumHighLabel.textColor = orangeColor;
-    _highLabel.textColor = redColor;
+    lowDisplayTextView.backgroundColor = darkGreenColor;
+    lowMediumDisplayTextView.backgroundColor = greenColor;
+    mediumDisplayTextView.backgroundColor = yellowColor;
+    mediumHighDisplayTextView.backgroundColor = orangeColor;
+    highDisplayTextView.backgroundColor = redColor;
+    lowLabel.textColor = darkGreenColor;
+    lowMediumLabel.textColor = greenColor;
+    mediumLabel.textColor = yellowColor;
+    mediumHighLabel.textColor = orangeColor;
+    highLabel.textColor = redColor;
 }
 
 @end
