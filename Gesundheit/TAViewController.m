@@ -12,59 +12,57 @@
 
 @interface TAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *currentDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
-@property (weak, nonatomic) IBOutlet UILabel *stateAbbreviationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *allergenLevelLabel;
-@property (weak, nonatomic) IBOutlet UITextView *desciptionTextView;
-@property (weak, nonatomic) IBOutlet UILabel *prodominateTypeLabel;
-- (IBAction)onPollenLevelTapShowLegendViewController:(id)sender;
-@property (weak, nonatomic) IBOutlet UILabel *currentDayOfTheWeekLabel;
-
+@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UILabel *predominantTypeLabel;
+- (IBAction)onPollenLevelTap:(id)sender;
 @end
 
-@implementation TAViewController {
-    NSArray *weeklyForecast;
-    TALocation *location;
-    UIColor *darkGreenColor;
-    UIColor *greenColor;
-    UIColor *yellowColor;
-    UIColor *orangeColor;
-    UIColor *redColor;
-    
+
+@implementation TAViewController
+NSArray *weeklyForecast;
+TALocation *location;
+UIColor *darkGreenColor;
+UIColor *greenColor;
+UIColor *yellowColor;
+UIColor *orangeColor;
+UIColor *redColor;
+
+
+- (void)getCurrentDate {
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    _currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
 }
 
-- (void)getCurrentDate
-{
-    NSDateFormatter *DateFormatter=[[NSDateFormatter alloc] init];
-    [DateFormatter setDateFormat:@"yyyy-MM-dd"];
-    _currentDateLabel.text = [DateFormatter stringFromDate:[NSDate date]];
-}
-
-- (void)getCurrentDayOfTheWeek
-{
-    NSDateFormatter *theDateFormatter=[[NSDateFormatter alloc] init];
-    [theDateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
-    [theDateFormatter setDateFormat:@"EEEE"];
-    NSString *weekDay =  [theDateFormatter stringFromDate:[NSDate date]];
-    _currentDayOfTheWeekLabel.text = weekDay;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     weeklyForecast = [self fetchPollenData];
     location = [[TALocation alloc] init];
-    darkGreenColor = [UIColor colorWithRed:34.0f/255.0f green:139.0f/255.0f blue:34.0f/255.0f alpha:1];
-    greenColor = [UIColor colorWithRed:124.0f/255.0f green:252.0f/255.0f blue:0.0f/255.0f alpha:1];
-    yellowColor = [UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-    orangeColor = [UIColor colorWithRed:255.0f/255.0f green:140.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-    redColor = [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-
-    
+    darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
+                                     green:139.0f/255.0f
+                                      blue:34.0f/255.0f
+                                     alpha:1];
+    greenColor = [UIColor colorWithRed:124.0f/255.0f
+                                 green:252.0f/255.0f
+                                  blue:0.0f/255.0f
+                                 alpha:1];
+    yellowColor = [UIColor colorWithRed:255.0f/255.0f
+                                  green:215.0f/255.0f
+                                   blue:0.0f/255.0f
+                                  alpha:1.0];
+    orangeColor = [UIColor colorWithRed:255.0f/255.0f
+                                  green:140.0f/255.0f
+                                   blue:0.0f/255.0f
+                                  alpha:1.0];
+    redColor = [UIColor colorWithRed:255.0f/255.0f
+                               green:0.0f/255.0f
+                                blue:0.0f/255.0f
+                               alpha:1.0];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [self getCurrentDate];
 }
 
@@ -90,47 +88,41 @@
     return weeklyForecast;
 }
 
-- (void) allergenLevelChangeFontColor
-{
-    if (_allergenLevelLabel.text.floatValue >= 0.1 && _allergenLevelLabel.text.floatValue <= 2.4) {
-//        _allergenLevelLabel.textColor = [UIColor redColor];
+- (void) allergenLevelChangeFontColor {
+    float level = _allergenLevelLabel.text.floatValue;
+    if (level >= 0.1 && level <= 2.4) {
         _allergenLevelLabel.backgroundColor = darkGreenColor;
-        _desciptionTextView.backgroundColor = darkGreenColor;
-    }else if   (_allergenLevelLabel.text.floatValue >= 2.5 && _allergenLevelLabel.text.floatValue <= 4.8) {
-            _allergenLevelLabel.backgroundColor = greenColor;
-        _desciptionTextView.backgroundColor = greenColor;
-    }else if (_allergenLevelLabel.text.floatValue >= 4.9 && _allergenLevelLabel.text.floatValue >= 7.2) {
+        _descriptionTextView.backgroundColor = darkGreenColor;
+    } else if (level >= 2.5 && level <= 4.8) {
+        _allergenLevelLabel.backgroundColor = greenColor;
+        _descriptionTextView.backgroundColor = greenColor;
+    } else if (level >= 4.9 && level >= 7.2) {
         _allergenLevelLabel.backgroundColor = yellowColor;
-        _desciptionTextView.backgroundColor = yellowColor;
-    }else if (_allergenLevelLabel.text.floatValue >= 7.3 && _allergenLevelLabel.text.floatValue <= 9.6) {
+        _descriptionTextView.backgroundColor = yellowColor;
+    } else if (level >= 7.3 && level <= 9.6) {
         _allergenLevelLabel.backgroundColor = orangeColor;
-        _desciptionTextView.backgroundColor = orangeColor;
-    }else {
+        _descriptionTextView.backgroundColor = orangeColor;
+    } else {
         _allergenLevelLabel.backgroundColor = redColor;
-        _desciptionTextView.backgroundColor = redColor;
+        _descriptionTextView.backgroundColor = redColor;
     }
 }
-- (void) showResults
-{
+
+- (void) showResults {
     if (weeklyForecast.count > 0) {
-        _desciptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
-        _cityLabel.text = [NSString stringWithFormat:@"%@, %@", location.city, location.state.uppercaseString];
-        //_stateAbbreviationLabel.text = location.state.uppercaseString;
-        _prodominateTypeLabel.text = location.predominantType;
+        _descriptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
+        _cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", location.city, location.state.uppercaseString];
+        _predominantTypeLabel.text = location.predominantType;
         _allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
-        NSLog(@"%@", [NSString stringWithFormat:@"%@", [weeklyForecast[0] objectForKey:@"level"]]);
     }
     [self allergenLevelChangeFontColor];
 }
 
-- (void) labelFonts
-{
+- (void) labelFonts {
     UIFont *jandaAppleFont = [UIFont fontWithName:@"JandaAppleCobbler" size:55];
     UIFont *airplaneFont = [UIFont fontWithName:@"Airplanes in the Night Sky" size:17];
-    _cityLabel.font = airplaneFont;
+    _cityAndStateLabel.font = airplaneFont;
     _allergenLevelLabel.font = jandaAppleFont;
-    _stateAbbreviationLabel.font = airplaneFont;
-    
 }
 
 
@@ -170,7 +162,7 @@
     return zip;
 }
 
-- (IBAction)onPollenLevelTapShowLegendViewController:(id)sender {
+- (IBAction)onPollenLevelTap:(id)sender {
 }
 
 @end

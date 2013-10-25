@@ -31,22 +31,32 @@
     UIColor *redColor;
 }
 
-
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    darkGreenColor = [UIColor colorWithRed:34.0f/255.0f green:139.0f/255.0f blue:34.0f/255.0f alpha:1];
-    greenColor = [UIColor colorWithRed:124.0f/255.0f green:252.0f/255.0f blue:0.0f/255.0f alpha:1];
-    yellowColor = [UIColor colorWithRed:255.0f/255.0f green:215.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-    orangeColor = [UIColor colorWithRed:255.0f/255.0f green:140.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-    redColor = [UIColor colorWithRed:255.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0];
-    [self changeTextAndBackRoundColors];
-
+    darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
+                                     green:139.0f/255.0f
+                                      blue:34.0f/255.0f
+                                     alpha:1];
+    greenColor = [UIColor colorWithRed:124.0f/255.0f
+                                 green:252.0f/255.0f
+                                  blue:0.0f/255.0f
+                                 alpha:1];
+    yellowColor = [UIColor colorWithRed:255.0f/255.0f
+                                  green:215.0f/255.0f
+                                   blue:0.0f/255.0f
+                                  alpha:1.0];
+    orangeColor = [UIColor colorWithRed:255.0f/255.0f
+                                  green:140.0f/255.0f
+                                   blue:0.0f/255.0f
+                                  alpha:1.0];
+    redColor = [UIColor colorWithRed:255.0f/255.0f
+                               green:0.0f/255.0f
+                                blue:0.0f/255.0f
+                               alpha:1.0];
+    [self changeTextAndBackgroundColors];
 }
 
-- (void) changeTextAndBackRoundColors
-{
+- (void) changeTextAndBackgroundColors {
     _lowDisplayTextView.backgroundColor = darkGreenColor;
     _lowMediumDisplayTextView.backgroundColor = greenColor;
     _mediumDisplayTextView.backgroundColor = yellowColor;
