@@ -9,6 +9,7 @@
 #import "TAViewController.h"
 #import "TALegendViewController.h"
 #import "UIImage+animatedGIF.h"
+#import "TAFavoriteZipCodeViewController.h"
 
 @interface TAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel     *allergenLevelLabel;
@@ -25,30 +26,36 @@
 @property (weak, nonatomic) IBOutlet UITextView  *highTextExplanation;
 @property (weak, nonatomic) IBOutlet UILabel     *lowMedLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
-@property (weak, nonatomic) IBOutlet UILabel     *lowLabel;
-@property (weak, nonatomic) IBOutlet UILabel     *highLabel;
-@property (weak, nonatomic) IBOutlet UIView      *legendView;
+@property (weak, nonatomic) IBOutlet UILabel *lowLabel;
+@property (weak, nonatomic) IBOutlet UILabel *highLabel;
+@property (weak, nonatomic) IBOutlet UIView *legendView;
+- (IBAction)onTouchSearch:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *enterZipTextField;
+@property (weak, nonatomic) IBOutlet UIButton *searchButtonTogglerJhaySmellsLikeTeamASIA;
 @end
 
 
 @implementation TAViewController
-@synthesize dandelionGifImage,
-            allergenLevelLabel,
-            cityAndStateLabel,
-            currentDateLabel,
-            descriptionTextView,
-            lowLabel,
-            lowMedLabel,
-            mediumLabel,
-            medHighLabel,
-            highLabel,
-            lowTextExplanation,
-            lowMedTextExplanation,
-            mediumTextExplanation,
-            medHighTextExplanation,
-            highTextExplanation,
-            legendView,
-            predominantTypeLabel;
+@synthesize
+searchButtonTogglerJhaySmellsLikeTeamASIA,
+enterZipTextField,
+dandelionGifImage,
+allergenLevelLabel,
+cityAndStateLabel,
+currentDateLabel,
+descriptionTextView,
+lowLabel,
+lowMedLabel,
+mediumLabel,
+medHighLabel,
+highLabel,
+lowTextExplanation,
+lowMedTextExplanation,
+mediumTextExplanation,
+medHighTextExplanation,
+highTextExplanation,
+legendView,
+predominantTypeLabel;
 
 
 BOOL isShown = false;
@@ -65,6 +72,21 @@ UIColor  *darkGreenColor,
          *orangeColor,
          *redColor;
 
+NSArray
+*weeklyForecast,
+*contentArray;
+NSString
+*city,
+*state,
+*zip,
+*predominantType,
+*startAddress;
+UIColor
+*darkGreenColor,
+*greenColor,
+*yellowColor,
+*orangeColor,
+*redColor;
 
 - (void)getCurrentDate {
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
@@ -75,11 +97,14 @@ UIColor  *darkGreenColor,
 - (void)viewDidAppear:(BOOL)animated {
     [self getCurrentDate];
     legendView.hidden = YES;
+    enterZipTextField.hidden = YES;
     [self showGifImage];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    legendView.hidden = YES;
+    enterZipTextField.hidden = YES;
     week = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
     [self getCurrentLocationZip];
     darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
@@ -183,7 +208,7 @@ UIColor  *darkGreenColor,
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandeliontry111111" withExtension:@"gif"];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
-    dandelionGifImage.alpha = .5;
+    dandelionGifImage.alpha = .35;
 }
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
@@ -217,4 +242,25 @@ UIColor  *darkGreenColor,
         isShown = false;
     }
 }
+
+- (IBAction)onTouchSearch:(id)sender {
+    enterZipTextField.hidden = NO;
+    if ([enterZipTextField.text isEqualToString:@""]) {
+        [searchButtonTogglerJhaySmellsLikeTeamASIA setTitle:@"Go" forState:UIControlStateNormal];
+    }else {
+        [searchButtonTogglerJhaySmellsLikeTeamASIA setTitle:@"Search" forState:UIControlStateNormal];
+        TAFavoriteZipCodeViewController *TAFZC = [self.storyboard instantiateViewControllerWithIdentifier:@"ZipCodeController"];
+
+        zip = enterZipTextField.text;
+        [self fetchPollenData];
+        TAFZC.zip = zip;
+        TAFZC.city = city;
+        TAFZC.state = state;
+        
+        [self presentViewController:TAFZC animated:YES completion:nil];
+    }
+
+
+}
+
 @end
