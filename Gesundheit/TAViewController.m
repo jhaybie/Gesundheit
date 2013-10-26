@@ -12,19 +12,19 @@
 #import "TAFavoriteZipCodeViewController.h"
 
 @interface TAViewController ()
-@property (weak, nonatomic) IBOutlet UILabel    *allergenLevelLabel;
-@property (weak, nonatomic) IBOutlet UILabel    *cityAndStateLabel;
-@property (weak, nonatomic) IBOutlet UILabel    *currentDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel    *predominantTypeLabel;
-@property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
-@property (weak, nonatomic) IBOutlet UITextView *lowTextExplanation;
-@property (weak, nonatomic) IBOutlet UITextView *lowMedTextExplanation;
-@property (weak, nonatomic) IBOutlet UILabel *medHighLabel;
-@property (weak, nonatomic) IBOutlet UITextView *mediumTextExplanation;
-@property (weak, nonatomic) IBOutlet UITextView *medHighTextExplanation;
-@property (weak, nonatomic) IBOutlet UILabel *mediumLabel;
-@property (weak, nonatomic) IBOutlet UITextView *highTextExplanation;
-@property (weak, nonatomic) IBOutlet UILabel *lowMedLabel;
+@property (weak, nonatomic) IBOutlet UILabel     *allergenLevelLabel;
+@property (weak, nonatomic) IBOutlet UILabel     *cityAndStateLabel;
+@property (weak, nonatomic) IBOutlet UILabel     *currentDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel     *predominantTypeLabel;
+@property (weak, nonatomic) IBOutlet UITextView  *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UITextView  *lowTextExplanation;
+@property (weak, nonatomic) IBOutlet UITextView  *lowMedTextExplanation;
+@property (weak, nonatomic) IBOutlet UILabel     *medHighLabel;
+@property (weak, nonatomic) IBOutlet UITextView  *mediumTextExplanation;
+@property (weak, nonatomic) IBOutlet UITextView  *medHighTextExplanation;
+@property (weak, nonatomic) IBOutlet UILabel     *mediumLabel;
+@property (weak, nonatomic) IBOutlet UITextView  *highTextExplanation;
+@property (weak, nonatomic) IBOutlet UILabel     *lowMedLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
 @property (weak, nonatomic) IBOutlet UILabel *lowLabel;
 @property (weak, nonatomic) IBOutlet UILabel *highLabel;
@@ -127,6 +127,7 @@ UIColor
                                weeklyForecast = [initialDump objectForKey:@"dayList"];
                                city = [initialDump objectForKey:@"city"];
                                state = [initialDump objectForKey:@"state"];
+                               zip = [initialDump objectForKey:@"zip"];
                                predominantType = [initialDump objectForKey:@"predominantType"];
                                [self showResults];
                            }];
@@ -171,54 +172,27 @@ UIColor
     cityAndStateLabel.font = airplaneFont;
 }
 
-//    Hey jay take a look at this site i think it may help! sorry hope atleast what i found will help you
-
-//    here is the website:   http://stackoverflow.com/questions/14346516/xcode-ios-clgeocoder-reversegeocodelocation-return-addressstring   check it out!
-
 - (void)getCurrentLocationZip {
     CLLocationManager *locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
-    CLLocation *currentLocation = locationManager.location;
-    //NSLog(@"%@, ", locationManager.location);
-    CLGeocoder *test = [[CLGeocoder alloc] init];
-    weeklyForecast = [self fetchPollenData];
-    [test reverseGeocodeLocation:currentLocation
-               completionHandler:^(NSArray *placemarks, NSError *error) {
-                   //if (!error) {
-                   CLPlacemark *placemark = [placemarks lastObject];
-                   zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
-
-                   weeklyForecast = [self fetchPollenData];
-                   //}
-                   NSLog(@"%@", placemark.postalCode);
-               }];
-    weeklyForecast = [self fetchPollenData];
+    CLLocation *currentLocation = [locationManager location];
+    //NSLog(@"Lat: %ff, Long: %ff", locationManager.location.coordinate.latitude, locationManager.location.coordinate.longitude);
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:
+     ^(NSArray* placemarks, NSError* error) {
+         if ([placemarks count] > 0) {
+             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+             zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
+             NSLog(@"%@", placemark.postalCode);
+             NSLog(@"%@", zip);
+             [self fetchPollenData];
+         }
+     }];
 }
 
-//- (void) getCurrentLocationZip {
-//    weeklyForecast = [self fetchPollenData];
-//    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-//    locationManager.delegate = self;
-//    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    [locationManager startUpdatingLocation];
-//    CLLocation *tempLocation = locationManager.location;
-//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-//    [geocoder reverseGeocodeLocation:tempLocation completionHandler:
-//     ^(NSArray* placemarks, NSError* error){
-//         if ([placemarks count] > 0)
-//         {
-//             CLPlacemark *placemark = [placemarks objectAtIndex:0];
-//             zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
-//             NSLog(@"%@", placemark.postalCode);
-//             NSLog(@" %@",placemark.addressDictionary);
-//             NSLog(@"%@", zip);
-//         }
-//     }];
-//}
-
-- (void) showGifImage {
+- (void)showGifImage {
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandeliontry111111" withExtension:@"gif"];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
