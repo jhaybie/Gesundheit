@@ -21,7 +21,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [zipTableView reloadData];
 
+
+
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [zipTableView reloadData];
 
 }
 
@@ -32,8 +39,7 @@
     if (cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"myID"];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"hello"];
-
+    cell.textLabel.text = @"hello";
     return cell;
 }
 

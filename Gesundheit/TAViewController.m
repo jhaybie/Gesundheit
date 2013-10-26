@@ -58,7 +58,19 @@ legendView,
 predominantTypeLabel;
 
 
-bool isShown = false;
+BOOL isShown = false;
+int weekDayValue;
+NSArray  *week,
+         *weeklyForecast;
+NSString *city,
+         *state,
+         *zip,
+         *predominantType;
+UIColor  *darkGreenColor,
+         *greenColor,
+         *yellowColor,
+         *orangeColor,
+         *redColor;
 
 NSArray
 *weeklyForecast,
@@ -75,7 +87,6 @@ UIColor
 *yellowColor,
 *orangeColor,
 *redColor;
-
 
 - (void)getCurrentDate {
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
@@ -94,6 +105,7 @@ UIColor
     [super viewDidLoad];
     legendView.hidden = YES;
     enterZipTextField.hidden = YES;
+    week = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
     [self getCurrentLocationZip];
     darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
                                      green:139.0f/255.0f
