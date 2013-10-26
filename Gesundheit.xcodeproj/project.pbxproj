@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91197312181C2FEE00FA6A8B /* dandelionHMMM.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */; };
+		91197315181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m */; };
 		9147003A1819926400A15B0F /* TALegendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914700391819926400A15B0F /* TALegendViewController.m */; };
 		9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */; };
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
@@ -41,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandelionHMMM.gif; sourceTree = "<group>"; };
+		91197313181C42E800FA6A8B /* TAFavoriteZipCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAFavoriteZipCodeViewController.h; sourceTree = "<group>"; };
+		91197314181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAFavoriteZipCodeViewController.m; sourceTree = "<group>"; };
 		914700381819926400A15B0F /* TALegendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TALegendViewController.h; sourceTree = "<group>"; };
 		914700391819926400A15B0F /* TALegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TALegendViewController.m; sourceTree = "<group>"; };
 		9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
@@ -138,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				91470071181B808200A15B0F /* dandeliontry111111.gif */,
+				91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */,
 				9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */,
 				9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */,
 				E494FF371818458000E1E5C3 /* TAAppDelegate.h */,
@@ -149,6 +155,8 @@
 				914700391819926400A15B0F /* TALegendViewController.m */,
 				E494FF3D1818458000E1E5C3 /* TAViewController.h */,
 				E494FF3E1818458000E1E5C3 /* TAViewController.m */,
+				91197313181C42E800FA6A8B /* TAFavoriteZipCodeViewController.h */,
+				91197314181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m */,
 				E494FF401818458000E1E5C3 /* Images.xcassets */,
 				E494FF2F1818458000E1E5C3 /* Supporting Files */,
 			);
@@ -264,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
+				91197312181C2FEE00FA6A8B /* dandelionHMMM.gif in Resources */,
 				91470072181B808200A15B0F /* dandeliontry111111.gif in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
 				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
@@ -289,6 +298,7 @@
 				9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */,
 				9147003A1819926400A15B0F /* TALegendViewController.m in Sources */,
 				E4F7767D181AE6FA0009F30A /* TAWeeklyForecastViewController.m in Sources */,
+				91197315181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m in Sources */,
 				E494FF351818458000E1E5C3 /* main.m in Sources */,
 				E494FF391818458000E1E5C3 /* TAAppDelegate.m in Sources */,
 			);
