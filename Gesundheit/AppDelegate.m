@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Jhaybie. All rights reserved.
 //
 
-#import "TAAppDelegate.h"
+#import "AppDelegate.h"
 
-@implementation TAAppDelegate
+@implementation AppDelegate
 
 -           (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

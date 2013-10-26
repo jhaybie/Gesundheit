@@ -6,9 +6,10 @@
 //  Copyright (c) 2013 Jhaybie. All rights reserved.
 //
 
-#import "TALegendViewController.h"
+#import "LegendVC.h"
 
-@interface TALegendViewController ()
+@interface LegendVC ()
+
 @property (weak, nonatomic) IBOutlet UITextView *lowDisplayTextView;
 @property (weak, nonatomic) IBOutlet UITextView *lowMediumDisplayTextView;
 @property (weak, nonatomic) IBOutlet UITextView *mediumDisplayTextView;
@@ -19,9 +20,11 @@
 @property (weak, nonatomic) IBOutlet UILabel    *mediumLabel;
 @property (weak, nonatomic) IBOutlet UILabel    *mediumHighLabel;
 @property (weak, nonatomic) IBOutlet UILabel    *highLabel;
+
 @end
 
-@implementation TALegendViewController
+
+@implementation LegendVC
 @synthesize lowDisplayTextView,
             lowLabel,
             lowMediumDisplayTextView,

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAWeeklyForecastViewController : UIViewController <UITableViewDataSource>
+@interface WeeklyForecastVC : UIViewController <UITableViewDataSource>
 @property (weak, nonatomic) NSString *city;
 @property (weak, nonatomic) NSString *state;
 @property (nonatomic) float level;

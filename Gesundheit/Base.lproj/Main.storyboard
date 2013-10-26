@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Gesundheit!-->
+        <!--RootVC - Gesundheit!-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="TAViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="RootVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ndA-sc-3XC"/>
                         <viewControllerLayoutGuide type="bottom" id="Z19-3b-zYq"/>
@@ -231,7 +231,7 @@
                         <outlet property="mediumLabel" destination="7cX-h3-0TX" id="EoX-nc-5xs"/>
                         <outlet property="mediumTextExplanation" destination="ETE-JT-Z5t" id="UJR-Tf-r2B"/>
                         <outlet property="predominantTypeLabel" destination="ssr-1r-Owc" id="qPh-6v-j3N"/>
-                        <outlet property="searchButtonTogglerJhaySmellsLikeTeamASIA" destination="dCo-PM-0AI" id="YHP-3r-ZDr"/>
+                        <outlet property="searchButtonToggler" destination="dCo-PM-0AI" id="WuR-42-lpd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -243,10 +243,10 @@
             </objects>
             <point key="canvasLocation" x="104" y="10"/>
         </scene>
-        <!--Favorite Zip Code View Controller-->
+        <!--Favorite LocationsVC-->
         <scene sceneID="BD6-rt-fmt">
             <objects>
-                <viewController storyboardIdentifier="ZipCodeController" id="xvQ-tp-wYP" customClass="TAFavoriteZipCodeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ZipCodeController" id="xvQ-tp-wYP" customClass="FavoriteLocationsVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uI3-h2-apk"/>
                         <viewControllerLayoutGuide type="bottom" id="9FG-e7-3sM"/>
@@ -313,10 +313,10 @@
             </objects>
             <point key="canvasLocation" x="743" y="-414"/>
         </scene>
-        <!--Legend View Controller - Pollen Levels-->
+        <!--LegendVC - Pollen Levels-->
         <scene sceneID="Y0k-UJ-u3W">
             <objects>
-                <viewController storyboardIdentifier="legendViewController" id="X9e-xF-bfa" customClass="TALegendViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="legendViewController" id="X9e-xF-bfa" customClass="LegendVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Re-87-g08"/>
                         <viewControllerLayoutGuide type="bottom" id="Nn5-HK-7Es"/>
@@ -464,10 +464,10 @@
             </objects>
             <point key="canvasLocation" x="1138" y="-414"/>
         </scene>
-        <!--Weekly Forecast View Controller-->
+        <!--Weekly ForecastVC-->
         <scene sceneID="Rkf-qo-UCv">
             <objects>
-                <viewController id="Vy9-4v-tWj" customClass="TAWeeklyForecastViewController" sceneMemberID="viewController">
+                <viewController id="Vy9-4v-tWj" customClass="WeeklyForecastVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9Am-Lm-Fxe"/>
                         <viewControllerLayoutGuide type="bottom" id="gxa-Oc-kCQ"/>

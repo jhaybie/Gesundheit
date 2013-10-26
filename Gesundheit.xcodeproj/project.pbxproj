@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		91197312181C2FEE00FA6A8B /* dandelionHMMM.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */; };
-		91197315181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m */; };
-		9147003A1819926400A15B0F /* TALegendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914700391819926400A15B0F /* TALegendViewController.m */; };
+		91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */; };
+		9147003A1819926400A15B0F /* LegendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 914700391819926400A15B0F /* LegendVC.m */; };
 		9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */; };
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
 		91470072181B808200A15B0F /* dandeliontry111111.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91470071181B808200A15B0F /* dandeliontry111111.gif */; };
@@ -18,9 +18,9 @@
 		E494FF2D1818458000E1E5C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2C1818458000E1E5C3 /* UIKit.framework */; };
 		E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E494FF311818458000E1E5C3 /* InfoPlist.strings */; };
 		E494FF351818458000E1E5C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF341818458000E1E5C3 /* main.m */; };
-		E494FF391818458000E1E5C3 /* TAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF381818458000E1E5C3 /* TAAppDelegate.m */; };
+		E494FF391818458000E1E5C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF381818458000E1E5C3 /* AppDelegate.m */; };
 		E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E494FF3A1818458000E1E5C3 /* Main.storyboard */; };
-		E494FF3F1818458000E1E5C3 /* TAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF3E1818458000E1E5C3 /* TAViewController.m */; };
+		E494FF3F1818458000E1E5C3 /* RootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF3E1818458000E1E5C3 /* RootVC.m */; };
 		E494FF411818458000E1E5C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E494FF401818458000E1E5C3 /* Images.xcassets */; };
 		E494FF481818458000E1E5C3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF471818458000E1E5C3 /* XCTest.framework */; };
 		E494FF491818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
@@ -29,7 +29,7 @@
 		E494FF541818458000E1E5C3 /* GesundheitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF531818458000E1E5C3 /* GesundheitTests.m */; };
 		E494FF6118186EA400E1E5C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF6018186EA400E1E5C3 /* MapKit.framework */; };
 		E494FF631818723600E1E5C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF621818723600E1E5C3 /* CoreLocation.framework */; };
-		E4F7767D181AE6FA0009F30A /* TAWeeklyForecastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F7767C181AE6FA0009F30A /* TAWeeklyForecastViewController.m */; };
+		E4F7767D181AE6FA0009F30A /* WeeklyForecastVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F7767C181AE6FA0009F30A /* WeeklyForecastVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,10 +44,10 @@
 
 /* Begin PBXFileReference section */
 		91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandelionHMMM.gif; sourceTree = "<group>"; };
-		91197313181C42E800FA6A8B /* TAFavoriteZipCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAFavoriteZipCodeViewController.h; sourceTree = "<group>"; };
-		91197314181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAFavoriteZipCodeViewController.m; sourceTree = "<group>"; };
-		914700381819926400A15B0F /* TALegendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TALegendViewController.h; sourceTree = "<group>"; };
-		914700391819926400A15B0F /* TALegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TALegendViewController.m; sourceTree = "<group>"; };
+		91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteLocationsVC.h; sourceTree = "<group>"; };
+		91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteLocationsVC.m; sourceTree = "<group>"; };
+		914700381819926400A15B0F /* LegendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendVC.h; sourceTree = "<group>"; };
+		914700391819926400A15B0F /* LegendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendVC.m; sourceTree = "<group>"; };
 		9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -62,11 +62,11 @@
 		E494FF321818458000E1E5C3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E494FF341818458000E1E5C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E494FF361818458000E1E5C3 /* Gesundheit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gesundheit-Prefix.pch"; sourceTree = "<group>"; };
-		E494FF371818458000E1E5C3 /* TAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAAppDelegate.h; sourceTree = "<group>"; };
-		E494FF381818458000E1E5C3 /* TAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAAppDelegate.m; sourceTree = "<group>"; };
+		E494FF371818458000E1E5C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E494FF381818458000E1E5C3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E494FF3B1818458000E1E5C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E494FF3D1818458000E1E5C3 /* TAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAViewController.h; sourceTree = "<group>"; };
-		E494FF3E1818458000E1E5C3 /* TAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAViewController.m; sourceTree = "<group>"; };
+		E494FF3D1818458000E1E5C3 /* RootVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootVC.h; sourceTree = "<group>"; };
+		E494FF3E1818458000E1E5C3 /* RootVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootVC.m; sourceTree = "<group>"; };
 		E494FF401818458000E1E5C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E494FF461818458000E1E5C3 /* GesundheitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GesundheitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E494FF471818458000E1E5C3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -75,8 +75,8 @@
 		E494FF531818458000E1E5C3 /* GesundheitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GesundheitTests.m; sourceTree = "<group>"; };
 		E494FF6018186EA400E1E5C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E494FF621818723600E1E5C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		E4F7767B181AE6FA0009F30A /* TAWeeklyForecastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAWeeklyForecastViewController.h; sourceTree = "<group>"; };
-		E4F7767C181AE6FA0009F30A /* TAWeeklyForecastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAWeeklyForecastViewController.m; sourceTree = "<group>"; };
+		E4F7767B181AE6FA0009F30A /* WeeklyForecastVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeeklyForecastVC.h; sourceTree = "<group>"; };
+		E4F7767C181AE6FA0009F30A /* WeeklyForecastVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeeklyForecastVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,17 +146,17 @@
 				91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */,
 				9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */,
 				9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */,
-				E494FF371818458000E1E5C3 /* TAAppDelegate.h */,
-				E494FF381818458000E1E5C3 /* TAAppDelegate.m */,
+				E494FF371818458000E1E5C3 /* AppDelegate.h */,
+				E494FF381818458000E1E5C3 /* AppDelegate.m */,
 				E494FF3A1818458000E1E5C3 /* Main.storyboard */,
-				E4F7767B181AE6FA0009F30A /* TAWeeklyForecastViewController.h */,
-				E4F7767C181AE6FA0009F30A /* TAWeeklyForecastViewController.m */,
-				914700381819926400A15B0F /* TALegendViewController.h */,
-				914700391819926400A15B0F /* TALegendViewController.m */,
-				E494FF3D1818458000E1E5C3 /* TAViewController.h */,
-				E494FF3E1818458000E1E5C3 /* TAViewController.m */,
-				91197313181C42E800FA6A8B /* TAFavoriteZipCodeViewController.h */,
-				91197314181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m */,
+				91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */,
+				91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */,
+				914700381819926400A15B0F /* LegendVC.h */,
+				914700391819926400A15B0F /* LegendVC.m */,
+				E494FF3D1818458000E1E5C3 /* RootVC.h */,
+				E494FF3E1818458000E1E5C3 /* RootVC.m */,
+				E4F7767B181AE6FA0009F30A /* WeeklyForecastVC.h */,
+				E4F7767C181AE6FA0009F30A /* WeeklyForecastVC.m */,
 				E494FF401818458000E1E5C3 /* Images.xcassets */,
 				E494FF2F1818458000E1E5C3 /* Supporting Files */,
 			);
@@ -294,13 +294,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E494FF3F1818458000E1E5C3 /* TAViewController.m in Sources */,
+				E494FF3F1818458000E1E5C3 /* RootVC.m in Sources */,
 				9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */,
-				9147003A1819926400A15B0F /* TALegendViewController.m in Sources */,
-				E4F7767D181AE6FA0009F30A /* TAWeeklyForecastViewController.m in Sources */,
-				91197315181C42E800FA6A8B /* TAFavoriteZipCodeViewController.m in Sources */,
+				9147003A1819926400A15B0F /* LegendVC.m in Sources */,
+				E4F7767D181AE6FA0009F30A /* WeeklyForecastVC.m in Sources */,
+				91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */,
 				E494FF351818458000E1E5C3 /* main.m in Sources */,
-				E494FF391818458000E1E5C3 /* TAAppDelegate.m in Sources */,
+				E494FF391818458000E1E5C3 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

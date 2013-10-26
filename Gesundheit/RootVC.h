@@ -7,9 +7,8 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
-#import <MapKit/MapKit.h>
 #import <UIKit/UIKit.h>
 
-@interface TAViewController : UIViewController <CLLocationManagerDelegate>
+@interface RootVC : UIViewController <CLLocationManagerDelegate>
 
 @end

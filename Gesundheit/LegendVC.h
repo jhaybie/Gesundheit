@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TALegendViewController : UIViewController
+@interface LegendVC : UIViewController
 
 @end

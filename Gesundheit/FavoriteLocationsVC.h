@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TAFavoriteZipCodeViewController : UIViewController
+@interface FavoriteLocationsVC : UIViewController
 
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSString *zip;
-
 
 @end

@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Jhaybie. All rights reserved.
 //
 
-#import "TAWeeklyForecastViewController.h"
+#import "WeeklyForecastVC.h"
 
-@interface TAWeeklyForecastViewController ()
+@interface WeeklyForecastVC ()
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descTextview;
 
 @end
 
-@implementation TAWeeklyForecastViewController
+@implementation WeeklyForecastVC
 @synthesize city,
             cityAndStateLabel,
             descTextview,
@@ -30,7 +30,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"xxx"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleValue1
@@ -42,7 +43,8 @@
     return cell;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
     return 5;
 }
 
