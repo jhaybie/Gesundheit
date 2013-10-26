@@ -163,7 +163,7 @@ UIColor           *darkGreenColor,
 }
 
 - (void)showGifImage {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandeliontry111111"
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandydan"
                                          withExtension:@"gif"];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
                                                   dataWithContentsOfURL:url]];
