@@ -128,7 +128,7 @@ UIColor           *darkGreenColor,
 - (void)showResults {
     if (weeklyForecast.count > 0) {
         allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
-        cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", city, state.uppercaseString];
+        cityAndStateLabel.text = [NSString stringWithFormat:@"%@", city];
         descriptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
         predominantTypeLabel.text = predominantType;
     }
@@ -163,7 +163,7 @@ UIColor           *darkGreenColor,
 }
 
 - (void)showGifImage {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandeliontry111111"
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandydan"
                                          withExtension:@"gif"];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
                                                   dataWithContentsOfURL:url]];

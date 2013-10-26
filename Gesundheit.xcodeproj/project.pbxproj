@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		91197312181C2FEE00FA6A8B /* dandelionHMMM.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */; };
+		91013D48181C679700967190 /* dandydan.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91013D47181C679700967190 /* dandydan.gif */; };
 		91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */; };
 		9147003A1819926400A15B0F /* LegendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 914700391819926400A15B0F /* LegendVC.m */; };
 		9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */; };
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
-		91470072181B808200A15B0F /* dandeliontry111111.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91470071181B808200A15B0F /* dandeliontry111111.gif */; };
 		E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
 		E494FF2B1818458000E1E5C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */; };
 		E494FF2D1818458000E1E5C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2C1818458000E1E5C3 /* UIKit.framework */; };
@@ -43,7 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandelionHMMM.gif; sourceTree = "<group>"; };
+		91013D47181C679700967190 /* dandydan.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandydan.gif; sourceTree = "<group>"; };
 		91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteLocationsVC.h; sourceTree = "<group>"; };
 		91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteLocationsVC.m; sourceTree = "<group>"; };
 		914700381819926400A15B0F /* LegendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendVC.h; sourceTree = "<group>"; };
@@ -51,7 +50,6 @@
 		9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		91470071181B808200A15B0F /* dandeliontry111111.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandeliontry111111.gif; sourceTree = "<group>"; };
 		917DA6B61819725E00701561 /* JandaAppleCobbler.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JandaAppleCobbler.ttf; sourceTree = "<group>"; };
 		917DA6B71819729300701561 /* Airplanes in the Night Sky.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Airplanes in the Night Sky.ttf"; sourceTree = "<group>"; };
 		E494FF251818458000E1E5C3 /* Gesundheit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gesundheit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,8 +140,7 @@
 		E494FF2E1818458000E1E5C3 /* Gesundheit */ = {
 			isa = PBXGroup;
 			children = (
-				91470071181B808200A15B0F /* dandeliontry111111.gif */,
-				91197311181C2FEE00FA6A8B /* dandelionHMMM.gif */,
+				91013D47181C679700967190 /* dandydan.gif */,
 				9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */,
 				9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */,
 				E494FF371818458000E1E5C3 /* AppDelegate.h */,
@@ -272,10 +269,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
-				91197312181C2FEE00FA6A8B /* dandelionHMMM.gif in Resources */,
-				91470072181B808200A15B0F /* dandeliontry111111.gif in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
 				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
+				91013D48181C679700967190 /* dandydan.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
