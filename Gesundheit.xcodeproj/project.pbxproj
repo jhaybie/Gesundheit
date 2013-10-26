@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		9147003A1819926400A15B0F /* TALegendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914700391819926400A15B0F /* TALegendViewController.m */; };
+		9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */; };
+		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
+		91470072181B808200A15B0F /* dandeliontry111111.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91470071181B808200A15B0F /* dandeliontry111111.gif */; };
 		E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
 		E494FF2B1818458000E1E5C3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2A1818458000E1E5C3 /* CoreGraphics.framework */; };
 		E494FF2D1818458000E1E5C3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF2C1818458000E1E5C3 /* UIKit.framework */; };
@@ -40,6 +43,10 @@
 /* Begin PBXFileReference section */
 		914700381819926400A15B0F /* TALegendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TALegendViewController.h; sourceTree = "<group>"; };
 		914700391819926400A15B0F /* TALegendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TALegendViewController.m; sourceTree = "<group>"; };
+		9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
+		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		91470071181B808200A15B0F /* dandeliontry111111.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandeliontry111111.gif; sourceTree = "<group>"; };
 		917DA6B61819725E00701561 /* JandaAppleCobbler.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JandaAppleCobbler.ttf; sourceTree = "<group>"; };
 		917DA6B71819729300701561 /* Airplanes in the Night Sky.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Airplanes in the Night Sky.ttf"; sourceTree = "<group>"; };
 		E494FF251818458000E1E5C3 /* Gesundheit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gesundheit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */,
 				E494FF631818723600E1E5C3 /* CoreLocation.framework in Frameworks */,
 				E494FF6118186EA400E1E5C3 /* MapKit.framework in Frameworks */,
 				E494FF2B1818458000E1E5C3 /* CoreGraphics.framework in Frameworks */,
@@ -115,6 +123,7 @@
 		E494FF271818458000E1E5C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9147006F181B7FC800A15B0F /* ImageIO.framework */,
 				E494FF621818723600E1E5C3 /* CoreLocation.framework */,
 				E494FF6018186EA400E1E5C3 /* MapKit.framework */,
 				E494FF281818458000E1E5C3 /* Foundation.framework */,
@@ -128,6 +137,9 @@
 		E494FF2E1818458000E1E5C3 /* Gesundheit */ = {
 			isa = PBXGroup;
 			children = (
+				91470071181B808200A15B0F /* dandeliontry111111.gif */,
+				9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */,
+				9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */,
 				E494FF371818458000E1E5C3 /* TAAppDelegate.h */,
 				E494FF381818458000E1E5C3 /* TAAppDelegate.m */,
 				E494FF3A1818458000E1E5C3 /* Main.storyboard */,
@@ -252,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
+				91470072181B808200A15B0F /* dandeliontry111111.gif in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
 				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
 			);
@@ -273,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E494FF3F1818458000E1E5C3 /* TAViewController.m in Sources */,
+				9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */,
 				9147003A1819926400A15B0F /* TALegendViewController.m in Sources */,
 				E4F7767D181AE6FA0009F30A /* TAWeeklyForecastViewController.m in Sources */,
 				E494FF351818458000E1E5C3 /* main.m in Sources */,
