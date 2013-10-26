@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FavoriteLocationsVC : UIViewController
+@interface FavoriteLocationsVC : UIViewController <NSFileManagerDelegate>
 
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
