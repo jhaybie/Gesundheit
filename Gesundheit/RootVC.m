@@ -80,6 +80,7 @@ UIColor           *darkGreenColor,
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
+    if (currentDateLabel.text)
 }
 
 
@@ -94,9 +95,7 @@ UIColor           *darkGreenColor,
                        if (error == nil && placemarks.count > 0) {
                            CLPlacemark *placemark = [placemarks lastObject];
                            zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
-                           NSLog(@"%@", placemark.postalCode);
-                           NSLog(@"%@", zip);
-                           [self fetchPollenData];
+                           [self fetchPollenDataFromZip:zip];
                        }
      }];
 
@@ -109,7 +108,7 @@ UIColor           *darkGreenColor,
     [locationManager startUpdatingLocation];
 }
 
-- (void)fetchPollenData {
+- (void)fetchPollenDataFromZip: (NSString *)zipCode {
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -132,6 +131,7 @@ UIColor           *darkGreenColor,
         descriptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
         predominantTypeLabel.text = predominantType;
     }
+    [locationManager stopUpdatingLocation];
     [self allergenLevelChangeFontColor];
 }
 
@@ -157,7 +157,6 @@ UIColor           *darkGreenColor,
                                              size:55];
     UIFont *airplaneFont = [UIFont fontWithName:@"Airplanes in the Night Sky"
                                            size:17];
-
     allergenLevelLabel.font = jandaAppleFont;
     cityAndStateLabel.font = airplaneFont;
 }
@@ -168,7 +167,6 @@ UIColor           *darkGreenColor,
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
                                                   dataWithContentsOfURL:url]];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
-    dandelionGifImage.alpha = .35;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -252,7 +250,7 @@ UIColor           *darkGreenColor,
                              forState:UIControlStateNormal];
         FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZipCodeController"];
         zip = enterZipTextField.text;
-        [self fetchPollenData];
+        [self fetchPollenDataFromZip:zip];
         flvc.zip = zip;
         flvc.city = city;
         flvc.state = state;
