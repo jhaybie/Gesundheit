@@ -15,28 +15,56 @@
 @property (weak, nonatomic) IBOutlet UILabel    *currentDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel    *predominantTypeLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UITextView *lowTextExplanation;
+@property (weak, nonatomic) IBOutlet UITextView *lowMedTextExplanation;
+@property (weak, nonatomic) IBOutlet UILabel *medHighLabel;
+@property (weak, nonatomic) IBOutlet UITextView *mediumTextExplanation;
+@property (weak, nonatomic) IBOutlet UITextView *medHighTextExplanation;
+@property (weak, nonatomic) IBOutlet UILabel *mediumLabel;
+@property (weak, nonatomic) IBOutlet UITextView *highTextExplanation;
+@property (weak, nonatomic) IBOutlet UILabel *lowMedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lowLabel;
+@property (weak, nonatomic) IBOutlet UILabel *highLabel;
+@property (weak, nonatomic) IBOutlet UIView *legendView;
 @end
 
 
 @implementation TAViewController
-@synthesize allergenLevelLabel,
-            cityAndStateLabel,
-            currentDateLabel,
-            descriptionTextView,
-            predominantTypeLabel;
+@synthesize
+allergenLevelLabel,
+cityAndStateLabel,
+currentDateLabel,
+descriptionTextView,
+lowLabel,
+lowMedLabel,
+mediumLabel,
+medHighLabel,
+highLabel,
+lowTextExplanation,
+lowMedTextExplanation,
+mediumTextExplanation,
+medHighTextExplanation,
+highTextExplanation,
+legendView,
+predominantTypeLabel;
 
 
-NSArray  *weeklyForecast;
-NSString *city,
-         *state,
-         *zip,
-         *predominantType,
-        *startAddress;
-UIColor  *darkGreenColor,
-         *greenColor,
-         *yellowColor,
-         *orangeColor,
-         *redColor;
+bool isShown = false;
+
+NSArray
+*weeklyForecast;
+NSString
+*city,
+*state,
+*zip,
+*predominantType,
+*startAddress;
+UIColor
+*darkGreenColor,
+*greenColor,
+*yellowColor,
+*orangeColor,
+*redColor;
 
 
 - (void)getCurrentDate {
@@ -47,6 +75,7 @@ UIColor  *darkGreenColor,
 
 - (void)viewDidAppear:(BOOL)animated {
     [self getCurrentDate];
+    legendView.hidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -94,7 +123,7 @@ UIColor  *darkGreenColor,
     float level = allergenLevelLabel.text.floatValue;
     UIColor *backgroundColor;
 
-    if (level >= 0.1 && level <= 2.4)
+    if (level >= 0 && level <= 2.4)
         backgroundColor = darkGreenColor;
     else if (level >= 2.5 && level <= 4.8)
         backgroundColor = greenColor;
@@ -139,21 +168,71 @@ UIColor  *darkGreenColor,
     [locationManager startUpdatingLocation];
     CLLocation *currentLocation = locationManager.location;
     //NSLog(@"%@, ", locationManager.location);
-    CLGeocoder *test;
+    CLGeocoder *test = [[CLGeocoder alloc] init];
     weeklyForecast = [self fetchPollenData];
     [test reverseGeocodeLocation:currentLocation
                completionHandler:^(NSArray *placemarks, NSError *error) {
-        //if (!error) {
-            CLPlacemark *placemark = [placemarks lastObject];
+                   //if (!error) {
+                   CLPlacemark *placemark = [placemarks lastObject];
                    zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
 
-            weeklyForecast = [self fetchPollenData];
-        //}
-    }];
+                   weeklyForecast = [self fetchPollenData];
+                   //}
+                   NSLog(@"%@", placemark.postalCode);
+               }];
     weeklyForecast = [self fetchPollenData];
 }
 
+//- (void) getCurrentLocationZip {
+//    weeklyForecast = [self fetchPollenData];
+//    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+//    locationManager.delegate = self;
+//    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    [locationManager startUpdatingLocation];
+//    CLLocation *tempLocation = locationManager.location;
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+//    [geocoder reverseGeocodeLocation:tempLocation completionHandler:
+//     ^(NSArray* placemarks, NSError* error){
+//         if ([placemarks count] > 0)
+//         {
+//             CLPlacemark *placemark = [placemarks objectAtIndex:0];
+//             zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
+//             NSLog(@"%@", placemark.postalCode);
+//             NSLog(@" %@",placemark.addressDictionary);
+//             NSLog(@"%@", zip);
+//         }
+//     }];
+//}
 
+- (IBAction)allergenLevelNumberWasTouched:(id)sender {
+    lowLabel.textColor = darkGreenColor;
+    lowTextExplanation.backgroundColor = darkGreenColor;
+    lowMedLabel.textColor = greenColor;
+    lowMedTextExplanation.backgroundColor = greenColor;
+    mediumLabel.textColor = yellowColor;
+    mediumTextExplanation.backgroundColor = yellowColor;
+    medHighLabel.textColor = orangeColor;
+    medHighTextExplanation.backgroundColor = orangeColor;
+    highLabel.textColor = redColor;
+    highTextExplanation.backgroundColor = redColor;
 
-
+    if (!isShown) {
+        legendView.frame =  CGRectMake(0, 0, 50, 50);
+        legendView.transform = CGAffineTransformMakeScale(-2,.5);
+        [UIView animateWithDuration:1.55 animations:^{
+            legendView.frame =  CGRectMake(50, 210, 250, 315);
+            legendView.transform = CGAffineTransformMakeRotation(0);
+            legendView.backgroundColor = [UIColor cyanColor];
+            legendView.alpha = .95;
+            legendView.hidden = NO;
+        }];
+        isShown = true;
+    } else {
+        [UIView animateWithDuration:1.55 animations:^{
+            legendView.frame =  CGRectMake(50, 110, 100, 200);
+            legendView.hidden = YES;
+        }];
+        isShown = false;
+    }
+}
 @end
