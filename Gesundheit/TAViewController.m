@@ -8,6 +8,7 @@
 
 #import "TAViewController.h"
 #import "TALegendViewController.h"
+#import "UIImage+animatedGIF.h"
 
 @interface TAViewController ()
 @property (weak, nonatomic) IBOutlet UILabel    *allergenLevelLabel;
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mediumLabel;
 @property (weak, nonatomic) IBOutlet UITextView *highTextExplanation;
 @property (weak, nonatomic) IBOutlet UILabel *lowMedLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
 @property (weak, nonatomic) IBOutlet UILabel *lowLabel;
 @property (weak, nonatomic) IBOutlet UILabel *highLabel;
 @property (weak, nonatomic) IBOutlet UIView *legendView;
@@ -31,6 +33,7 @@
 
 @implementation TAViewController
 @synthesize
+dandelionGifImage,
 allergenLevelLabel,
 cityAndStateLabel,
 currentDateLabel,
@@ -76,6 +79,7 @@ UIColor
 - (void)viewDidAppear:(BOOL)animated {
     [self getCurrentDate];
     legendView.hidden = YES;
+    [self showGifImage];
 }
 
 - (void)viewDidLoad {
@@ -203,6 +207,13 @@ UIColor
 //         }
 //     }];
 //}
+
+- (void) showGifImage {
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandeliontry111111" withExtension:@"gif"];
+    dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]];
+    dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+    dandelionGifImage.alpha = .5;
+}
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
     lowLabel.textColor = darkGreenColor;

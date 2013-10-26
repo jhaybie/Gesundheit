@@ -184,6 +184,10 @@
                                     </label>
                                 </subviews>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bTY-Pi-fe5">
+                                <rect key="frame" x="0.0" y="0.0" width="326" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -196,6 +200,7 @@
                         <outlet property="allergenLevelLabel" destination="N0E-71-KXT" id="ZSl-eG-2E3"/>
                         <outlet property="cityAndStateLabel" destination="WA3-vO-X0G" id="6lP-Lf-n3U"/>
                         <outlet property="currentDateLabel" destination="HYk-qk-SSo" id="iPm-4s-qk2"/>
+                        <outlet property="dandelionGifImage" destination="bTY-Pi-fe5" id="PUQ-Bv-qwt"/>
                         <outlet property="descriptionTextView" destination="WPO-31-HrN" id="tJb-Dj-lAB"/>
                         <outlet property="highLabel" destination="VW6-uD-Nr1" id="U5S-WN-PXy"/>
                         <outlet property="highTextExplanation" destination="r3Z-Be-oql" id="ZHF-B9-OrL"/>
