@@ -94,8 +94,6 @@ UIColor           *darkGreenColor,
                        if (error == nil && placemarks.count > 0) {
                            CLPlacemark *placemark = [placemarks lastObject];
                            zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
-                           NSLog(@"%@", placemark.postalCode);
-                           NSLog(@"%@", zip);
                            [self fetchPollenData];
                        }
      }];
