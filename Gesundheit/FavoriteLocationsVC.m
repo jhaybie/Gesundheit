@@ -8,6 +8,7 @@
 
 #import "FavoriteLocationsVC.h"
 
+
 @interface FavoriteLocationsVC ()
 
 @property (weak, nonatomic) IBOutlet UITextField *zipTextField;
@@ -17,7 +18,9 @@
 @end
 
 
-@implementation FavoriteLocationsVC
+@implementation FavoriteLocationsVC {
+    NSMutableArray *favoriteLocations;
+}
 @synthesize city,
             state,
             zip,
@@ -28,8 +31,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self startUsingPlist];
 }
+
 
 - (void) startUsingPlist {
     // Get the URL for the document directory
@@ -37,20 +40,22 @@
     NSURL *documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0];
 
     // Turn the filename into a string safe for use in a URL
-    NSString *safeString = [@"scores.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     // Create an array for the score
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    [array addObject:[NSString stringWithFormat:@"%@", zip]];
+    favoriteLocations = [[NSMutableArray alloc] init];
+    [favoriteLocations addObject:[NSString stringWithFormat:@"%@ %@ %@",city, state, zip]];
 
-    NSLog(@"the array = %@", array);
+    NSLog(@"the array = %@", favoriteLocations);
+    NSLog(@"zip = %@", zip);
 
     // Write this array to a URL
     NSURL *arrayURL = [NSURL URLWithString:safeString relativeToURL:documentDirectoryURL];
-    [array writeToURL:arrayURL atomically:YES];
+    [favoriteLocations writeToURL:arrayURL atomically:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self startUsingPlist];
     [zipTableView reloadData];
 }
 
@@ -61,12 +66,15 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"myID"];
     }
 
+
     return cell;
 }
 
+
+
 - (int)tableView:(UITableView *)tableView
-numberOfRowsInSection:(NSInteger)section {
-    return 1;
+numberOfRowsInSection:(NSInteger)section  {
+    return [favoriteLocations count] ;
 }
 
 - (IBAction)onTouchSaveZipToTable:(id)sender {

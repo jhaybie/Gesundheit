@@ -80,7 +80,7 @@ UIColor           *darkGreenColor,
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
-    if (currentDateLabel.text)
+//    if (currentDateLabel.text)
 }
 
 
@@ -173,13 +173,13 @@ UIColor           *darkGreenColor,
     [self getCurrentDate];
     legendView.hidden = YES;
     enterZipTextField.hidden = YES;
-    [self showGifImage];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     enterZipTextField.hidden = YES;
     geocoder = [[CLGeocoder alloc] init];
+    [self showGifImage];
     isShown = NO;
     legendView.hidden = YES;
     locationManager = [[CLLocationManager alloc] init];
@@ -220,7 +220,7 @@ UIColor           *darkGreenColor,
     highTextExplanation.backgroundColor = redColor;
     if (!isShown) {
         legendView.frame =  CGRectMake(0, 0, 50, 50);
-        legendView.transform = CGAffineTransformMakeScale(-2,.5);
+        legendView.transform = CGAffineTransformMakeScale(0,0);
         [UIView animateWithDuration:1.55
                          animations:^{
             legendView.frame =  CGRectMake(50, 210, 250, 315);
@@ -249,7 +249,6 @@ UIColor           *darkGreenColor,
         [searchButtonToggler setTitle:@"Search"
                              forState:UIControlStateNormal];
         FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZipCodeController"];
-        zip = enterZipTextField.text;
         [self fetchPollenDataFromZip:zip];
         flvc.zip = zip;
         flvc.city = city;
