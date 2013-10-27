@@ -80,7 +80,21 @@ UIColor           *darkGreenColor,
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
-    if (currentDateLabel.text)
+    NSArray *weekNames = [currentDateLabel.text componentsSeparatedByString:@","];
+    if ([weekNames[0] isEqualToString:@"Sunday"])
+         weekDayValue = 0;
+         else if ([weekNames[0] isEqualToString:@"Monday"])
+                   weekDayValue = 1;
+                   else if ([weekNames[0] isEqualToString:@"Tuesday"])
+                             weekDayValue = 2;
+                             else if ([weekNames[0] isEqualToString:@"Wednesday"])
+                                       weekDayValue = 3;
+                                       else if ([weekNames[0] isEqualToString:@"Thursday"])
+                                                 weekDayValue = 4;
+                                                 else if ([weekNames[0] isEqualToString:@"Friday"])
+                                                           weekDayValue = 5;
+                                                           else if ([weekNames[0] isEqualToString:@"Saturday"])
+                                                                     weekDayValue = 6;
 }
 
 
@@ -108,7 +122,7 @@ UIColor           *darkGreenColor,
     [locationManager startUpdatingLocation];
 }
 
-- (void)fetchPollenDataFromZip: (NSString *)zipCode {
+- (void)fetchPollenDataFromZip:(NSString *)zipCode {
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
