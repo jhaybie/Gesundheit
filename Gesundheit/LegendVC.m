@@ -67,6 +67,7 @@ UIColor *darkGreenColor,
                                 blue:0.0f/255.0f
                                alpha:1.0];
     [self changeTextAndBackgroundColors];
+    
 }
 
 - (void)changeTextAndBackgroundColors {
