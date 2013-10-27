@@ -109,7 +109,6 @@ UIColor           *darkGreenColor,
                            [self fetchPollenDataFromZip:zip];
                        }
      }];
-
 }
 
 

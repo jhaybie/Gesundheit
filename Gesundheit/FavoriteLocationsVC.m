@@ -33,7 +33,7 @@ NSMutableArray *favoriteLocations;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // initialize array with dummy data for testing purposes only
+    // initializes array with dummy data for testing purposes only
     favoriteLocations = [[NSMutableArray alloc] init];
     favoriteLocations[0] = @"Skokie, IL 60076";
     favoriteLocations[1] = @"New York, NY 10001";
@@ -45,7 +45,8 @@ NSMutableArray *favoriteLocations;
 - (void)startUsingPlist {
     // Get the URL for the document directory
     NSFileManager *fileManager = [[NSFileManager alloc] init];
-    NSURL *documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0];
+    NSURL *documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
+                                                       inDomains:NSUserDomainMask] firstObject];
 
     // Turn the filename into a string safe for use in a URL
     NSString *safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -71,10 +72,11 @@ NSMutableArray *favoriteLocations;
         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xxx"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"xxx"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
+                                      reuseIdentifier:@"xxx"];
     }
     city = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] firstObject];
-    state = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] objectAtIndex:1];
+    state = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] lastObject];
     cell.textLabel.text = city;
     cell.detailTextLabel.text = state;
     return cell;
@@ -86,11 +88,14 @@ numberOfRowsInSection:(NSInteger)section  {
 }
 
 - (IBAction)onSearchButtonTap:(id)sender {
+
+    //replace with code using notifications
     [delegate fetchPollenDataFromZip:zipTextField.text];
 }
 
 - (IBAction)onBackButtonTap:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 }
 
 @end
