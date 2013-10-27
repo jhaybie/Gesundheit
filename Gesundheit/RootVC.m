@@ -170,12 +170,10 @@ UIColor           *darkGreenColor,
 - (void)viewDidAppear:(BOOL)animated {
     [self getCurrentDate];
     legendView.hidden = YES;
-    enterZipTextField.hidden = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    enterZipTextField.hidden = YES;
     geocoder = [[CLGeocoder alloc] init];
     [self showGifImage];
     isShown = NO;
