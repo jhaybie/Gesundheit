@@ -7,6 +7,7 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
+#import "WeeklyForecastVC.h"
 #import <UIKit/UIKit.h>
 
 @interface RootVC : UIViewController <CLLocationManagerDelegate>

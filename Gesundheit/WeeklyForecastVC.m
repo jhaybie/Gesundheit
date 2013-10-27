@@ -11,6 +11,8 @@
 @interface WeeklyForecastVC ()
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descTextview;
+@property (weak, nonatomic) IBOutlet UITableView *weeklyForecastTableView;
+- (IBAction)onCloseButtonTap:(id)sender;
 
 @end
 
@@ -19,15 +21,26 @@
             cityAndStateLabel,
             descTextview,
             state,
-            level;
+            weekDayValue,
+            weeklyForecast;
 
+
+NSArray *week;
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", city, state];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    week = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
 }
 
-- (IBAction)onViewTap:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row <= 1)
+        descTextview.text = [weeklyForecast[indexPath.row] objectForKey:@"desc"];
+    else descTextview.text = @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -37,9 +50,9 @@
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleValue1
                                       reuseIdentifier: @"xxx"];
     }
-
-    cell.textLabel.text = @"Monday";
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.1f", level];
+    cell.textLabel.text = week[weekDayValue];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [weeklyForecast[indexPath.row] objectForKey:@"level"]];
+    weekDayValue = (weekDayValue > 6) ? 0 : weekDayValue + 1;
     return cell;
 }
 
@@ -48,4 +61,7 @@
     return 5;
 }
 
+- (IBAction)onCloseButtonTap:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

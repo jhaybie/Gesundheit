@@ -78,21 +78,21 @@ UIColor           *darkGreenColor,
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
     currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
-    NSArray *weekNames = [currentDateLabel.text componentsSeparatedByString:@","];
-    if ([weekNames[0] isEqualToString:@"Sunday"])
-         weekDayValue = 0;
-         else if ([weekNames[0] isEqualToString:@"Monday"])
-                   weekDayValue = 1;
-                   else if ([weekNames[0] isEqualToString:@"Tuesday"])
-                             weekDayValue = 2;
-                             else if ([weekNames[0] isEqualToString:@"Wednesday"])
-                                       weekDayValue = 3;
-                                       else if ([weekNames[0] isEqualToString:@"Thursday"])
-                                                 weekDayValue = 4;
-                                                 else if ([weekNames[0] isEqualToString:@"Friday"])
-                                                           weekDayValue = 5;
-                                                           else if ([weekNames[0] isEqualToString:@"Saturday"])
-                                                                     weekDayValue = 6;
+    NSString *day = [[currentDateLabel.text componentsSeparatedByString:@","] firstObject];
+    if ([day isEqualToString:@"Sunday"])
+        weekDayValue = 0;
+    else if ([day isEqualToString:@"Monday"])
+        weekDayValue = 1;
+    else if ([day isEqualToString:@"Tuesday"])
+        weekDayValue = 2;
+    else if ([day isEqualToString:@"Wednesday"])
+        weekDayValue = 3;
+    else if ([day isEqualToString:@"Thursday"])
+        weekDayValue = 4;
+    else if ([day isEqualToString:@"Friday"])
+        weekDayValue = 5;
+    else if ([day isEqualToString:@"Saturday"])
+        weekDayValue = 6;
 }
 
 
@@ -130,7 +130,6 @@ UIColor           *darkGreenColor,
                                weeklyForecast = [initialDump objectForKey:@"dayList"];
                                city = [initialDump objectForKey:@"city"];
                                state = [initialDump objectForKey:@"state"];
-                               zip = [initialDump objectForKey:@"zip"];
                                predominantType = [initialDump objectForKey:@"predominantType"];
                                [self showResults];
                            }];
@@ -179,6 +178,16 @@ UIColor           *darkGreenColor,
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
                                                   dataWithContentsOfURL:url]];
     dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
+        WeeklyForecastVC *wfvc = segue.destinationViewController;
+        wfvc.city = city;
+        wfvc.state = state;
+        wfvc.weekDayValue = weekDayValue;
+        wfvc.weeklyForecast = weeklyForecast;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

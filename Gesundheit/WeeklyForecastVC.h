@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WeeklyForecastVC : UIViewController <UITableViewDataSource>
-@property (weak, nonatomic) NSString *city;
-@property (weak, nonatomic) NSString *state;
-@property (nonatomic) float level;
+@interface WeeklyForecastVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) NSArray *weeklyForecast;
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
+@property (nonatomic) int weekDayValue;
 
 @end
