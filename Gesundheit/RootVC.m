@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel     *mediumLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *predominantTypeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
-@property (weak, nonatomic) IBOutlet UITextField *enterZipTextField;
 @property (weak, nonatomic) IBOutlet UITextView  *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UITextView  *highTextExplanation;
 @property (weak, nonatomic) IBOutlet UITextView  *lowTextExplanation;
@@ -43,7 +42,6 @@
             currentDateLabel,
             dandelionGifImage,
             descriptionTextView,
-            enterZipTextField,
             highLabel,
             highTextExplanation,
             legendView,
@@ -241,13 +239,6 @@ UIColor           *darkGreenColor,
 }
 
 - (IBAction)onTouchSearch:(id)sender {
-    enterZipTextField.hidden = NO;
-    if ([enterZipTextField.text isEqualToString:@""]) {
-        [searchButtonToggler setTitle:@"Go"
-                             forState:UIControlStateNormal];
-    } else {
-        [searchButtonToggler setTitle:@"Search"
-                             forState:UIControlStateNormal];
         FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZipCodeController"];
         [self fetchPollenDataFromZip:zip];
         flvc.zip = zip;
@@ -256,7 +247,6 @@ UIColor           *darkGreenColor,
         [self presentViewController:flvc
                            animated:YES
                          completion:nil];
-    }
 }
 
 @end
