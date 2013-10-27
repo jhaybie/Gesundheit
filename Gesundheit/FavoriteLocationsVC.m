@@ -30,9 +30,16 @@
 NSMutableArray *favoriteLocations;
 
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+
+    // initialize array with dummy data for testing purposes only
+    favoriteLocations = [[NSMutableArray alloc] init];
+    favoriteLocations[0] = @"Skokie, IL 60076";
+    favoriteLocations[1] = @"New York, NY 10001";
+    favoriteLocations[2] = @"Bridgeport, CT 06601";
+    favoriteLocations[3] = @"Austin, TX 78759";
+    favoriteLocations[4] = @"Redmond, WA 98052";
 }
 
 - (void)startUsingPlist {
@@ -44,8 +51,8 @@ NSMutableArray *favoriteLocations;
     NSString *safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     // Create an array for the score
-    favoriteLocations = [[NSMutableArray alloc] init];
-    [favoriteLocations addObject:[NSString stringWithFormat:@"%@, %@ %@",city, state, zip]];
+    //favoriteLocations = [[NSMutableArray alloc] init];
+    //[favoriteLocations addObject:[NSString stringWithFormat:@"%@, %@ %@",city, state, zip]];
 
     NSLog(@"the array = %@", favoriteLocations);
     NSLog(@"zip = %@", zip);
@@ -75,7 +82,7 @@ NSMutableArray *favoriteLocations;
 
 - (int)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section  {
-    return [favoriteLocations count] ;
+    return [favoriteLocations count];
 }
 
 - (IBAction)onSearchButtonTap:(id)sender {

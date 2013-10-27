@@ -15,7 +15,7 @@
 
 @end
 
-@interface FavoriteLocationsVC : UIViewController <NSFileManagerDelegate>
+@interface FavoriteLocationsVC : UIViewController <NSFileManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) id <FavoriteLocationDelegate> delegate;
 @property (strong, nonatomic) NSString *city;
