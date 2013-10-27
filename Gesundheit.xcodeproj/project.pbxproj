@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		91013D48181C679700967190 /* dandydan.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91013D47181C679700967190 /* dandydan.gif */; };
 		91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */; };
-		9147003A1819926400A15B0F /* LegendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 914700391819926400A15B0F /* LegendVC.m */; };
 		9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */; };
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
 		E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
@@ -45,8 +44,6 @@
 		91013D47181C679700967190 /* dandydan.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandydan.gif; sourceTree = "<group>"; };
 		91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteLocationsVC.h; sourceTree = "<group>"; };
 		91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteLocationsVC.m; sourceTree = "<group>"; };
-		914700381819926400A15B0F /* LegendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendVC.h; sourceTree = "<group>"; };
-		914700391819926400A15B0F /* LegendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendVC.m; sourceTree = "<group>"; };
 		9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -148,8 +145,6 @@
 				E494FF3A1818458000E1E5C3 /* Main.storyboard */,
 				91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */,
 				91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */,
-				914700381819926400A15B0F /* LegendVC.h */,
-				914700391819926400A15B0F /* LegendVC.m */,
 				E494FF3D1818458000E1E5C3 /* RootVC.h */,
 				E494FF3E1818458000E1E5C3 /* RootVC.m */,
 				E4F7767B181AE6FA0009F30A /* WeeklyForecastVC.h */,
@@ -295,7 +290,6 @@
 			files = (
 				E494FF3F1818458000E1E5C3 /* RootVC.m in Sources */,
 				9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */,
-				9147003A1819926400A15B0F /* LegendVC.m in Sources */,
 				E4F7767D181AE6FA0009F30A /* WeeklyForecastVC.m in Sources */,
 				91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */,
 				E494FF351818458000E1E5C3 /* main.m in Sources */,

@@ -7,7 +7,6 @@
 //
 
 #import "FavoriteLocationsVC.h"
-#import "LegendVC.h"
 #import "RootVC.h"
 #import "UIImage+animatedGIF.h"
 
@@ -15,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
 @property (weak, nonatomic) IBOutlet UILabel     *allergenLevelLabel;
-@property (weak, nonatomic) IBOutlet UILabel     *cityAndStateLabel;
+@property (weak, nonatomic) IBOutlet UILabel     *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *currentDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *highLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *lowLabel;
@@ -38,7 +37,7 @@
 
 @implementation RootVC
 @synthesize allergenLevelLabel,
-            cityAndStateLabel,
+            cityLabel,
             currentDateLabel,
             dandelionGifImage,
             descriptionTextView,
@@ -138,7 +137,7 @@ UIColor           *darkGreenColor,
 - (void)showResults {
     if (weeklyForecast.count > 0) {
         allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
-        cityAndStateLabel.text = [NSString stringWithFormat:@"%@", city];
+        cityLabel.text = [NSString stringWithFormat:@"%@", city];
         descriptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
         predominantTypeLabel.text = predominantType;
     }
@@ -169,7 +168,7 @@ UIColor           *darkGreenColor,
     UIFont *airplaneFont = [UIFont fontWithName:@"Airplanes in the Night Sky"
                                            size:17];
     allergenLevelLabel.font = jandaAppleFont;
-    cityAndStateLabel.font = airplaneFont;
+    cityLabel.font = airplaneFont;
 }
 
 - (void)showGifImage {

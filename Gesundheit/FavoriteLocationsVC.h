@@ -11,7 +11,8 @@
 
 @protocol FavoriteLocationDelegate <NSObject>
 
-- (void) fetchPollenData:(NSString *)zipCode;
+- (void)fetchPollenDataFromZip:(NSString *)zipCode;
+
 @end
 
 @interface FavoriteLocationsVC : UIViewController <NSFileManagerDelegate>

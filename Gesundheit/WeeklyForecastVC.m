@@ -52,7 +52,9 @@ NSArray *week;
     }
     cell.textLabel.text = week[weekDayValue];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [weeklyForecast[indexPath.row] objectForKey:@"level"]];
-    weekDayValue = (weekDayValue > 6) ? 0 : weekDayValue + 1;
+    if (weekDayValue == 6)
+        weekDayValue = 0;
+    else weekDayValue++;
     return cell;
 }
 

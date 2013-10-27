@@ -13,19 +13,21 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *zipTextField;
 @property (weak, nonatomic) IBOutlet UITableView *zipTableView;
-- (IBAction)onTouchSaveZipToTable:(id)sender;
+- (IBAction)onBackButtonTap:(id)sender;
+- (IBAction)onSearchButtonTap:(id)sender;
 
 @end
 
 
-@implementation FavoriteLocationsVC {
-    NSMutableArray *favoriteLocations;
-}
+@implementation FavoriteLocationsVC
 @synthesize city,
+            delegate,
             state,
             zip,
             zipTableView,
             zipTextField;
+
+NSMutableArray *favoriteLocations;
 
 
 - (void)viewDidLoad
@@ -33,8 +35,7 @@
     [super viewDidLoad];
 }
 
-
-- (void) startUsingPlist {
+- (void)startUsingPlist {
     // Get the URL for the document directory
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     NSURL *documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0];
@@ -44,7 +45,7 @@
 
     // Create an array for the score
     favoriteLocations = [[NSMutableArray alloc] init];
-    [favoriteLocations addObject:[NSString stringWithFormat:@"%@ %@ %@",city, state, zip]];
+    [favoriteLocations addObject:[NSString stringWithFormat:@"%@, %@ %@",city, state, zip]];
 
     NSLog(@"the array = %@", favoriteLocations);
     NSLog(@"zip = %@", zip);
@@ -61,24 +62,28 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"myID"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xxx"];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"myID"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"xxx"];
     }
-
-
+    city = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] firstObject];
+    state = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] objectAtIndex:1];
+    cell.textLabel.text = city;
+    cell.detailTextLabel.text = state;
     return cell;
 }
-
-
 
 - (int)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section  {
     return [favoriteLocations count] ;
 }
 
-- (IBAction)onTouchSaveZipToTable:(id)sender {
+- (IBAction)onSearchButtonTap:(id)sender {
+    [delegate fetchPollenDataFromZip:zipTextField.text];
+}
 
+- (IBAction)onBackButtonTap:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
