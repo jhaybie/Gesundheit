@@ -31,8 +31,7 @@
             zipTextField;
 
 BOOL doesExist;
-NSMutableArray *favoriteLocations,
-                *plistFavLocations;
+NSMutableArray *favoriteLocations;
 NSURL *documentDirectoryURL;
 NSFileManager *fileManager;
 NSString *searchedCity,
@@ -79,11 +78,8 @@ NSString *searchedCity,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self reloadTableFromPlist];
     favoriteLocations = [[NSMutableArray alloc] init];
-
     [self loadPList];
-    NSLog(@"%@", plistFavLocations);
 }
 
 - (void)loadPList {
@@ -91,16 +87,8 @@ NSString *searchedCity,
     fileManager = [[NSFileManager alloc] init];
     documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
                                                 inDomains:NSUserDomainMask] firstObject];
-
-
     safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-    // Create an array for the score
-    [favoriteLocations addObject:[NSString stringWithFormat:@"%@, %@", searchedCity, searchedState]];
-
-
-
-
+    favoriteLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];
 }
 
 - (void)savePList{
@@ -108,11 +96,6 @@ NSString *searchedCity,
                              relativeToURL:documentDirectoryURL];
     [favoriteLocations writeToURL:arrayURL
                        atomically:YES];
-}
-
-- (void) reloadTableFromPlist {
-    plistFavLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];;
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,9 +119,12 @@ NSString *searchedCity,
     searchedState = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] lastObject];
     cell.textLabel.text = searchedCity;
     cell.detailTextLabel.text = searchedState;
-    [self reloadTableFromPlist];
-    NSLog(@"%lu", (unsigned long)plistFavLocations.count);
     return cell;
+}
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 - (int)tableView:(UITableView *)tableView
