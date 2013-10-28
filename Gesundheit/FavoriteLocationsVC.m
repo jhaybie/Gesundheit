@@ -84,11 +84,15 @@ NSString *searchedCity,
 
 - (void)loadPList {
     // Get the URL for the document directory
-    fileManager = [[NSFileManager alloc] init];
-    documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
-                                                inDomains:NSUserDomainMask] firstObject];
-    safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    favoriteLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Has Data"]) {
+        fileManager = [[NSFileManager alloc] init];
+        documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
+                                                    inDomains:NSUserDomainMask] firstObject];
+        safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        favoriteLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Has Data"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)savePList{
