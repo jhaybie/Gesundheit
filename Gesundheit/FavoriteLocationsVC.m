@@ -35,6 +35,9 @@
 
 BOOL doesExist;
 NSMutableArray *favoriteLocations;
+NSURL *documentDirectoryURL;
+NSFileManager *fileManager;
+NSString *safeString;
 
 
 - (void)showResults {
@@ -75,24 +78,20 @@ NSMutableArray *favoriteLocations;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+        [self startUsingPlist];
 
     // initializes array with dummy data for testing purposes only
     favoriteLocations = [[NSMutableArray alloc] init];
-    favoriteLocations[0] = @"Newark, NJ";
-    favoriteLocations[1] = @"New York, NY";
-    favoriteLocations[2] = @"Bridgeport, CT";
-    favoriteLocations[3] = @"Austin, TX";
-    favoriteLocations[4] = @"Redmond, WA";
 }
 
 - (void)startUsingPlist {
     // Get the URL for the document directory
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    NSURL *documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
+    fileManager = [[NSFileManager alloc] init];
+    documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
                                                        inDomains:NSUserDomainMask] firstObject];
 
     // Turn the filename into a string safe for use in a URL
-    NSString *safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     // Create an array for the score
     //favoriteLocations = [[NSMutableArray alloc] init];
@@ -102,17 +101,19 @@ NSMutableArray *favoriteLocations;
     NSLog(@"zip = %@", zip);
 
     // Write this array to a URL
+
+}
+
+- (void)saveToPlist{
     NSURL *arrayURL = [NSURL URLWithString:safeString
                              relativeToURL:documentDirectoryURL];
     [favoriteLocations writeToURL:arrayURL
                        atomically:YES];
 }
-
 - (void)viewWillAppear:(BOOL)animated {
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;
-    [self startUsingPlist];
     [zipTableView reloadData];
 }
 
@@ -137,6 +138,7 @@ numberOfRowsInSection:(NSInteger)section  {
 
 - (IBAction)onSearchButtonTap:(id)sender {
     [self.view endEditing:YES];
+    [self saveToPlist];
     if (![zipTextField.text isEqualToString:@""]) {
         zip = zipTextField.text;
         zipTextField.text = @"";
