@@ -10,12 +10,14 @@
 
 @interface MapVC ()
 
+@property (weak, nonatomic) IBOutlet MKMapView *myMapView;
 @end
 
 @implementation MapVC
 @synthesize  address1,
              city,
              coord,
+             myMapView,
              name,
              state;
 
@@ -23,7 +25,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.01;
+    span.longitudeDelta = 0.01;
+    MKCoordinateRegion region;
+    region.center = coord;
+    region.span = span;
+    [myMapView setRegion:region];
+
+    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    point.coordinate = region.center;
+    point.title = name;
+    point.subtitle = [NSString stringWithFormat:@"%@/n%@, %@", address1, city, state];
+    [myMapView addAnnotation:point];
+    [myMapView selectAnnotation:point
+                       animated:YES];
 }
 
 @end
