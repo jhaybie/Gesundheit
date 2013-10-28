@@ -9,15 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "RootVC.h"
 
-@protocol FavoriteLocationDelegate <NSObject>
-
-- (void)fetchPollenDataFromZip:(NSString *)zipCode;
-
-@end
 
 @interface FavoriteLocationsVC : UIViewController <NSFileManagerDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) id <FavoriteLocationDelegate> delegate;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (strong, nonatomic) NSString *zip;
