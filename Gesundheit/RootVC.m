@@ -259,10 +259,6 @@ UIColor           *darkGreenColor,
 
 - (IBAction)onTouchSearch:(id)sender {
         FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZipCodeController"];
-        [self fetchPollenDataFromZip:zip];
-        flvc.zip = zip;
-        flvc.city = city;
-        flvc.state = state;
         [self presentViewController:flvc
                            animated:YES
                          completion:nil];
