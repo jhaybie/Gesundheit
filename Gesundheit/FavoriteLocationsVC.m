@@ -79,9 +79,11 @@ NSString *searchedCity,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self reloadTableFromPlist];
     favoriteLocations = [[NSMutableArray alloc] init];
-    plistFavLocations = [[NSMutableArray alloc] initWithContentsOfFile:@"favorites.plist"];
+
     [self loadPList];
+    NSLog(@"%@", plistFavLocations);
 }
 
 - (void)loadPList {
@@ -90,16 +92,14 @@ NSString *searchedCity,
     documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
                                                 inDomains:NSUserDomainMask] firstObject];
 
-    // Turn the filename into a string safe for use in a URL
+
     safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     // Create an array for the score
     [favoriteLocations addObject:[NSString stringWithFormat:@"%@, %@", searchedCity, searchedState]];
 
-//    NSLog(@"the array = %@", favoriteLocations);
-//    NSLog(@"zip = %@", zip);
 
-    // Write this array to a URL
+
 
 }
 
@@ -108,6 +108,11 @@ NSString *searchedCity,
                              relativeToURL:documentDirectoryURL];
     [favoriteLocations writeToURL:arrayURL
                        atomically:YES];
+}
+
+- (void) reloadTableFromPlist {
+    plistFavLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];;
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,6 +136,8 @@ NSString *searchedCity,
     searchedState = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] lastObject];
     cell.textLabel.text = searchedCity;
     cell.detailTextLabel.text = searchedState;
+    [self reloadTableFromPlist];
+    NSLog(@"%lu", (unsigned long)plistFavLocations.count);
     return cell;
 }
 
