@@ -31,7 +31,8 @@
             zipTextField;
 
 BOOL doesExist;
-NSMutableArray *favoriteLocations;
+NSMutableArray *favoriteLocations,
+                *plistFavLocations;
 NSURL *documentDirectoryURL;
 NSFileManager *fileManager;
 NSString *searchedCity,
@@ -79,6 +80,7 @@ NSString *searchedCity,
 - (void)viewDidLoad {
     [super viewDidLoad];
     favoriteLocations = [[NSMutableArray alloc] init];
+    plistFavLocations = [[NSMutableArray alloc] initWithContentsOfFile:@"favorites.plist"];
     [self loadPList];
 }
 
