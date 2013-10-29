@@ -33,6 +33,14 @@ NSMutableArray *drugstores;
 NSString       *name,
                *address;
 
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return drugstores.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"xxx"];
+    return cell;
+}
 
 - (void)fetchSearchResults {
     drugstores = [[NSMutableArray alloc] init];
