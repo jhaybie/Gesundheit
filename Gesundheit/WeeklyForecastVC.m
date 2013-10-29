@@ -139,6 +139,13 @@ UIColor *darkGreenColor,
     return cell;
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    RxListVC *rvc = segue.destinationViewController;
+    Forecast *tempForecast = [weeklyForecast firstObject];
+    rvc.city = tempForecast.city;
+    rvc.state = tempForecast.state;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
     return 5;

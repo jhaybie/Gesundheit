@@ -8,6 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
+#import "MapVC.h"
 
 @interface RxListVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) NSString *city;

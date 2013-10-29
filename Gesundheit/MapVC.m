@@ -11,6 +11,7 @@
 @interface MapVC ()
 
 @property (weak, nonatomic) IBOutlet MKMapView *myMapView;
+- (IBAction)onBackButtonTap:(id)sender;
 @end
 
 @implementation MapVC
@@ -36,10 +37,14 @@
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = region.center;
     point.title = name;
-    point.subtitle = [NSString stringWithFormat:@"%@/n%@, %@", address1, city, state];
+
+    point.subtitle = [NSString stringWithFormat:@"%@, %@, %@", address1, city, state];
     [myMapView addAnnotation:point];
     [myMapView selectAnnotation:point
                        animated:YES];
 }
 
+- (IBAction)onBackButtonTap:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
