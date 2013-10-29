@@ -60,8 +60,8 @@ BOOL              isShown;
 CLGeocoder        *geocoder;
 CLLocationManager *locationManager;
 int               weekDayValue;
-NSArray           *week,
-                  *weeklyForecast;
+NSArray           *week;
+NSMutableArray    *weeklyForecast;
 NSString          *city,
                   *state,
                   *zip,
@@ -125,20 +125,32 @@ UIColor           *darkGreenColor,
                                NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
                                                                                            options:0
                                                                                              error:&connectionError];
-                               weeklyForecast = [initialDump objectForKey:@"dayList"];
+                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
                                city = [initialDump objectForKey:@"city"];
                                state = [initialDump objectForKey:@"state"];
                                predominantType = [initialDump objectForKey:@"predominantType"];
+                               weeklyForecast = [[NSMutableArray alloc] init];
+                               for (int i = 0; i < arrayDump.count; i++) {
+                                   Forecast *tempForecast = [[Forecast alloc] init];
+                                   tempForecast.city = city;
+                                   tempForecast.state = state;
+                                   tempForecast.zip = zipCode;
+                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
+                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
+                                   tempForecast.predominantType = predominantType;
+                                   [weeklyForecast addObject:tempForecast];
+                               }
                                [self showResults];
                            }];
 }
 
 - (void)showResults {
     if (weeklyForecast.count > 0) {
-        allergenLevelLabel.text = [NSString stringWithFormat:@"%@",[weeklyForecast[0] objectForKey:@"level"]];
-        cityLabel.text = [NSString stringWithFormat:@"%@", city];
-        descriptionTextView.text = [weeklyForecast[0] objectForKey:@"desc"];
-        predominantTypeLabel.text = predominantType;
+        Forecast *tempForecast = [weeklyForecast firstObject];
+        allergenLevelLabel.text = [NSString stringWithFormat:@"%0.1f", tempForecast.level];
+        cityLabel.text = tempForecast.city;
+        descriptionTextView.text = tempForecast.desc;
+        predominantTypeLabel.text = tempForecast.predominantType;
     }
     [locationManager stopUpdatingLocation];
     [self allergenLevelChangeFontColor];
@@ -181,8 +193,6 @@ UIColor           *darkGreenColor,
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"forecastSegue"]) {
         WeeklyForecastVC *wfvc = segue.destinationViewController;
-        wfvc.city = city;
-        wfvc.state = state;
         wfvc.weeklyForecast = weeklyForecast;
     }
 }

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Forecast.h"
 
 @interface WeeklyForecastVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSArray *weeklyForecast;
-@property (strong, nonatomic) NSString *city;
-@property (strong, nonatomic) NSString *state;
+//@property (strong, nonatomic) NSString *city;
+//@property (strong, nonatomic) NSString *state;
 
 @end

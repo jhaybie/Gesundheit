@@ -40,7 +40,8 @@ NSMutableArray *favoriteLocations;
             zipTextField;
 
 
-BOOL           doesExist;
+BOOL           isCheckingZip,
+               doesExist;
 NSURL          *documentDirectoryURL;
 NSFileManager  *fileManager;
 NSMutableArray *weeklyForecast;
@@ -51,26 +52,28 @@ NSString       *searchedCity,
 
 
 - (void)showResults {
-    for (int i = 0; i < favoriteLocations.count; i++) {
-        Location *tempLocation = favoriteLocations[i];
-        //NSString *tempCity = [[favoriteLocations[i] city];
-        //NSString *tempState = [[favoriteLocations[i] state];
-        if ([searchedCity isEqualToString:tempLocation.city] && [searchedState isEqualToString:tempLocation.state]) {
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@, %@", searchedCity, searchedState]
-                                                              message:@"Location already saved in Favorites"
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Ok"
-                                                    otherButtonTitles:nil];
-            [message show];
-            doesExist = YES;
-            break;
+    if (!isCheckingZip) {
+        for (int i = 0; i < favoriteLocations.count; i++) {
+            Location *tempLocation = favoriteLocations[i];
+            //NSString *tempCity = [[favoriteLocations[i] city];
+            //NSString *tempState = [[favoriteLocations[i] state];
+            if ([searchedCity isEqualToString:tempLocation.city] && [searchedState isEqualToString:tempLocation.state]) {
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@, %@", searchedCity, searchedState]
+                                                                  message:@"Location already saved in Favorites"
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Ok"
+                                                        otherButtonTitles:nil];
+                [message show];
+                doesExist = YES;
+                break;
+            }
         }
-    }
-    if (!doesExist) {
-        addButton.hidden = NO;
-        cityAndStateLabel.hidden = NO;
-        cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", searchedCity, searchedState];
-        closestStationLabel.hidden = NO;
+        if (!doesExist) {
+            addButton.hidden = NO;
+            cityAndStateLabel.hidden = NO;
+            cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", searchedCity, searchedState];
+            closestStationLabel.hidden = NO;
+        }
     }
 }
 
@@ -81,15 +84,40 @@ NSString       *searchedCity,
                                NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
                                                                                            options:0
                                                                                              error:&connectionError];
-                               weeklyForecast = [initialDump objectForKey:@"dayList"];
+                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
                                searchedCity = [initialDump objectForKey:@"city"];
                                searchedState = [initialDump objectForKey:@"state"];
-                               [self showResults];
+                               NSString *predominantType = [initialDump objectForKey:@"predominantType"];
+                               weeklyForecast = [[NSMutableArray alloc] init];
+                               for (int i = 0; i < arrayDump.count; i++) {
+                                   Forecast *tempForecast = [[Forecast alloc] init];
+                                   tempForecast.city = searchedCity;
+                                   tempForecast.state = searchedState;
+                                   tempForecast.zip = zipCode;
+                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
+                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
+                                   tempForecast.predominantType = predominantType;
+                                   [weeklyForecast addObject:tempForecast];
+                               }
+                               if (isCheckingZip)
+                                   [self showWeeklyForecast];
+                               else [self showResults];
                            }];
 }
 
+
+- (void)showWeeklyForecast {
+    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+    wvc.weeklyForecast = weeklyForecast;
+    [self presentViewController:wvc animated:YES completion:nil];
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    doesExist = NO;
+    isCheckingZip = NO;
     favoriteLocations = [[NSMutableArray alloc] init];
     //[self loadPList];
 }
@@ -127,12 +155,9 @@ NSString       *searchedCity,
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-    wvc.weeklyForecast = weeklyForecast;
     Location *tempLocation = favoriteLocations[indexPath.row];
-    wvc.city = tempLocation.city;
-    wvc.state = tempLocation.state;
-    [self presentViewController:wvc animated:YES completion:nil];
+    isCheckingZip = YES;
+    [self fetchPollenDataFromZip:tempLocation.zip];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
@@ -160,6 +185,7 @@ numberOfRowsInSection:(NSInteger)section  {
 
 - (IBAction)onSearchButtonTap:(id)sender {
     [self.view endEditing:YES];
+    isCheckingZip = NO;
     if (zipTextField.text.length == 5) {
         searchedZip = zipTextField.text;
         zipTextField.text = @"";

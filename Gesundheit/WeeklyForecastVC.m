@@ -22,9 +22,9 @@
 @synthesize gifBackRoundImage,
             descTextview,
             weeklyForecastTableView,
-            city,
+            //city,
             cityAndStateLabel,
-            state,
+            //state,
             weeklyForecast;
 
 
@@ -38,7 +38,8 @@ UIColor *darkGreenColor,
 
 
 - (void)viewDidAppear:(BOOL)animated {
-    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", city, state];
+    Forecast *tempForecast = weeklyForecast[0];
+    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", tempForecast.city, tempForecast.state];
 }
 
 - (void)viewDidLoad {
@@ -49,6 +50,14 @@ UIColor *darkGreenColor,
     descTextview.alpha = .85;
     [self getCurrentDate];
     [self showGifImage];
+}
+
+- (void)showGifImage {
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandydan"
+                                         withExtension:@"gif"];
+    gifBackRoundImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
+                                                                         dataWithContentsOfURL:url]];
+    gifBackRoundImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
 }
 
 - (void) changeAllergenLevelColors {
@@ -77,7 +86,6 @@ UIColor *darkGreenColor,
 - (void)getCurrentDate {
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-    //currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
     NSString *day = [[[dateFormatter stringFromDate:[NSDate date]] componentsSeparatedByString:@","] firstObject];
     if ([day isEqualToString:@"Sunday"])
         weekDayValue = 0;
@@ -96,17 +104,10 @@ UIColor *darkGreenColor,
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row <= 1)
-        descTextview.text = [weeklyForecast[indexPath.row] objectForKey:@"desc"];
-    else descTextview.text = @"";
-}
-
-- (void)showGifImage {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandydan"
-                                         withExtension:@"gif"];
-   gifBackRoundImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
-                                                                         dataWithContentsOfURL:url]];
-    gifBackRoundImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+    if (indexPath.row <= 1) {
+        Forecast *tempForecast = weeklyForecast[indexPath.row];
+        descTextview.text = tempForecast.desc;
+    } else descTextview.text = @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -117,7 +118,8 @@ UIColor *darkGreenColor,
                                       reuseIdentifier: @"xxx"];
     }
     cell.textLabel.text = week[weekDayValue];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [weeklyForecast[indexPath.row] objectForKey:@"level"]];
+    Forecast *tempForecast = weeklyForecast[indexPath.row];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.1f", tempForecast.level];
     UIColor *textColor;
     float level = cell.detailTextLabel.text.floatValue;
     if (level >= 0 && level < 2.5)
