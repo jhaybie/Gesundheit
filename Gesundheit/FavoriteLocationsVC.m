@@ -84,7 +84,7 @@ NSString *searchedCity,
 
 - (void)loadPList {
     // Get the URL for the document directory
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"Has Data"]) {
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Has Data"]) {
         fileManager = [[NSFileManager alloc] init];
         documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
                                                     inDomains:NSUserDomainMask] firstObject];
@@ -92,13 +92,15 @@ NSString *searchedCity,
         favoriteLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Has Data"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+//    } else {
+        favoriteLocations = [[NSMutableArray alloc] init];
+//    }
 }
 
 - (void)savePList{
     NSURL *arrayURL = [NSURL URLWithString:safeString
                              relativeToURL:documentDirectoryURL];
-    [favoriteLocations writeToURL:arrayURL
+    [favoriteLocations writeToURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@favorites.plist", arrayURL]]
                        atomically:YES];
 }
 
