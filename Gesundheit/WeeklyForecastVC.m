@@ -25,10 +25,10 @@
             city,
             cityAndStateLabel,
             state,
-            weekDayValue,
             weeklyForecast;
 
 
+int     weekDayValue;
 NSArray *week;
 UIColor *darkGreenColor,
         *greenColor,
@@ -47,6 +47,7 @@ UIColor *darkGreenColor,
     [self changeAllergenLevelColors];
     weeklyForecastTableView.alpha = .85;
     descTextview.alpha = .85;
+    [self getCurrentDate];
     [self showGifImage];
 }
 
@@ -71,6 +72,27 @@ UIColor *darkGreenColor,
                                green:0.0f/255.0f
                                 blue:0.0f/255.0f
                                alpha:1.0];
+}
+
+- (void)getCurrentDate {
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
+    //currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
+    NSString *day = [[[dateFormatter stringFromDate:[NSDate date]] componentsSeparatedByString:@","] firstObject];
+    if ([day isEqualToString:@"Sunday"])
+        weekDayValue = 0;
+    else if ([day isEqualToString:@"Monday"])
+        weekDayValue = 1;
+    else if ([day isEqualToString:@"Tuesday"])
+        weekDayValue = 2;
+    else if ([day isEqualToString:@"Wednesday"])
+        weekDayValue = 3;
+    else if ([day isEqualToString:@"Thursday"])
+        weekDayValue = 4;
+    else if ([day isEqualToString:@"Friday"])
+        weekDayValue = 5;
+    else if ([day isEqualToString:@"Saturday"])
+        weekDayValue = 6;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

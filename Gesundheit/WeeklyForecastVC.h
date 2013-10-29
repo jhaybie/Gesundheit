@@ -12,6 +12,5 @@
 @property (strong, nonatomic) NSArray *weeklyForecast;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
-@property (nonatomic) int weekDayValue;
 
 @end

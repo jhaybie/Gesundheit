@@ -8,6 +8,14 @@
 
 #import "FavoriteLocationsVC.h"
 
+@interface Location : NSObject
+@property (strong, nonatomic) NSString *city;
+@property (strong, nonatomic) NSString *state;
+@property (strong, nonatomic) NSString *zip;
+@end
+
+@implementation Location
+@end
 
 @interface FavoriteLocationsVC ()
 
@@ -22,6 +30,7 @@
 
 @end
 
+NSMutableArray *favoriteLocations;
 
 @implementation FavoriteLocationsVC
 @synthesize addButton,
@@ -30,22 +39,24 @@
             zipTableView,
             zipTextField;
 
-BOOL doesExist;
-NSMutableArray *favoriteLocations;
-NSURL *documentDirectoryURL;
-NSFileManager *fileManager;
-NSString *searchedCity,
-         *searchedState,
-         *searchedZip,
-         *safeString;
+
+BOOL           doesExist;
+NSURL          *documentDirectoryURL;
+NSFileManager  *fileManager;
+NSMutableArray *weeklyForecast;
+NSString       *searchedCity,
+               *searchedState,
+               *searchedZip,
+               *safeString;
 
 
 - (void)showResults {
     for (int i = 0; i < favoriteLocations.count; i++) {
-        NSString *tempCity = [[favoriteLocations[i] componentsSeparatedByString:@", "] firstObject];
-        NSString *tempState = [[favoriteLocations[i] componentsSeparatedByString:@", "] lastObject];
-        if ([searchedCity isEqualToString:tempCity] && [searchedState isEqualToString:tempState]) {
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:favoriteLocations[i]
+        Location *tempLocation = favoriteLocations[i];
+        //NSString *tempCity = [[favoriteLocations[i] city];
+        //NSString *tempState = [[favoriteLocations[i] state];
+        if ([searchedCity isEqualToString:tempLocation.city] && [searchedState isEqualToString:tempLocation.state]) {
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@, %@", searchedCity, searchedState]
                                                               message:@"Location already saved in Favorites"
                                                              delegate:self
                                                     cancelButtonTitle:@"Ok"
@@ -70,6 +81,7 @@ NSString *searchedCity,
                                NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
                                                                                            options:0
                                                                                              error:&connectionError];
+                               weeklyForecast = [initialDump objectForKey:@"dayList"];
                                searchedCity = [initialDump objectForKey:@"city"];
                                searchedState = [initialDump objectForKey:@"state"];
                                [self showResults];
@@ -79,10 +91,11 @@ NSString *searchedCity,
 - (void)viewDidLoad {
     [super viewDidLoad];
     favoriteLocations = [[NSMutableArray alloc] init];
-    [self loadPList];
+    //[self loadPList];
 }
 
 - (void)loadPList {
+    favoriteLocations = [[NSMutableArray alloc] init];
     // Get the URL for the document directory
 //    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Has Data"]) {
         fileManager = [[NSFileManager alloc] init];
@@ -93,7 +106,6 @@ NSString *searchedCity,
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Has Data"];
         [[NSUserDefaults standardUserDefaults] synchronize];
 //    } else {
-        favoriteLocations = [[NSMutableArray alloc] init];
 //    }
 }
 
@@ -114,6 +126,15 @@ NSString *searchedCity,
     [zipTableView reloadData];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+    wvc.weeklyForecast = weeklyForecast;
+    Location *tempLocation = favoriteLocations[indexPath.row];
+    wvc.city = tempLocation.city;
+    wvc.state = tempLocation.state;
+    [self presentViewController:wvc animated:YES completion:nil];
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xxx"];
@@ -121,10 +142,9 @@ NSString *searchedCity,
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:@"xxx"];
     }
-    searchedCity = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] firstObject];
-    searchedState = [[favoriteLocations[indexPath.row] componentsSeparatedByString:@"," ] lastObject];
-    cell.textLabel.text = searchedCity;
-    cell.detailTextLabel.text = searchedState;
+    Location *tempLocation = favoriteLocations[indexPath.row];
+    cell.textLabel.text = tempLocation.city;
+    cell.detailTextLabel.text = tempLocation.state;
     return cell;
 }
 
@@ -140,7 +160,7 @@ numberOfRowsInSection:(NSInteger)section  {
 
 - (IBAction)onSearchButtonTap:(id)sender {
     [self.view endEditing:YES];
-    if (![zipTextField.text isEqualToString:@""]) {
+    if (zipTextField.text.length == 5) {
         searchedZip = zipTextField.text;
         zipTextField.text = @"";
         [self fetchPollenDataFromZip:searchedZip];
@@ -148,11 +168,17 @@ numberOfRowsInSection:(NSInteger)section  {
 }
 
 - (IBAction)onAddButtonPress:(id)sender {
+    Location *tempLocation = [[Location alloc] init];
+    tempLocation.city = searchedCity;
+    tempLocation.state = searchedState;
+    tempLocation.zip = searchedZip;
+    [favoriteLocations addObject:tempLocation];
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;
-    [favoriteLocations addObject:cityAndStateLabel.text];
-    [self savePList];
+    searchedCity = @"";
+    searchedState = @"";
+    //[self savePList];
     [zipTableView reloadData];
 }
 
