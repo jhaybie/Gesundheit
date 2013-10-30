@@ -13,46 +13,26 @@
 @interface RootVC ()
 
 @property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
-@property (weak, nonatomic) IBOutlet UILabel     *allergenLevelLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *currentDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel     *highLabel;
-@property (weak, nonatomic) IBOutlet UILabel     *lowLabel;
-@property (weak, nonatomic) IBOutlet UILabel     *lowMedLabel;
-@property (weak, nonatomic) IBOutlet UILabel     *medHighLabel;
-@property (weak, nonatomic) IBOutlet UILabel     *mediumLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *predominantTypeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
 @property (weak, nonatomic) IBOutlet UITextView  *descriptionTextView;
-@property (weak, nonatomic) IBOutlet UITextView  *highTextExplanation;
-@property (weak, nonatomic) IBOutlet UITextView  *lowTextExplanation;
-@property (weak, nonatomic) IBOutlet UITextView  *lowMedTextExplanation;
-@property (weak, nonatomic) IBOutlet UITextView  *mediumTextExplanation;
-@property (weak, nonatomic) IBOutlet UITextView  *medHighTextExplanation;
-@property (weak, nonatomic) IBOutlet UIView      *legendView;
+@property (weak, nonatomic) IBOutlet UIButton *allergenLevelButton;
+
 - (IBAction)onTouchSearch:(id)sender;
 
 @end
 
 
 @implementation RootVC
-@synthesize allergenLevelLabel,
+@synthesize
             cityLabel,
             currentDateLabel,
             dandelionGifImage,
             descriptionTextView,
-            highLabel,
-            highTextExplanation,
-            legendView,
-            lowLabel,
-            lowMedLabel,
-            lowMedTextExplanation,
-            lowTextExplanation,
-            medHighLabel,
-            medHighTextExplanation,
-            mediumLabel,
-            mediumTextExplanation,
             predominantTypeLabel,
+            allergenLevelButton,
             searchButtonToggler;
 
 
@@ -73,26 +53,7 @@ UIColor           *darkGreenColor,
                   *redColor;
 
 
-//- (void)getCurrentDate {
-//    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-//    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-//    currentDateLabel.text = [dateFormatter stringFromDate:[NSDate date]];
-//    NSString *day = [[currentDateLabel.text componentsSeparatedByString:@","] firstObject];
-//    if ([day isEqualToString:@"Sunday"])
-//        weekDayValue = 0;
-//    else if ([day isEqualToString:@"Monday"])
-//        weekDayValue = 1;
-//    else if ([day isEqualToString:@"Tuesday"])
-//        weekDayValue = 2;
-//    else if ([day isEqualToString:@"Wednesday"])
-//        weekDayValue = 3;
-//    else if ([day isEqualToString:@"Thursday"])
-//        weekDayValue = 4;
-//    else if ([day isEqualToString:@"Friday"])
-//        weekDayValue = 5;
-//    else if ([day isEqualToString:@"Saturday"])
-//        weekDayValue = 6;
-//}
+
 
 
 //Ask Don or Max about replacing this deprecated method
@@ -147,7 +108,7 @@ UIColor           *darkGreenColor,
 - (void)showResults {
     if (weeklyForecast.count > 0) {
         Forecast *tempForecast = [weeklyForecast firstObject];
-        allergenLevelLabel.text = [NSString stringWithFormat:@"%0.1f", tempForecast.level];
+        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%0.1f", tempForecast.level] forState:UIControlStateNormal];
         cityLabel.text = tempForecast.city;
         descriptionTextView.text = tempForecast.desc;
         predominantTypeLabel.text = tempForecast.predominantType;
@@ -157,20 +118,21 @@ UIColor           *darkGreenColor,
 }
 
 - (void)allergenLevelChangeFontColor {
-    float level = allergenLevelLabel.text.floatValue;
-    UIColor *backgroundColor;
+//    float level = allergenLevelButton.text.floatValue;
+    float level = allergenLevelButton.currentTitle.floatValue;
+    UIColor *textColor;
     if (level >= 0 && level < 2.5)
-        backgroundColor = darkGreenColor;
+        textColor = darkGreenColor;
     else if (level >= 2.5 && level < 4.9)
-        backgroundColor = greenColor;
+        textColor = greenColor;
     else if (level >= 4.9 && level < 7.3)
-        backgroundColor = yellowColor;
+        textColor = yellowColor;
     else if (level >= 7.3 && level < 9.6)
-        backgroundColor = orangeColor;
+        textColor = orangeColor;
     else
-        backgroundColor = redColor;
-    allergenLevelLabel.backgroundColor = backgroundColor;
-    descriptionTextView.backgroundColor = backgroundColor;
+        textColor = redColor;
+    [allergenLevelButton setTitleColor:textColor forState:UIControlStateNormal];
+    descriptionTextView.backgroundColor = textColor;
 }
 
 - (void)labelFonts {
@@ -178,16 +140,12 @@ UIColor           *darkGreenColor,
                                              size:55];
     UIFont *airplaneFont = [UIFont fontWithName:@"Airplanes in the Night Sky"
                                            size:17];
-    allergenLevelLabel.font = jandaAppleFont;
+
     cityLabel.font = airplaneFont;
 }
 
 - (void)showGifImage {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandydan"
-                                         withExtension:@"gif"];
-    dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
-                                                  dataWithContentsOfURL:url]];
-    dandelionGifImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+    dandelionGifImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -197,16 +155,12 @@ UIColor           *darkGreenColor,
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    legendView.hidden = YES;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     geocoder = [[CLGeocoder alloc] init];
     [self showGifImage];
     isShown = NO;
-    legendView.hidden = YES;
     locationManager = [[CLLocationManager alloc] init];
     [self getCurrentLocationZip];
     darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
@@ -232,36 +186,7 @@ UIColor           *darkGreenColor,
 }
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
-    lowLabel.textColor = darkGreenColor;
-    lowTextExplanation.backgroundColor = darkGreenColor;
-    lowMedLabel.textColor = greenColor;
-    lowMedTextExplanation.backgroundColor = greenColor;
-    mediumLabel.textColor = yellowColor;
-    mediumTextExplanation.backgroundColor = yellowColor;
-    medHighLabel.textColor = orangeColor;
-    medHighTextExplanation.backgroundColor = orangeColor;
-    highLabel.textColor = redColor;
-    highTextExplanation.backgroundColor = redColor;
-    if (!isShown) {
-        legendView.frame =  CGRectMake(0, 0, 50, 50);
-        legendView.transform = CGAffineTransformMakeScale(0,0);
-        [UIView animateWithDuration:1.55
-                         animations:^{
-            legendView.frame =  CGRectMake(50, 210, 250, 315);
-            legendView.transform = CGAffineTransformMakeRotation(0);
-            legendView.backgroundColor = [UIColor cyanColor];
-            legendView.alpha = .95;
-            legendView.hidden = NO;
-        }];
-        isShown = true;
-    } else {
-        [UIView animateWithDuration:1.55
-                         animations:^{
-            legendView.frame =  CGRectMake(50, 110, 100, 200);
-            legendView.hidden = YES;
-        }];
-        isShown = false;
-    }
+
 }
 
 - (IBAction)onTouchSearch:(id)sender {
