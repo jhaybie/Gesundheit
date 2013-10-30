@@ -22,12 +22,13 @@
 
 @interface RxListVC ()
 @property (weak, nonatomic) IBOutlet UITableView *drugstoresTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *backroundImage;
 - (IBAction)onBackButtonTap:(id)sender;
 @end
 
-
 @implementation RxListVC
-@synthesize  city,
+@synthesize  backroundImage,
+             city,
              state,
              drugstoresTableView;
 

@@ -85,7 +85,7 @@ UIColor           *darkGreenColor,
     else
         textColor = redColor;
     [allergenLevelButton setTitleColor:textColor forState:UIControlStateNormal];
-    descriptionTextView.backgroundColor = textColor;
+    descriptionTextView.textColor = [UIColor blackColor];
 }
 
 - (void)showGifImage {
