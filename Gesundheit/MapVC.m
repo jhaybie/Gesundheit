@@ -8,11 +8,12 @@
 
 #import "MapVC.h"
 
-@interface MapVC ()
 
+@interface MapVC ()
 @property (weak, nonatomic) IBOutlet MKMapView *myMapView;
 - (IBAction)onBackButtonTap:(id)sender;
 @end
+
 
 @implementation MapVC
 @synthesize  address1,
@@ -47,4 +48,5 @@
 - (IBAction)onBackButtonTap:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

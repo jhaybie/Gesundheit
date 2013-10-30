@@ -9,24 +9,22 @@
 #import "WeeklyForecastVC.h"
 #import "UIImage+animatedGIF.h"
 
+
 @interface WeeklyForecastVC ()
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descTextview;
 @property (weak, nonatomic) IBOutlet UITableView *weeklyForecastTableView;
 - (IBAction)onCloseButtonTap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
-
 @end
+
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
             descTextview,
             location,
             weeklyForecastTableView,
-            //city,
             cityAndStateLabel;
-            //state,
-            //weeklyForecast;
 
 
 int     weekDayValue;
@@ -39,7 +37,6 @@ UIColor *darkGreenColor,
 
 
 - (void)viewDidAppear:(BOOL)animated {
-    //Forecast *tempForecast = weeklyForecast[0];
     cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
 }
 
@@ -102,7 +99,6 @@ UIColor *darkGreenColor,
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row <= 1) {
-        //Forecast *tempForecast = weeklyForecast[indexPath.row];
         descTextview.text = [[[location objectForKey:@"dayList"] objectAtIndex:indexPath.row] objectForKey:@"desc"];
     } else {
         descTextview.text = @"";
@@ -110,17 +106,32 @@ UIColor *darkGreenColor,
     }
 }
 
+- (IBAction)onCloseButtonTap:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    RxListVC *rvc = segue.destinationViewController;
+    rvc.city = [location objectForKey:@"city"];
+    rvc.state = [location objectForKey:@"state"];
+}
+
+#pragma mark UITableViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+    return 5;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView
-        cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"xxx"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleValue1
                                       reuseIdentifier: @"xxx"];
     }
     cell.textLabel.text = week[weekDayValue];
-    //Forecast *tempForecast = weeklyForecast[indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@0.1f", [[[location objectForKey:@"dayList"] objectAtIndex:indexPath.row] objectForKey:@"level"]];
-    //[NSString stringWithFormat:@"%0.1f", tempForecast.level];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:indexPath.row] objectForKey:@"level"]];
     UIColor *textColor;
     float level = cell.detailTextLabel.text.floatValue;
     if (level >= 0 && level < 2.5)
@@ -140,19 +151,4 @@ UIColor *darkGreenColor,
     return cell;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    RxListVC *rvc = segue.destinationViewController;
-//    Forecast *tempForecast = [weeklyForecast firstObject];
-    rvc.city = [location objectForKey:@"city"];
-    rvc.state = [location objectForKey:@"state"];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section {
-    return 5;
-}
-
-- (IBAction)onCloseButtonTap:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 @end

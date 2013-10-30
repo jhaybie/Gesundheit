@@ -8,17 +8,8 @@
 
 #import "FavoriteLocationsVC.h"
 
-@interface Location : NSObject
-@property (strong, nonatomic) NSString *city;
-@property (strong, nonatomic) NSString *state;
-@property (strong, nonatomic) NSString *zip;
-@end
-
-@implementation Location
-@end
 
 @interface FavoriteLocationsVC ()
-
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *closestStationLabel;
@@ -27,8 +18,8 @@
 - (IBAction)onAddButtonPress:(id)sender;
 - (IBAction)onBackButtonTap:(id)sender;
 - (IBAction)onSearchButtonTap:(id)sender;
-
 @end
+
 
 NSMutableArray *favoriteLocations;
 
@@ -45,7 +36,7 @@ BOOL           isCheckingZip,
 NSDictionary   *location;
 NSURL          *documentDirectoryURL;
 NSFileManager  *fileManager;
-NSMutableArray *locations;//*weeklyForecast;
+NSMutableArray *locations;
 NSString       *searchedCity,
                *searchedState,
                *searchedZip,
@@ -85,36 +76,17 @@ NSString       *searchedCity,
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:0
                                                                             error:&connectionError];
-
-//                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
-//                               searchedCity = [initialDump objectForKey:@"city"];
-//                               searchedState = [initialDump objectForKey:@"state"];
-//                               NSString *predominantType = [initialDump objectForKey:@"predominantType"];
-//                               weeklyForecast = [[NSMutableArray alloc] init];
-//                               for (int i = 0; i < arrayDump.count; i++) {
-//                                   Forecast *tempForecast = [[Forecast alloc] init];
-//                                   tempForecast.city = searchedCity;
-//                                   tempForecast.state = searchedState;
-//                                   tempForecast.zip = zipCode;
-//                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
-//                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
-//                                   tempForecast.predominantType = predominantType;
-//                                   [weeklyForecast addObject:tempForecast];
-//                               }
                                if (isCheckingZip)
                                    [self showWeeklyForecast];
                                else [self showResults];
                            }];
 }
 
-
 - (void)showWeeklyForecast {
     WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     wvc.location = location;
     [self presentViewController:wvc animated:YES completion:nil];
 }
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -148,28 +120,6 @@ NSString       *searchedCity,
     [data setObject:locations forKey:@"locations"];
     [data writeToFile: path atomically:YES];
 }
-
-//- (void)loadPList {
-//    favoriteLocations = [[NSMutableArray alloc] init];
-//    // Get the URL for the document directory
-//    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLocations"]) {
-//        fileManager = [[NSFileManager alloc] init];
-//        documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
-//                                                    inDomains:NSUserDomainMask] firstObject];
-//        safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//        favoriteLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Has Data"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-////    } else {
-////    }
-//}
-
-//- (void)savePList{
-//    NSURL *arrayURL = [NSURL URLWithString:safeString
-//                             relativeToURL:documentDirectoryURL];
-//    [favoriteLocations writeToURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@favorites.plist", arrayURL]]
-//                       atomically:YES];
-//}
 
 - (void)viewWillAppear:(BOOL)animated {
     addButton.hidden = YES;
@@ -222,11 +172,6 @@ numberOfRowsInSection:(NSInteger)section  {
 }
 
 - (IBAction)onAddButtonPress:(id)sender {
-//    location = [[NSDictionary alloc] init];
-//    tempLocation.city = searchedCity;
-//    tempLocation.state = searchedState;
-//    tempLocation.zip = searchedZip;
-//    [favoriteLocations addObject:tempLocation];
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;

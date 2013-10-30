@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Forecast.h"
 #import "RootVC.h"
 
 
 @interface FavoriteLocationsVC : UIViewController <NSFileManagerDelegate, UITableViewDataSource, UITableViewDelegate>
-
 @end
