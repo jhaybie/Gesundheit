@@ -21,8 +21,6 @@
 @end
 
 
-NSMutableArray *favoriteLocations;
-
 @implementation FavoriteLocationsVC
 @synthesize addButton,
             cityAndStateLabel,
@@ -44,7 +42,7 @@ NSString       *searchedCity,
 
 
 - (void)showResults {
-    if (!isCheckingZip) {
+    if (isCheckingZip) {
         for (int i = 0; i < locations.count; i++) {
             NSDictionary *tempLocation = locations[i];
             NSString *tempCity = [tempLocation objectForKey:@"city"];
@@ -76,7 +74,9 @@ NSString       *searchedCity,
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:0
                                                                             error:&connectionError];
-                               if (isCheckingZip)
+                               searchedCity = [location objectForKey:@"city"];
+                               searchedState = [location objectForKey:@"state"];
+                               if (!isCheckingZip)
                                    [self showWeeklyForecast];
                                else [self showResults];
                            }];
@@ -90,9 +90,7 @@ NSString       *searchedCity,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    doesExist = NO;
-    isCheckingZip = NO;
-    favoriteLocations = [[NSMutableArray alloc] init];
+    locations = [[NSMutableArray alloc] init];
     [self loadPList];
 }
 
@@ -107,9 +105,7 @@ NSString       *searchedCity,
         [fileManager copyItemAtPath:bundle toPath: path error:&error];
     }
     NSMutableDictionary *initialDump = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-    if ([initialDump objectForKey:@"hasLocations"]) {
-        favoriteLocations = [initialDump objectForKey:@"locations"];
-    }
+    locations = [initialDump objectForKey:@"locations"];
 }
 
 - (void)savePList {
@@ -117,14 +113,17 @@ NSString       *searchedCity,
     NSString *documentsDirectory = [paths firstObject];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+    //[data a]
     [data setObject:locations forKey:@"locations"];
-    [data writeToFile: path atomically:YES];
+    [data writeToFile:path atomically:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;
+    doesExist = NO;
+    isCheckingZip = NO;
     searchedCity = [[NSString alloc] init];
     searchedState = [[NSString alloc] init];
     searchedZip = [[NSString alloc] init];
@@ -134,7 +133,7 @@ NSString       *searchedCity,
 -       (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *tempLocation = locations[indexPath.row];
-    isCheckingZip = YES;
+    isCheckingZip = NO;
     [self fetchPollenDataFromZip:[tempLocation objectForKey:@"zip"]];
 }
 
@@ -163,7 +162,7 @@ numberOfRowsInSection:(NSInteger)section  {
 
 - (IBAction)onSearchButtonTap:(id)sender {
     [self.view endEditing:YES];
-    isCheckingZip = NO;
+    isCheckingZip = YES;
     if (zipTextField.text.length == 5) {
         searchedZip = zipTextField.text;
         zipTextField.text = @"";
@@ -175,8 +174,8 @@ numberOfRowsInSection:(NSInteger)section  {
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;
-    searchedCity = @"";
-    searchedState = @"";
+    searchedCity = [location objectForKey:@"city"];
+    searchedState = [location objectForKey:@"state"];
     [locations addObject:location];
     [self savePList];
     [zipTableView reloadData];
