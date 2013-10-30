@@ -21,15 +21,12 @@
 
 
 @interface RxListVC ()
-
 @property (weak, nonatomic) IBOutlet UITableView *drugstoresTableView;
 - (IBAction)onBackButtonTap:(id)sender;
-
 @end
 
 
 @implementation RxListVC
-
 @synthesize  city,
              state,
              drugstoresTableView;

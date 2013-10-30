@@ -11,7 +11,6 @@
 #import "UIImage+animatedGIF.h"
 
 @interface RootVC ()
-
 @property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
 @property (weak, nonatomic) IBOutlet UILabel     *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *currentDateLabel;
@@ -20,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITextView  *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *allergenLevelButton;
 - (IBAction)onTouchSearch:(id)sender;
-
 @end
 
 

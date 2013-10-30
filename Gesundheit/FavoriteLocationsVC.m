@@ -10,7 +10,6 @@
 
 
 @interface FavoriteLocationsVC ()
-
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *closestStationLabel;
@@ -19,7 +18,6 @@
 - (IBAction)onAddButtonPress:(id)sender;
 - (IBAction)onBackButtonTap:(id)sender;
 - (IBAction)onSearchButtonTap:(id)sender;
-
 @end
 
 

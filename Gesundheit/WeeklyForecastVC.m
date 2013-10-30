@@ -11,13 +11,11 @@
 
 
 @interface WeeklyForecastVC ()
-
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descTextview;
 @property (weak, nonatomic) IBOutlet UITableView *weeklyForecastTableView;
 - (IBAction)onCloseButtonTap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
-
 @end
 
 

@@ -11,5 +11,4 @@
 
 
 @interface FavoriteLocationsVC : UIViewController <NSFileManagerDelegate, UITableViewDataSource, UITableViewDelegate>
-
 @end

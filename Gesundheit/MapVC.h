@@ -11,11 +11,9 @@
 
 
 @interface MapVC : UIViewController
-
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *address1;
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *state;
 @property (nonatomic) CLLocationCoordinate2D coord;
-
 @end

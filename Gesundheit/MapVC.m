@@ -10,10 +10,8 @@
 
 
 @interface MapVC ()
-
 @property (weak, nonatomic) IBOutlet MKMapView *myMapView;
 - (IBAction)onBackButtonTap:(id)sender;
-
 @end
 
 
