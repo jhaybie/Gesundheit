@@ -53,11 +53,7 @@ UIColor *darkGreenColor,
 }
 
 - (void)showGifImage {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"dandydan"
-                                         withExtension:@"gif"];
-    gifBackRoundImage.image = [UIImage animatedImageWithAnimatedGIFData:[NSData
-                                                                         dataWithContentsOfURL:url]];
-    gifBackRoundImage.image = [UIImage animatedImageWithAnimatedGIFURL:url];
+        gifBackRoundImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
 }
 
 - (void) changeAllergenLevelColors {
