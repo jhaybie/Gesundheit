@@ -40,7 +40,8 @@ CLGeocoder        *geocoder;
 CLLocationManager *locationManager;
 int               weekDayValue;
 NSArray           *week;
-NSMutableArray    *weeklyForecast;
+NSDictionary      *location;
+//NSMutableArray    *weeklyForecast;
 NSString          *city,
                   *state,
                   *zip,
@@ -82,39 +83,45 @@ UIColor           *darkGreenColor,
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
+                               NSDictionary *location = [NSJSONSerialization JSONObjectWithData:data
                                                                                            options:0
                                                                                              error:&connectionError];
-                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
-                               city = [initialDump objectForKey:@"city"];
-                               state = [initialDump objectForKey:@"state"];
-                               predominantType = [initialDump objectForKey:@"predominantType"];
-                               weeklyForecast = [[NSMutableArray alloc] init];
-                               for (int i = 0; i < arrayDump.count; i++) {
-                                   Forecast *tempForecast = [[Forecast alloc] init];
-                                   tempForecast.city = city;
-                                   tempForecast.state = state;
-                                   tempForecast.zip = zipCode;
-                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
-                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
-                                   tempForecast.predominantType = predominantType;
-                                   [weeklyForecast addObject:tempForecast];
-                               }
-                               [self showResults];
+                               cityLabel.text = [location objectForKey:@"city"];
+                               descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+                               predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+                               [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+                               [locationManager stopUpdatingLocation];
+                               [self allergenLevelChangeFontColor];
+//                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
+//                               city = [initialDump objectForKey:@"city"];
+//                               state = [initialDump objectForKey:@"state"];
+//                               predominantType = [initialDump objectForKey:@"predominantType"];
+//                               weeklyForecast = [[NSMutableArray alloc] init];
+//                               for (int i = 0; i < arrayDump.count; i++) {
+//                                   Forecast *tempForecast = [[Forecast alloc] init];
+//                                   tempForecast.city = city;
+//                                   tempForecast.state = state;
+//                                   tempForecast.zip = zipCode;
+//                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
+//                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
+//                                   tempForecast.predominantType = predominantType;
+//                                   [weeklyForecast addObject:tempForecast];
+//                               }
+//                               [self showResults];
                            }];
 }
 
-- (void)showResults {
-    if (weeklyForecast.count > 0) {
-        Forecast *tempForecast = [weeklyForecast firstObject];
-        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%0.1f", tempForecast.level] forState:UIControlStateNormal];
-        cityLabel.text = tempForecast.city;
-        descriptionTextView.text = tempForecast.desc;
-        predominantTypeLabel.text = tempForecast.predominantType;
-    }
-    [locationManager stopUpdatingLocation];
-    [self allergenLevelChangeFontColor];
-}
+//- (void)showResults {
+//    if (weeklyForecast.count > 0) {
+//        Forecast *tempForecast = [weeklyForecast firstObject];
+//        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%0.1f", tempForecast.level] forState:UIControlStateNormal];
+//        cityLabel.text = tempForecast.city;
+//        descriptionTextView.text = tempForecast.desc;
+//        predominantTypeLabel.text = tempForecast.predominantType;
+//    }
+//    [locationManager stopUpdatingLocation];
+//    [self allergenLevelChangeFontColor];
+//}
 
 - (void)allergenLevelChangeFontColor {
 //    float level = allergenLevelButton.text.floatValue;
@@ -150,7 +157,7 @@ UIColor           *darkGreenColor,
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"forecastSegue"]) {
         WeeklyForecastVC *wfvc = segue.destinationViewController;
-        wfvc.weeklyForecast = weeklyForecast;
+        wfvc.location = location;
     }
 }
 

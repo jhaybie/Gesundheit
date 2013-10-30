@@ -42,9 +42,10 @@ NSMutableArray *favoriteLocations;
 
 BOOL           isCheckingZip,
                doesExist;
+NSDictionary   *location;
 NSURL          *documentDirectoryURL;
 NSFileManager  *fileManager;
-NSMutableArray *weeklyForecast;
+NSMutableArray *locations;//*weeklyForecast;
 NSString       *searchedCity,
                *searchedState,
                *searchedZip,
@@ -53,12 +54,12 @@ NSString       *searchedCity,
 
 - (void)showResults {
     if (!isCheckingZip) {
-        for (int i = 0; i < favoriteLocations.count; i++) {
-            Location *tempLocation = favoriteLocations[i];
-            //NSString *tempCity = [[favoriteLocations[i] city];
-            //NSString *tempState = [[favoriteLocations[i] state];
-            if ([searchedCity isEqualToString:tempLocation.city] && [searchedState isEqualToString:tempLocation.state]) {
-                UIAlertView *message = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@, %@", searchedCity, searchedState]
+        for (int i = 0; i < locations.count; i++) {
+            NSDictionary *tempLocation = locations[i];
+            NSString *tempCity = [tempLocation objectForKey:@"city"];
+            NSString *tempState = [tempLocation objectForKey:@"state"];
+            if ([searchedCity isEqualToString:tempCity] && [searchedState isEqualToString:tempState]) {
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@, %@", tempCity, tempState]
                                                                   message:@"Location already saved in Favorites"
                                                                  delegate:self
                                                         cancelButtonTitle:@"Ok"
@@ -71,34 +72,35 @@ NSString       *searchedCity,
         if (!doesExist) {
             addButton.hidden = NO;
             cityAndStateLabel.hidden = NO;
-            cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", searchedCity, searchedState];
+            cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
             closestStationLabel.hidden = NO;
         }
     }
 }
 
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", searchedZip]]]
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
-                                                                                           options:0
-                                                                                             error:&connectionError];
-                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
-                               searchedCity = [initialDump objectForKey:@"city"];
-                               searchedState = [initialDump objectForKey:@"state"];
-                               NSString *predominantType = [initialDump objectForKey:@"predominantType"];
-                               weeklyForecast = [[NSMutableArray alloc] init];
-                               for (int i = 0; i < arrayDump.count; i++) {
-                                   Forecast *tempForecast = [[Forecast alloc] init];
-                                   tempForecast.city = searchedCity;
-                                   tempForecast.state = searchedState;
-                                   tempForecast.zip = zipCode;
-                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
-                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
-                                   tempForecast.predominantType = predominantType;
-                                   [weeklyForecast addObject:tempForecast];
-                               }
+                               location = [NSJSONSerialization JSONObjectWithData:data
+                                                                          options:0
+                                                                            error:&connectionError];
+
+//                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
+//                               searchedCity = [initialDump objectForKey:@"city"];
+//                               searchedState = [initialDump objectForKey:@"state"];
+//                               NSString *predominantType = [initialDump objectForKey:@"predominantType"];
+//                               weeklyForecast = [[NSMutableArray alloc] init];
+//                               for (int i = 0; i < arrayDump.count; i++) {
+//                                   Forecast *tempForecast = [[Forecast alloc] init];
+//                                   tempForecast.city = searchedCity;
+//                                   tempForecast.state = searchedState;
+//                                   tempForecast.zip = zipCode;
+//                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
+//                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
+//                                   tempForecast.predominantType = predominantType;
+//                                   [weeklyForecast addObject:tempForecast];
+//                               }
                                if (isCheckingZip)
                                    [self showWeeklyForecast];
                                else [self showResults];
@@ -108,7 +110,7 @@ NSString       *searchedCity,
 
 - (void)showWeeklyForecast {
     WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-    wvc.weeklyForecast = weeklyForecast;
+    wvc.location = location;
     [self presentViewController:wvc animated:YES completion:nil];
 }
 
@@ -139,12 +141,11 @@ NSString       *searchedCity,
 }
 
 - (void)savePList {
-    NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths firstObject];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-    [data setObject:favoriteLocations forKey:@"locations"];
+    [data setObject:locations forKey:@"locations"];
     [data writeToFile: path atomically:YES];
 }
 
@@ -180,10 +181,11 @@ NSString       *searchedCity,
     [zipTableView reloadData];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Location *tempLocation = favoriteLocations[indexPath.row];
+-       (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *tempLocation = locations[indexPath.row];
     isCheckingZip = YES;
-    [self fetchPollenDataFromZip:tempLocation.zip];
+    [self fetchPollenDataFromZip:[tempLocation objectForKey:@"zip"]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
@@ -193,9 +195,9 @@ NSString       *searchedCity,
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:@"xxx"];
     }
-    Location *tempLocation = [favoriteLocations[indexPath.row] objectForKey:@"locations"];
-    cell.textLabel.text = tempLocation.city;
-    cell.detailTextLabel.text = tempLocation.state;
+    NSDictionary *tempLocation = locations[indexPath.row];
+    cell.textLabel.text = [tempLocation objectForKey:@"city"];
+    cell.detailTextLabel.text = [tempLocation objectForKey:@"state"];
     return cell;
 }
 
@@ -206,7 +208,7 @@ NSString       *searchedCity,
 
 - (int)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section  {
-    return [favoriteLocations count];
+    return [locations count];
 }
 
 - (IBAction)onSearchButtonTap:(id)sender {
@@ -220,16 +222,17 @@ numberOfRowsInSection:(NSInteger)section  {
 }
 
 - (IBAction)onAddButtonPress:(id)sender {
-    Location *tempLocation = [[Location alloc] init];
-    tempLocation.city = searchedCity;
-    tempLocation.state = searchedState;
-    tempLocation.zip = searchedZip;
-    [favoriteLocations addObject:tempLocation];
+//    location = [[NSDictionary alloc] init];
+//    tempLocation.city = searchedCity;
+//    tempLocation.state = searchedState;
+//    tempLocation.zip = searchedZip;
+//    [favoriteLocations addObject:tempLocation];
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;
     searchedCity = @"";
     searchedState = @"";
+    [locations addObject:location];
     [self savePList];
     [zipTableView reloadData];
 }

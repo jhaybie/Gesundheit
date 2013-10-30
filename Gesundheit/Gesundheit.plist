@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>hasLocations</key>
-	<false/>
 	<key>defaultLocation</key>
 	<string>currentLocation</string>
 	<key>locations</key>
@@ -13,14 +11,12 @@
 			<string></string>
 			<key>state</key>
 			<string></string>
-			<key>zip</key>
-			<string></string>
 			<key>predominantType</key>
 			<string></string>
 			<key>dayList</key>
 			<array>
 				<dict>
-					<key>date</key>
+					<key>dateTime</key>
 					<date>2013-10-30T14:50:18Z</date>
 					<key>desc</key>
 					<string></string>

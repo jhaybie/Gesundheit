@@ -21,11 +21,12 @@
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
             descTextview,
+            location,
             weeklyForecastTableView,
             //city,
-            cityAndStateLabel,
+            cityAndStateLabel;
             //state,
-            weeklyForecast;
+            //weeklyForecast;
 
 
 int     weekDayValue;
@@ -38,8 +39,8 @@ UIColor *darkGreenColor,
 
 
 - (void)viewDidAppear:(BOOL)animated {
-    Forecast *tempForecast = weeklyForecast[0];
-    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", tempForecast.city, tempForecast.state];
+    //Forecast *tempForecast = weeklyForecast[0];
+    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
 }
 
 - (void)viewDidLoad {
@@ -53,7 +54,7 @@ UIColor *darkGreenColor,
 }
 
 - (void)showGifImage {
-        gifBackRoundImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
+    gifBackRoundImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
 }
 
 - (void) changeAllergenLevelColors {
@@ -101,9 +102,12 @@ UIColor *darkGreenColor,
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row <= 1) {
-        Forecast *tempForecast = weeklyForecast[indexPath.row];
-        descTextview.text = tempForecast.desc;
-    } else descTextview.text = @"";
+        //Forecast *tempForecast = weeklyForecast[indexPath.row];
+        descTextview.text = [[[location objectForKey:@"dayList"] objectAtIndex:indexPath.row] objectForKey:@"desc"];
+    } else {
+        descTextview.text = @"";
+        descTextview.hidden = YES;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -114,8 +118,9 @@ UIColor *darkGreenColor,
                                       reuseIdentifier: @"xxx"];
     }
     cell.textLabel.text = week[weekDayValue];
-    Forecast *tempForecast = weeklyForecast[indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.1f", tempForecast.level];
+    //Forecast *tempForecast = weeklyForecast[indexPath.row];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@0.1f", [[[location objectForKey:@"dayList"] objectAtIndex:indexPath.row] objectForKey:@"level"]];
+    //[NSString stringWithFormat:@"%0.1f", tempForecast.level];
     UIColor *textColor;
     float level = cell.detailTextLabel.text.floatValue;
     if (level >= 0 && level < 2.5)
@@ -137,9 +142,9 @@ UIColor *darkGreenColor,
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     RxListVC *rvc = segue.destinationViewController;
-    Forecast *tempForecast = [weeklyForecast firstObject];
-    rvc.city = tempForecast.city;
-    rvc.state = tempForecast.state;
+//    Forecast *tempForecast = [weeklyForecast firstObject];
+    rvc.city = [location objectForKey:@"city"];
+    rvc.state = [location objectForKey:@"state"];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
