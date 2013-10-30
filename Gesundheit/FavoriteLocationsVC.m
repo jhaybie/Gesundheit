@@ -119,30 +119,56 @@ NSString       *searchedCity,
     doesExist = NO;
     isCheckingZip = NO;
     favoriteLocations = [[NSMutableArray alloc] init];
-    //[self loadPList];
+    [self loadPList];
 }
 
 - (void)loadPList {
-    favoriteLocations = [[NSMutableArray alloc] init];
-    // Get the URL for the document directory
-//    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"Has Data"]) {
-        fileManager = [[NSFileManager alloc] init];
-        documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
-                                                    inDomains:NSUserDomainMask] firstObject];
-        safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        favoriteLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Has Data"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-//    } else {
-//    }
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths firstObject];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath: path]) {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Gesundheit" ofType:@"plist"];
+        [fileManager copyItemAtPath:bundle toPath: path error:&error];
+    }
+    NSMutableDictionary *initialDump = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+    if ([initialDump objectForKey:@"hasLocations"]) {
+        favoriteLocations = [initialDump objectForKey:@"locations"];
+    }
 }
 
-- (void)savePList{
-    NSURL *arrayURL = [NSURL URLWithString:safeString
-                             relativeToURL:documentDirectoryURL];
-    [favoriteLocations writeToURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@favorites.plist", arrayURL]]
-                       atomically:YES];
+- (void)savePList {
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths firstObject];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+    [data setObject:favoriteLocations forKey:@"locations"];
+    [data writeToFile: path atomically:YES];
 }
+
+//- (void)loadPList {
+//    favoriteLocations = [[NSMutableArray alloc] init];
+//    // Get the URL for the document directory
+//    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLocations"]) {
+//        fileManager = [[NSFileManager alloc] init];
+//        documentDirectoryURL = [[fileManager URLsForDirectory:NSDocumentDirectory
+//                                                    inDomains:NSUserDomainMask] firstObject];
+//        safeString = [@"favorites.plist" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        favoriteLocations = [NSArray arrayWithContentsOfURL:[documentDirectoryURL URLByAppendingPathComponent:@"favorites.plist"]];
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"Has Data"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+////    } else {
+////    }
+//}
+
+//- (void)savePList{
+//    NSURL *arrayURL = [NSURL URLWithString:safeString
+//                             relativeToURL:documentDirectoryURL];
+//    [favoriteLocations writeToURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@favorites.plist", arrayURL]]
+//                       atomically:YES];
+//}
 
 - (void)viewWillAppear:(BOOL)animated {
     addButton.hidden = YES;
@@ -167,7 +193,7 @@ NSString       *searchedCity,
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:@"xxx"];
     }
-    Location *tempLocation = favoriteLocations[indexPath.row];
+    Location *tempLocation = [favoriteLocations[indexPath.row] objectForKey:@"locations"];
     cell.textLabel.text = tempLocation.city;
     cell.detailTextLabel.text = tempLocation.state;
     return cell;
@@ -204,7 +230,7 @@ numberOfRowsInSection:(NSInteger)section  {
     closestStationLabel.hidden = YES;
     searchedCity = @"";
     searchedState = @"";
-    //[self savePList];
+    [self savePList];
     [zipTableView reloadData];
 }
 

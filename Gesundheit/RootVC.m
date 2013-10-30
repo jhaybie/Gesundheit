@@ -26,8 +26,7 @@
 
 
 @implementation RootVC
-@synthesize
-            cityLabel,
+@synthesize cityLabel,
             currentDateLabel,
             dandelionGifImage,
             descriptionTextView,

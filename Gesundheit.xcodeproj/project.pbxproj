@@ -285,6 +285,7 @@
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
 				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
+				9101F8D418214A6900337F4E /* skyBackRoundwithClouds.png in Resources */,
 				91013D48181C679700967190 /* dandydan.gif in Resources */,
 				E4C8969618215158006D3B35 /* Gesundheit.plist in Resources */,
 			);
