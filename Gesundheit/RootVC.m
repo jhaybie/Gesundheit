@@ -9,6 +9,7 @@
 #import "FavoriteLocationsVC.h"
 #import "RootVC.h"
 #import "UIImage+animatedGIF.h"
+#import "UIColor+ColorCategory.h"
 
 @interface RootVC ()
 @property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
@@ -42,12 +43,6 @@ NSString          *city,
                   *state,
                   *zip,
                   *predominantType;
-UIColor           *darkGreenColor,
-                  *greenColor,
-                  *yellowColor,
-                  *orangeColor,
-                  *redColor;
-
 
 - (void)getCurrentLocationZip {
     locationManager.delegate = self;
@@ -75,15 +70,15 @@ UIColor           *darkGreenColor,
     float level = allergenLevelButton.currentTitle.floatValue;
     UIColor *textColor;
     if (level >= 0 && level < 2.5)
-        textColor = darkGreenColor;
+        textColor = [UIColor lowColor];
     else if (level >= 2.5 && level < 4.9)
-        textColor = greenColor;
+        textColor = [UIColor lowMedColor];
     else if (level >= 4.9 && level < 7.3)
-        textColor = yellowColor;
+        textColor = [UIColor mediumColor];
     else if (level >= 7.3 && level < 9.6)
-        textColor = orangeColor;
+        textColor = [UIColor medHighColor];
     else
-        textColor = redColor;
+        textColor = [UIColor highColor];
     [allergenLevelButton setTitleColor:textColor forState:UIControlStateNormal];
     descriptionTextView.textColor = [UIColor blackColor];
 }
@@ -106,26 +101,6 @@ UIColor           *darkGreenColor,
     isShown = NO;
     locationManager = [[CLLocationManager alloc] init];
     [self getCurrentLocationZip];
-    darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
-                                     green:139.0f/255.0f
-                                      blue:34.0f/255.0f
-                                     alpha:1];
-    greenColor = [UIColor colorWithRed:124.0f/255.0f
-                                 green:252.0f/255.0f
-                                  blue:0.0f/255.0f
-                                 alpha:1];
-    yellowColor = [UIColor colorWithRed:255.0f/255.0f
-                                  green:215.0f/255.0f
-                                   blue:0.0f/255.0f
-                                  alpha:1.0];
-    orangeColor = [UIColor colorWithRed:255.0f/255.0f
-                                  green:140.0f/255.0f
-                                   blue:0.0f/255.0f
-                                  alpha:1.0];
-    redColor = [UIColor colorWithRed:255.0f/255.0f
-                               green:0.0f/255.0f
-                                blue:0.0f/255.0f
-                               alpha:1.0];
 }
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
