@@ -12,6 +12,6 @@
 
 @interface WeeklyForecastVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSArray *weeklyForecast;
+@property (strong, nonatomic) NSDictionary *location;
 
 @end
