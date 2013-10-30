@@ -132,7 +132,7 @@ UIColor           *darkGreenColor,
     else
         textColor = redColor;
     [allergenLevelButton setTitleColor:textColor forState:UIControlStateNormal];
-    descriptionTextView.backgroundColor = textColor;
+    descriptionTextView.textColor = textColor;
 }
 
 - (void)labelFonts {
