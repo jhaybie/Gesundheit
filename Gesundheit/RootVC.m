@@ -41,7 +41,6 @@ CLLocationManager *locationManager;
 int               weekDayValue;
 NSArray           *week;
 NSDictionary      *location;
-//NSMutableArray    *weeklyForecast;
 NSString          *city,
                   *state,
                   *zip,
@@ -51,26 +50,6 @@ UIColor           *darkGreenColor,
                   *yellowColor,
                   *orangeColor,
                   *redColor;
-
-
-
-
-
-//Ask Don or Max about replacing this deprecated method
-
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
-    CLLocation *currentLocation = newLocation;
-    [geocoder reverseGeocodeLocation:currentLocation
-                   completionHandler:^(NSArray* placemarks, NSError* error) {
-                       if (error == nil && placemarks.count > 0) {
-                           CLPlacemark *placemark = [placemarks lastObject];
-                           zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
-                           [self fetchPollenDataFromZip:zip];
-                       }
-     }];
-}
 
 
 - (void)getCurrentLocationZip {
@@ -92,39 +71,10 @@ UIColor           *darkGreenColor,
                                [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
                                [locationManager stopUpdatingLocation];
                                [self allergenLevelChangeFontColor];
-//                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
-//                               city = [initialDump objectForKey:@"city"];
-//                               state = [initialDump objectForKey:@"state"];
-//                               predominantType = [initialDump objectForKey:@"predominantType"];
-//                               weeklyForecast = [[NSMutableArray alloc] init];
-//                               for (int i = 0; i < arrayDump.count; i++) {
-//                                   Forecast *tempForecast = [[Forecast alloc] init];
-//                                   tempForecast.city = city;
-//                                   tempForecast.state = state;
-//                                   tempForecast.zip = zipCode;
-//                                   tempForecast.desc = [arrayDump[i] objectForKey:@"desc"];
-//                                   tempForecast.level = [[arrayDump[i] objectForKey:@"level"] floatValue];
-//                                   tempForecast.predominantType = predominantType;
-//                                   [weeklyForecast addObject:tempForecast];
-//                               }
-//                               [self showResults];
                            }];
 }
 
-//- (void)showResults {
-//    if (weeklyForecast.count > 0) {
-//        Forecast *tempForecast = [weeklyForecast firstObject];
-//        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%0.1f", tempForecast.level] forState:UIControlStateNormal];
-//        cityLabel.text = tempForecast.city;
-//        descriptionTextView.text = tempForecast.desc;
-//        predominantTypeLabel.text = tempForecast.predominantType;
-//    }
-//    [locationManager stopUpdatingLocation];
-//    [self allergenLevelChangeFontColor];
-//}
-
 - (void)allergenLevelChangeFontColor {
-//    float level = allergenLevelButton.text.floatValue;
     float level = allergenLevelButton.currentTitle.floatValue;
     UIColor *textColor;
     if (level >= 0 && level < 2.5)
@@ -141,15 +91,6 @@ UIColor           *darkGreenColor,
     descriptionTextView.backgroundColor = textColor;
 }
 
-- (void)labelFonts {
-    UIFont *jandaAppleFont = [UIFont fontWithName:@"JandaAppleCobbler"
-                                             size:55];
-    UIFont *airplaneFont = [UIFont fontWithName:@"Airplanes in the Night Sky"
-                                           size:17];
-
-    cityLabel.font = airplaneFont;
-}
-
 - (void)showGifImage {
     dandelionGifImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
 }
@@ -160,7 +101,6 @@ UIColor           *darkGreenColor,
         wfvc.location = location;
     }
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -200,6 +140,24 @@ UIColor           *darkGreenColor,
         [self presentViewController:flvc
                            animated:YES
                          completion:nil];
+}
+
+#pragma mark CLLocationManagerDelegate
+
+//Ask Don or Max about replacing this deprecated method
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation {
+    CLLocation *currentLocation = newLocation;
+    [geocoder reverseGeocodeLocation:currentLocation
+                   completionHandler:^(NSArray* placemarks, NSError* error) {
+                       if (error == nil && placemarks.count > 0) {
+                           CLPlacemark *placemark = [placemarks lastObject];
+                           zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
+                           [self fetchPollenDataFromZip:zip];
+                       }
+                   }];
 }
 
 @end

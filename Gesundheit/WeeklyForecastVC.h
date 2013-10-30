@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Forecast.h"
 #import "RxListVC.h"
 
 @interface WeeklyForecastVC : UIViewController <UITableViewDataSource, UITableViewDelegate>

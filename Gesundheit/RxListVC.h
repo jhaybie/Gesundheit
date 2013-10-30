@@ -10,7 +10,9 @@
 #import <UIKit/UIKit.h>
 #import "MapVC.h"
 
+
 @interface RxListVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) NSString *city;
 @property (weak, nonatomic) NSString *state;
 

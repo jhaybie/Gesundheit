@@ -8,14 +8,6 @@
 
 #import "FavoriteLocationsVC.h"
 
-@interface Location : NSObject
-@property (strong, nonatomic) NSString *city;
-@property (strong, nonatomic) NSString *state;
-@property (strong, nonatomic) NSString *zip;
-@end
-
-@implementation Location
-@end
 
 @interface FavoriteLocationsVC ()
 
@@ -29,6 +21,7 @@
 - (IBAction)onSearchButtonTap:(id)sender;
 
 @end
+
 
 NSMutableArray *favoriteLocations;
 
@@ -45,7 +38,7 @@ BOOL           isCheckingZip,
 NSDictionary   *location;
 NSURL          *documentDirectoryURL;
 NSFileManager  *fileManager;
-NSMutableArray *locations;//*weeklyForecast;
+NSMutableArray *locations;
 NSString       *searchedCity,
                *searchedState,
                *searchedZip,
@@ -85,7 +78,6 @@ NSString       *searchedCity,
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:0
                                                                             error:&connectionError];
-
 //                               NSArray *arrayDump = [initialDump objectForKey:@"dayList"];
 //                               searchedCity = [initialDump objectForKey:@"city"];
 //                               searchedState = [initialDump objectForKey:@"state"];

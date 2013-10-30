@@ -38,51 +38,6 @@ NSString               *name,
                        *city,
                        *state;
 
--(NSInteger)tableView:(UITableView *)tableView
-numberOfRowsInSection:(NSInteger)section {
-    return drugstores.count;
-}
-
--       (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Drugstore *tempDrugstore = drugstores[indexPath.row];
-    name = tempDrugstore.name;
-    address = [[tempDrugstore.address componentsSeparatedByString:@", "] firstObject];
-    city = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:1];
-    state = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:2];
-    coord = tempDrugstore.coord;
-
-
-    MapVC *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapVC"];
-    mvc.name = name;
-    mvc.address1 = address;
-    mvc.city = city;
-    mvc.state = state;
-    mvc.coord = coord;
-    [self presentViewController:mvc animated:YES completion:nil];
-}
-
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    MapVC *mvc = segue.destinationViewController;
-//    mvc.name = name;
-//    mvc.address1 = address;
-//    mvc.city = city;
-//    mvc.state = state;
-//    mvc.coord = coord;
-//}
-
--(UITableViewCell *)tableView:(UITableView *)tableView
-        cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xxx"];
-    Drugstore *tempDrugstore = drugstores[indexPath.row];
-    cell.textLabel.text = tempDrugstore.name;
-    cell.detailTextLabel.numberOfLines = 2;
-    NSString *tempAddress1 = [[tempDrugstore.address componentsSeparatedByString:@", "] firstObject];
-    NSString *tempCity = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:1];
-    NSString *tempState = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:2];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n%@, %@", tempAddress1, tempCity, tempState];
-    return cell;
-}
 
 - (void)fetchSearchResults {
     drugstores = [[NSMutableArray alloc] init];
@@ -116,6 +71,45 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (IBAction)onBackButtonTap:(id)sender {
     [self dismissViewControllerAnimated:YES
                              completion:nil];
+}
+
+#pragma mark UITableViewDelegate
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section {
+    return drugstores.count;
+}
+
+-       (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Drugstore *tempDrugstore = drugstores[indexPath.row];
+    name = tempDrugstore.name;
+    address = [[tempDrugstore.address componentsSeparatedByString:@", "] firstObject];
+    city = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:1];
+    state = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:2];
+    coord = tempDrugstore.coord;
+
+
+    MapVC *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapVC"];
+    mvc.name = name;
+    mvc.address1 = address;
+    mvc.city = city;
+    mvc.state = state;
+    mvc.coord = coord;
+    [self presentViewController:mvc animated:YES completion:nil];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xxx"];
+    Drugstore *tempDrugstore = drugstores[indexPath.row];
+    cell.textLabel.text = tempDrugstore.name;
+    cell.detailTextLabel.numberOfLines = 2;
+    NSString *tempAddress1 = [[tempDrugstore.address componentsSeparatedByString:@", "] firstObject];
+    NSString *tempCity = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:1];
+    NSString *tempState = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:2];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@\n%@, %@", tempAddress1, tempCity, tempState];
+    return cell;
 }
 
 @end
