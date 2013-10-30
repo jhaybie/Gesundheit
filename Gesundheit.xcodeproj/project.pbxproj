@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		91013D48181C679700967190 /* dandydan.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91013D47181C679700967190 /* dandydan.gif */; };
+		9101F8D418214A6900337F4E /* skyBackRoundwithClouds.png in Resources */ = {isa = PBXBuildFile; fileRef = 9101F8D318214A6900337F4E /* skyBackRoundwithClouds.png */; };
 		91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */; };
-		9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */; };
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
 		E46FF8EA181EFB2D0025A010 /* RxListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46FF8E9181EFB2D0025A010 /* RxListVC.m */; };
 		E46FF8ED181EFB500025A010 /* MapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46FF8EC181EFB500025A010 /* MapVC.m */; };
@@ -45,11 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		91013D47181C679700967190 /* dandydan.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dandydan.gif; sourceTree = "<group>"; };
+		9101F8D318214A6900337F4E /* skyBackRoundwithClouds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyBackRoundwithClouds.png; sourceTree = "<group>"; };
 		91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteLocationsVC.h; sourceTree = "<group>"; };
 		91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteLocationsVC.m; sourceTree = "<group>"; };
-		9147006C181B7F1100A15B0F /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
-		9147006D181B7F1100A15B0F /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		917DA6B61819725E00701561 /* JandaAppleCobbler.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = JandaAppleCobbler.ttf; sourceTree = "<group>"; };
 		917DA6B71819729300701561 /* Airplanes in the Night Sky.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Airplanes in the Night Sky.ttf"; sourceTree = "<group>"; };
@@ -167,6 +164,7 @@
 				E494FF3E1818458000E1E5C3 /* RootVC.m */,
 				E4F7767B181AE6FA0009F30A /* WeeklyForecastVC.h */,
 				E4F7767C181AE6FA0009F30A /* WeeklyForecastVC.m */,
+				9101F8D318214A6900337F4E /* skyBackRoundwithClouds.png */,
 				E494FF401818458000E1E5C3 /* Images.xcassets */,
 				E494FF2F1818458000E1E5C3 /* Supporting Files */,
 			);
@@ -309,7 +307,6 @@
 			files = (
 				E494FF3F1818458000E1E5C3 /* RootVC.m in Sources */,
 				E46FF8ED181EFB500025A010 /* MapVC.m in Sources */,
-				9147006E181B7F1100A15B0F /* UIImage+animatedGIF.m in Sources */,
 				E4F7767D181AE6FA0009F30A /* WeeklyForecastVC.m in Sources */,
 				91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */,
 				E494FF351818458000E1E5C3 /* main.m in Sources */,
