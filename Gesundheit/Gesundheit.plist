@@ -1,30 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>defaultLocation</key>
-	<string>currentLocation</string>
-	<key>locations</key>
-	<array>
-		<dict>
-			<key>city</key>
-			<string></string>
-			<key>state</key>
-			<string></string>
-			<key>predominantType</key>
-			<string></string>
-			<key>dayList</key>
-			<array>
-				<dict>
-					<key>dateTime</key>
-					<date>2013-10-30T14:50:18Z</date>
-					<key>desc</key>
-					<string></string>
-					<key>level</key>
-					<integer>0</integer>
-				</dict>
-			</array>
-		</dict>
-	</array>
-</dict>
+<dict/>
 </plist>

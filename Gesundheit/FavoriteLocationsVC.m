@@ -29,16 +29,40 @@
             zipTextField;
 
 
-BOOL           isCheckingZip,
-               doesExist;
-NSDictionary   *location;
-NSURL          *documentDirectoryURL;
-NSFileManager  *fileManager;
-NSMutableArray *locations;
-NSString       *searchedCity,
-               *searchedState,
-               *searchedZip,
-               *safeString;
+BOOL                isCheckingZip,
+                    doesExist;
+NSMutableDictionary *location;
+NSURL               *documentDirectoryURL;
+NSFileManager       *fileManager;
+NSMutableArray      *locations;
+NSString            *searchedCity,
+                    *searchedState,
+                    *searchedZip,
+                    *safeString;
+
+
+//- (NSDictionary *)plistCompliantObject {
+//    NSMutableDictionary *dict = @{}.mutableCopy;
+//    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+//        if ([obj respondsToSelector:@selector(plistCompliantObject)]) {
+//            dict[key] = [obj plistCompliantObject];
+//        } else if (obj != [NSNull null]) {
+//            dict[key] = obj;
+//        }
+//    }];
+//    return dict;
+//}
+//
+//- (id)plistCompliantArray {
+//    NSMutableArray *array = @[].mutableCopy;
+//    for (id obj in self) {
+//        if ([obj respondsToSelector:@selector(plistCompliantObject)])
+//            [array addObject:[obj plistCompliantObject]];
+//        else if (obj != [NSNull null])
+//            [array addObject:obj];
+//    }
+//    return [NSArray arrayWithArray:array];
+//}
 
 
 - (void)showResults {
@@ -72,10 +96,13 @@ NSString       *searchedCity,
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                location = [NSJSONSerialization JSONObjectWithData:data
-                                                                          options:0
+                                                                          options:NSJSONReadingMutableContainers
                                                                             error:&connectionError];
                                searchedCity = [location objectForKey:@"city"];
                                searchedState = [location objectForKey:@"state"];
+                               for (int i = 2; i < 5; i++) {
+                                   [location setObject:@"" forKey:[[[location objectForKey:@"dayList"] objectAtIndex:i] objectForKey:@"desc"]];
+                               }
                                if (!isCheckingZip)
                                    [self showWeeklyForecast];
                                else [self showResults];
@@ -90,32 +117,25 @@ NSString       *searchedCity,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    locations = [[NSMutableArray alloc] init];
     [self loadPList];
 }
 
-- (void)loadPList {
-    NSError *error;
+- (id)path {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths firstObject];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath: path]) {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Gesundheit" ofType:@"plist"];
-        [fileManager copyItemAtPath:bundle toPath: path error:&error];
-    }
-    NSMutableDictionary *initialDump = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-    locations = [initialDump objectForKey:@"locations"];
+    return [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
+}
+
+- (void)loadPList {
+    locations = [[[NSUserDefaults standardUserDefaults] objectForKey:@"mxclRULES"] ?: @[] mutableCopy];
 }
 
 - (void)savePList {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths firstObject];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
-    //[data a]
+    NSString *path = [self path];
+    NSMutableDictionary *data = [[NSDictionary dictionaryWithContentsOfFile:path] ?: @{} mutableCopy];
     [data setObject:locations forKey:@"locations"];
-    [data writeToFile:path atomically:YES];
+    //BAM!!!
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"mxclRULES"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

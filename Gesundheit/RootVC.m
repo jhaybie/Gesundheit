@@ -54,9 +54,9 @@ NSString          *city,
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               NSDictionary *location = [NSJSONSerialization JSONObjectWithData:data
-                                                                                           options:0
-                                                                                             error:&connectionError];
+                               location = [NSJSONSerialization JSONObjectWithData:data
+                                                                          options:0
+                                                                            error:&connectionError];
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
