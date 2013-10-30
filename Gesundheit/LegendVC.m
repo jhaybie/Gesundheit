@@ -7,6 +7,7 @@
 //
 
 #import "LegendVC.h"
+#import "UIColor+ColorCategory.h"
 
 @interface LegendVC ()
 @property (weak, nonatomic) IBOutlet UITextView *lowTextField;
@@ -37,52 +38,36 @@
             highLabel,
             highTextField;
 
-UIColor     *darkGreenColor,
-            *greenColor,
-            *yellowColor,
-            *orangeColor,
-            *redColor;
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    darkGreenColor = [UIColor colorWithRed:34.0f/255.0f
-                                     green:139.0f/255.0f
-                                      blue:34.0f/255.0f
-                                     alpha:1];
-    greenColor = [UIColor colorWithRed:124.0f/255.0f
-                                 green:252.0f/255.0f
-                                  blue:0.0f/255.0f
-                                 alpha:1];
-    yellowColor = [UIColor colorWithRed:255.0f/255.0f
-                                  green:215.0f/255.0f
-                                   blue:0.0f/255.0f
-                                  alpha:1.0];
-    orangeColor = [UIColor colorWithRed:255.0f/255.0f
-                                  green:140.0f/255.0f
-                                   blue:0.0f/255.0f
-                                  alpha:1.0];
-    redColor = [UIColor colorWithRed:255.0f/255.0f
-                               green:0.0f/255.0f
-                                blue:0.0f/255.0f
-                               alpha:1.0];
     backRoundImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"skyBackRoundwithClouds.png"]];
+    [self changeAlpha];
     [self changeColors];
 }
 
 - (void) changeColors {
-    lowLabel.textColor = darkGreenColor;
-    lowTextField.backgroundColor = darkGreenColor;
-    lowMedLabel.textColor = greenColor;
-    lowMedTextField.backgroundColor = greenColor;
-    mediumLabel.textColor = yellowColor;
-    mediumTextField.backgroundColor = yellowColor;
-    medHighLabel.textColor = orangeColor;
-    medHighTextField.backgroundColor = orangeColor;
-    highLabel.textColor = redColor;
-    highTextField.backgroundColor = redColor;
+    lowLabel.textColor = [UIColor lowColor];
+    lowTextField.backgroundColor =  [UIColor lowColor];
+    lowMedLabel.textColor =  [UIColor lowMedColor];
+    lowMedTextField.backgroundColor =  [UIColor lowMedColor];
+    mediumLabel.textColor =  [UIColor mediumColor];
+    mediumTextField.backgroundColor =  [UIColor mediumColor];
+    medHighLabel.textColor =  [UIColor medHighColor];
+    medHighTextField.backgroundColor =  [UIColor medHighColor];
+    highLabel.textColor =  [UIColor highColor];
+    highTextField.backgroundColor =  [UIColor highColor];
+}
+
+- (void) changeAlpha {
+
+    float alpha = .8;
+
+    lowTextField.alpha = alpha;
+    lowMedTextField.alpha = alpha;
+    mediumTextField.alpha = alpha;
+    medHighTextField.alpha = alpha;
+    highTextField.alpha = alpha;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
