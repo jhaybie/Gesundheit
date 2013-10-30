@@ -8,6 +8,7 @@
 
 #import "RxListVC.h"
 
+
 @interface Drugstore : NSObject
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *address;
@@ -20,15 +21,19 @@
 
 
 @interface RxListVC ()
+
 @property (weak, nonatomic) IBOutlet UITableView *drugstoresTableView;
 - (IBAction)onBackButtonTap:(id)sender;
+
 @end
+
 
 @implementation RxListVC
 
 @synthesize  city,
              state,
              drugstoresTableView;
+
 
 CLLocationCoordinate2D coord;
 NSArray                *searchResults;

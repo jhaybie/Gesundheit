@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
 @property (weak, nonatomic) IBOutlet UITextView  *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *allergenLevelButton;
-
 - (IBAction)onTouchSearch:(id)sender;
 
 @end
