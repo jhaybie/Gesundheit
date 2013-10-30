@@ -21,12 +21,14 @@
 
 @interface RxListVC ()
 @property (weak, nonatomic) IBOutlet UITableView *drugstoresTableView;
+@property (strong, nonatomic) IBOutlet UIImageView *backroundImage;
 - (IBAction)onBackButtonTap:(id)sender;
 @end
 
 @implementation RxListVC
 
-@synthesize  city,
+@synthesize  backroundImage,
+             city,
              state,
              drugstoresTableView;
 
@@ -110,6 +112,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    backroundImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"skyBackRoundwithClouds.png"]];
+    drugstoresTableView.alpha = .85;
+
     [self fetchSearchResults];
 }
 
