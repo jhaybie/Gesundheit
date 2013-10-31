@@ -22,12 +22,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *medHighLabel;
 @property (weak, nonatomic) IBOutlet UILabel *highLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *backRoundImage;
+@property (weak, nonatomic) IBOutlet UIImageView *dandyImagePng;
 
 @end
 
 @implementation LegendVC
 
 @synthesize backRoundImage,
+            dandyImagePng,
             lowLabel,
             lowTextField,
             lowMedLabel,
@@ -42,12 +44,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    backRoundImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"skyBackRoundwithClouds.png"]];
-    [self textViewBorderControl];
+    [self showBackgroundImages];
     [self changeAlpha];
     [self changeColors];
 }
 
+- (void)showBackgroundImages {
+    backRoundImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
+    dandyImagePng.image = [UIImage imageNamed:@"testDandyDan.png"];
+    [dandyImagePng setAlpha:.50];
+
+
+}
 - (void) changeColors {
     lowLabel.textColor = [UIColor lowColor];
     lowTextField.backgroundColor =  [UIColor lowColor];
@@ -61,30 +69,9 @@
     highTextField.backgroundColor =  [UIColor highColor];
 }
 
-- (void) textViewBorderControl {
-    [[lowTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[lowTextField layer] setBorderWidth:3.0f];
-
-    [[lowMedTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[lowMedTextField layer] setBorderWidth:3.0f];
-
-    [[mediumTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[mediumTextField layer] setBorderWidth:3.0f];
-
-    [[medHighTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[medHighTextField layer] setBorderWidth:3.0f];
-
-    [[highTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[highTextField layer] setBorderWidth:3.0f];
-
-
-
-
-}
-
 - (void) changeAlpha {
 
-    float alpha = .8;
+    float alpha = .85;
 
     lowTextField.alpha = alpha;
     lowMedTextField.alpha = alpha;

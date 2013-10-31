@@ -23,11 +23,13 @@
 @interface RxListVC ()
 @property (weak, nonatomic) IBOutlet UITableView *drugstoresTableView;
 @property (strong, nonatomic) IBOutlet UIImageView *backroundImage;
+@property (weak, nonatomic) IBOutlet UIImageView *dandyImagePng;
 - (IBAction)onBackButtonTap:(id)sender;
 @end
 
 @implementation RxListVC
 @synthesize  backroundImage,
+             dandyImagePng,
              city,
              state,
              drugstoresTableView;
@@ -68,7 +70,16 @@ NSString               *name,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self showBackgroundImages];
     [self fetchSearchResults];
+}
+
+- (void) showBackgroundImages {
+    backroundImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
+    dandyImagePng.image = [UIImage imageNamed:@"testDandyDan.png"];
+    [dandyImagePng setAlpha:.5];
+    [drugstoresTableView setAlpha:.75];
+
 }
 
 - (IBAction)onBackButtonTap:(id)sender {
