@@ -40,7 +40,7 @@ NSArray *week;
 
 - (void)viewDidAppear:(BOOL)animated {
     cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-
+    descTextview.hidden = YES;
 }
 
 - (void) buttonBorder {
@@ -91,6 +91,7 @@ NSArray *week;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row <= 1) {
+        descTextview.hidden = NO;
         descTextview.text = [[[location objectForKey:@"dayList"] objectAtIndex:indexPath.row] objectForKey:@"desc"];
     } else {
         descTextview.text = @"";
