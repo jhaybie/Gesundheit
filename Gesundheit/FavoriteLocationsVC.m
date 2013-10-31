@@ -7,6 +7,7 @@
 //
 
 #import "FavoriteLocationsVC.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface FavoriteLocationsVC ()
@@ -18,11 +19,20 @@
 - (IBAction)onAddButtonPress:(id)sender;
 - (IBAction)onBackButtonTap:(id)sender;
 - (IBAction)onSearchButtonTap:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundSkyIMG;
+@property (weak, nonatomic) IBOutlet UIImageView *dandyBackgroundIMG;
+
 @end
 
 
 @implementation FavoriteLocationsVC
 @synthesize addButton,
+            backgroundSkyIMG,
+            dandyBackgroundIMG,
+            backButton,
+            searchButton,
             cityAndStateLabel,
             closestStationLabel,
             zipTableView,
@@ -41,7 +51,28 @@ NSString            *generatedZip,
                     *searchedZip,
                     *safeString;
 
+- (void) buttonBorders {
+    [[backButton layer] setCornerRadius:15.0f];
+    [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[backButton layer] setBorderWidth:1.0f];
 
+    [[searchButton layer] setCornerRadius:15.0f];
+    [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[searchButton layer] setBorderWidth:1.0f];
+
+    [[addButton layer] setCornerRadius:15.0f];
+    [[addButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[addButton layer] setBorderWidth:1.0f];
+
+}
+
+- (void) showBackgroundImage {
+    backgroundSkyIMG.image = [UIImage imageNamed:@"skyBackRound2"];
+    dandyBackgroundIMG.image = [UIImage imageNamed:@"testDandyDan"];
+    [dandyBackgroundIMG setAlpha:.50f];
+    [zipTableView setAlpha:.75];
+
+}
 - (void)showResults {
     if (isCheckingZip) {
         for (int i = 0; i < locations.count; i++) {
@@ -99,6 +130,8 @@ NSString            *generatedZip,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self buttonBorders];
+    [self showBackgroundImage];
     [self loadPList];
 }
 
