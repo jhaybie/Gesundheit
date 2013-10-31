@@ -10,6 +10,7 @@
 #import "RootVC.h"
 #import "UIImage+animatedGIF.h"
 #import "UIColor+ColorCategory.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface RootVC ()
 @property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
@@ -19,12 +20,16 @@
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
 @property (weak, nonatomic) IBOutlet UITextView  *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *allergenLevelButton;
+@property (weak, nonatomic) IBOutlet UIImageView *dandelionImage;
 - (IBAction)onTouchSearch:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *addLocationButton;
 @end
 
 
 @implementation RootVC
 @synthesize cityLabel,
+            addLocationButton,
+            dandelionImage,
             currentDateLabel,
             dandelionGifImage,
             descriptionTextView,
@@ -85,7 +90,11 @@ NSString          *city,
 
 - (void)showGifImage {
     dandelionGifImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
+    dandelionImage.image = [UIImage imageNamed:@"dandelion.png"];
+    [dandelionImage setAlpha:.50];
+
 }
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"forecastSegue"]) {
@@ -97,6 +106,7 @@ NSString          *city,
 - (void)viewDidLoad {
     [super viewDidLoad];
     geocoder = [[CLGeocoder alloc] init];
+    [self buttonBorder];
     [self showGifImage];
     isShown = NO;
     locationManager = [[CLLocationManager alloc] init];
@@ -104,6 +114,20 @@ NSString          *city,
 }
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
+
+}
+
+- (void) buttonBorder {
+    [[allergenLevelButton layer] setCornerRadius:40.0f];
+    [[allergenLevelButton layer] setOpacity:0.85f];
+    [[allergenLevelButton layer] setBorderWidth:4.0f];
+    [[allergenLevelButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+
+    [[addLocationButton layer] setCornerRadius:10.0f];
+    [[addLocationButton layer] setBorderWidth:2.0f];
+    [[addLocationButton layer] setOpacity:.85f];
+    [[addLocationButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+
 
 }
 

@@ -8,6 +8,7 @@
 
 #import "LegendVC.h"
 #import "UIColor+ColorCategory.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface LegendVC ()
 @property (weak, nonatomic) IBOutlet UITextView *lowTextField;
@@ -42,6 +43,7 @@
 {
     [super viewDidLoad];
     backRoundImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"skyBackRoundwithClouds.png"]];
+    [self textViewBorderControl];
     [self changeAlpha];
     [self changeColors];
 }
@@ -57,6 +59,27 @@
     medHighTextField.backgroundColor =  [UIColor medHighColor];
     highLabel.textColor =  [UIColor highColor];
     highTextField.backgroundColor =  [UIColor highColor];
+}
+
+- (void) textViewBorderControl {
+    [[lowTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[lowTextField layer] setBorderWidth:3.0f];
+
+    [[lowMedTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[lowMedTextField layer] setBorderWidth:3.0f];
+
+    [[mediumTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[mediumTextField layer] setBorderWidth:3.0f];
+
+    [[medHighTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[medHighTextField layer] setBorderWidth:3.0f];
+
+    [[highTextField layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[highTextField layer] setBorderWidth:3.0f];
+
+
+
+
 }
 
 - (void) changeAlpha {
