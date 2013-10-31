@@ -20,11 +20,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyPng;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *nearbyRXButton;
 @end
 
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
+            nearbyRXButton,
             backButton,
             dandyPng,
             descTextview,
@@ -45,6 +47,9 @@ NSArray *week;
     [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
     [[backButton layer] setBorderWidth:1.0f];
     [[backButton layer] setCornerRadius:15.0f];
+    [[nearbyRXButton layer] setBorderWidth:1.0f];
+    [[nearbyRXButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[nearbyRXButton layer] setCornerRadius:15.0f];
 }
 
 - (void)viewDidLoad {
