@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9101F8D418214A6900337F4E /* skyBackRoundwithClouds.png in Resources */ = {isa = PBXBuildFile; fileRef = 9101F8D318214A6900337F4E /* skyBackRoundwithClouds.png */; };
 		9101F8D7182151B000337F4E /* LegendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9101F8D6182151B000337F4E /* LegendVC.m */; };
 		9101F8DA1821984300337F4E /* UIColor+ColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9101F8D91821984300337F4E /* UIColor+ColorCategory.m */; };
-		9101F8DC1821A09D00337F4E /* dandelion.png in Resources */ = {isa = PBXBuildFile; fileRef = 9101F8DB1821A09D00337F4E /* dandelion.png */; };
 		9101F8DE1821F84E00337F4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9101F8DD1821F84E00337F4E /* QuartzCore.framework */; };
+		9101F8E018229C3C00337F4E /* testDandyDan.png in Resources */ = {isa = PBXBuildFile; fileRef = 9101F8DF18229C3C00337F4E /* testDandyDan.png */; };
+		9101F8E21822A28300337F4E /* skyBackRound2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9101F8E11822A28300337F4E /* skyBackRound2.png */; };
 		91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */; };
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
 		E46FF8EA181EFB2D0025A010 /* RxListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46FF8E9181EFB2D0025A010 /* RxListVC.m */; };
@@ -47,13 +47,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9101F8D318214A6900337F4E /* skyBackRoundwithClouds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyBackRoundwithClouds.png; sourceTree = "<group>"; };
 		9101F8D5182151B000337F4E /* LegendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendVC.h; sourceTree = "<group>"; };
 		9101F8D6182151B000337F4E /* LegendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendVC.m; sourceTree = "<group>"; };
 		9101F8D81821984300337F4E /* UIColor+ColorCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorCategory.h"; sourceTree = "<group>"; };
 		9101F8D91821984300337F4E /* UIColor+ColorCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorCategory.m"; sourceTree = "<group>"; };
-		9101F8DB1821A09D00337F4E /* dandelion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dandelion.png; sourceTree = "<group>"; };
 		9101F8DD1821F84E00337F4E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		9101F8DF18229C3C00337F4E /* testDandyDan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testDandyDan.png; sourceTree = "<group>"; };
+		9101F8E11822A28300337F4E /* skyBackRound2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyBackRound2.png; sourceTree = "<group>"; };
 		91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteLocationsVC.h; sourceTree = "<group>"; };
 		91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteLocationsVC.m; sourceTree = "<group>"; };
 		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -170,8 +170,8 @@
 				E494FF3E1818458000E1E5C3 /* RootVC.m */,
 				E4F7767B181AE6FA0009F30A /* WeeklyForecastVC.h */,
 				E4F7767C181AE6FA0009F30A /* WeeklyForecastVC.m */,
-				9101F8DB1821A09D00337F4E /* dandelion.png */,
-				9101F8D318214A6900337F4E /* skyBackRoundwithClouds.png */,
+				9101F8E11822A28300337F4E /* skyBackRound2.png */,
+				9101F8DF18229C3C00337F4E /* testDandyDan.png */,
 				E494FF401818458000E1E5C3 /* Images.xcassets */,
 				E494FF2F1818458000E1E5C3 /* Supporting Files */,
 			);
@@ -290,8 +290,8 @@
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
 				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
-				9101F8D418214A6900337F4E /* skyBackRoundwithClouds.png in Resources */,
-				9101F8DC1821A09D00337F4E /* dandelion.png in Resources */,
+				9101F8E018229C3C00337F4E /* testDandyDan.png in Resources */,
+				9101F8E21822A28300337F4E /* skyBackRound2.png in Resources */,
 				E4C8969618215158006D3B35 /* Gesundheit.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

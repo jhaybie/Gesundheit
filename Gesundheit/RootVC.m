@@ -94,8 +94,8 @@ NSString          *city,
 }
 
 - (void)showGifImage {
-    dandelionGifImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
-    dandelionImage.image = [UIImage imageNamed:@"dandelion.png"];
+    dandelionGifImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
+    dandelionImage.image = [UIImage imageNamed:@"testDandyDan.png"];
     [dandelionImage setAlpha:.50];
 
 }
