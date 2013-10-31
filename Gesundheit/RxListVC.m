@@ -7,6 +7,7 @@
 //
 
 #import "RxListVC.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface Drugstore : NSObject
@@ -25,10 +26,12 @@
 @property (strong, nonatomic) IBOutlet UIImageView *backroundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyImagePng;
 - (IBAction)onBackButtonTap:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @end
 
 @implementation RxListVC
 @synthesize  backroundImage,
+             backButton,
              dandyImagePng,
              city,
              state,
@@ -43,6 +46,11 @@ NSString               *name,
                        *city,
                        *state;
 
+- (void)buttonBorders {
+    [[backButton layer] setCornerRadius:15.0f];
+    [[backButton layer] setBorderWidth:1.0f];
+    [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
+}
 
 - (void)fetchSearchResults {
     drugstores = [[NSMutableArray alloc] init];
@@ -70,6 +78,7 @@ NSString               *name,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self buttonBorders];
     [self showBackgroundImages];
     [self fetchSearchResults];
 }
