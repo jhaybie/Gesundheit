@@ -25,8 +25,11 @@
 @property (weak, nonatomic) IBOutlet UITableView *drugstoresTableView;
 @property (strong, nonatomic) IBOutlet UIImageView *backroundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyImagePng;
-- (IBAction)onBackButtonTap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
+@property (weak, nonatomic) IBOutlet UITextField *zipCodeTextField;
+- (IBAction)onBackButtonTap:(id)sender;
+- (IBAction)onSearchButtonTap:(id)sender;
 @end
 
 @implementation RxListVC
@@ -34,8 +37,10 @@
              backButton,
              dandyImagePng,
              city,
+             searchButton,
              state,
-             drugstoresTableView;
+             drugstoresTableView,
+             zipCodeTextField;
 
 
 CLLocationCoordinate2D coord;
@@ -50,6 +55,10 @@ NSString               *name,
     [[backButton layer] setCornerRadius:15.0f];
     [[backButton layer] setBorderWidth:1.0f];
     [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
+    [[searchButton layer] setCornerRadius:15.0f];
+    [[searchButton layer] setBorderWidth:1.0f];
+    [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
 }
 
 - (void)fetchSearchResults {
@@ -135,4 +144,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 
+- (IBAction)onSearchButtonTap:(id)sender {
+    [zipCodeTextField resignFirstResponder];
+    city = zipCodeTextField.text;
+    state = @"";
+    [self fetchSearchResults];
+}
 @end
