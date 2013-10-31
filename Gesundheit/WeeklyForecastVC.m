@@ -17,11 +17,13 @@
 @property (weak, nonatomic) IBOutlet UITableView *weeklyForecastTableView;
 - (IBAction)onCloseButtonTap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
+@property (weak, nonatomic) IBOutlet UIImageView *dandyPng;
 @end
 
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
+            dandyPng,
             descTextview,
             location,
             weeklyForecastTableView,
@@ -33,19 +35,23 @@ NSArray *week;
 
 - (void)viewDidAppear:(BOOL)animated {
     cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     week = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
-    weeklyForecastTableView.alpha = .85;
-    descTextview.alpha = .85;
+    weeklyForecastTableView.alpha = .75;
+    [descTextview setAlpha:.50];
+
     [self getCurrentDate];
     [self showGifImage];
 }
 
 - (void)showGifImage {
-    gifBackRoundImage.image = [UIImage imageNamed:@"skyBackRoundwithClouds.png"];
+    gifBackRoundImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
+    dandyPng.image = [UIImage imageNamed:@"testDandyDan.png"];
+    dandyPng.alpha = .50;
 }
 
 - (void)getCurrentDate {
