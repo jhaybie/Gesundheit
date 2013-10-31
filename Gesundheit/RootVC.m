@@ -14,15 +14,20 @@
 
 @interface RootVC ()
 @property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
+@property (weak, nonatomic) IBOutlet UIButton *changeDefaultCityButton;
 @property (weak, nonatomic) IBOutlet UILabel     *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *currentDateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property (weak, nonatomic) IBOutlet UILabel     *predominantTypeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionGifImage;
 @property (weak, nonatomic) IBOutlet UITextView  *descriptionTextView;
+@property (weak, nonatomic) IBOutlet UITextField *enterZipTextField;
 @property (weak, nonatomic) IBOutlet UIButton *allergenLevelButton;
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionImage;
 - (IBAction)onTouchSearch:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *addLocationButton;
+- (IBAction)onChangeDefaultCityButtonTap:(id)sender;
+- (IBAction)onGoButtonTap:(id)sender;
 @end
 
 
@@ -30,9 +35,12 @@
 @synthesize cityLabel,
             addLocationButton,
             dandelionImage,
+            changeDefaultCityButton,
             currentDateLabel,
             dandelionGifImage,
             descriptionTextView,
+            enterZipTextField,
+            goButton,
             predominantTypeLabel,
             allergenLevelButton,
             searchButtonToggler;
@@ -56,12 +64,13 @@ NSString          *city,
 }
 
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:0
                                                                             error:&connectionError];
+                               changeDefaultCityButton.hidden = NO;
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
@@ -71,9 +80,10 @@ NSString          *city,
                            }];
 }
 
-//- (void)loadPList {
-//    NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
-//
+//- (id)path {
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths firstObject];
+//    return [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
 //}
 
 - (void)allergenLevelChangeFontColor {
@@ -100,7 +110,6 @@ NSString          *city,
 
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"forecastSegue"]) {
         WeeklyForecastVC *wfvc = segue.destinationViewController;
@@ -115,11 +124,12 @@ NSString          *city,
     [self showGifImage];
     isShown = NO;
     NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
-    if ([defaultLocation isEqualToString:@"currentLocation"]) {
+    if (!defaultLocation) {
         locationManager = [[CLLocationManager alloc] init];
         [self getCurrentLocationZip];
-    } else
+    } else {
         [self fetchPollenDataFromZip:defaultLocation];
+    }
 }
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
@@ -163,6 +173,23 @@ NSString          *city,
                            [self fetchPollenDataFromZip:zip];
                        }
                    }];
+}
+
+- (IBAction)onChangeDefaultCityButtonTap:(id)sender {
+    changeDefaultCityButton.hidden = YES;
+    enterZipTextField.hidden = NO;
+    [enterZipTextField becomeFirstResponder];
+    goButton.hidden = NO;
+}
+
+- (IBAction)onGoButtonTap:(id)sender {
+    if (enterZipTextField.text.length == 5) {
+        [enterZipTextField resignFirstResponder];
+        enterZipTextField.hidden = YES;
+        goButton.hidden = YES;
+        [[NSUserDefaults standardUserDefaults] setObject: enterZipTextField.text forKey:@"defaultLocation"];
+        [self fetchPollenDataFromZip:enterZipTextField.text];
+    }
 }
 
 @end

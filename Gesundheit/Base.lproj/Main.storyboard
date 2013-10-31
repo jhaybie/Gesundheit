@@ -77,11 +77,15 @@
                                     <segue destination="h0O-ex-GN3" kind="modal" id="V6i-6B-NCs"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QFb-bb-y0J">
+                                <rect key="frame" x="0.0" y="276" width="247" height="292"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCo-PM-0AI">
                                 <rect key="frame" x="98" y="525" width="125" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Add Location">
+                                <state key="normal" title="Saved Locations">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -89,10 +93,33 @@
                                     <action selector="onTouchSearch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Gyf-qP-xQ7"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QFb-bb-y0J">
-                                <rect key="frame" x="0.0" y="276" width="247" height="292"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmE-Ww-kPm">
+                                <rect key="frame" x="210" y="238" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <state key="normal" title="Change Default City">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onChangeDefaultCityButtonTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="TDd-jq-Rc4"/>
+                                </connections>
+                            </button>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Zip" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kAc-Qk-4Au">
+                                <rect key="frame" x="210" y="238" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDX-hU-8gY">
+                                <rect key="frame" x="280" y="238" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Go">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onGoButtonTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QbX-4O-PLf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -104,11 +131,14 @@
                     <connections>
                         <outlet property="addLocationButton" destination="dCo-PM-0AI" id="s9X-1q-vWY"/>
                         <outlet property="allergenLevelButton" destination="s4O-N9-MKX" id="8eS-HO-ZMf"/>
+                        <outlet property="changeDefaultCityButton" destination="zmE-Ww-kPm" id="YMg-yM-CPy"/>
                         <outlet property="cityLabel" destination="WA3-vO-X0G" id="ddj-JG-nys"/>
                         <outlet property="currentDateLabel" destination="HYk-qk-SSo" id="iPm-4s-qk2"/>
                         <outlet property="dandelionGifImage" destination="bTY-Pi-fe5" id="PUQ-Bv-qwt"/>
                         <outlet property="dandelionImage" destination="QFb-bb-y0J" id="q13-SG-nSf"/>
                         <outlet property="descriptionTextView" destination="WPO-31-HrN" id="tJb-Dj-lAB"/>
+                        <outlet property="enterZipTextField" destination="kAc-Qk-4Au" id="wWZ-Fd-A2T"/>
+                        <outlet property="goButton" destination="SDX-hU-8gY" id="RJu-E4-5Z3"/>
                         <outlet property="predominantTypeLabel" destination="ssr-1r-Owc" id="qPh-6v-j3N"/>
                         <outlet property="searchButtonToggler" destination="dCo-PM-0AI" id="WuR-42-lpd"/>
                     </connections>
