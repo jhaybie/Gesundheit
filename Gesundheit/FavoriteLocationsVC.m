@@ -101,7 +101,8 @@ NSString            *searchedCity,
                                searchedCity = [location objectForKey:@"city"];
                                searchedState = [location objectForKey:@"state"];
                                for (int i = 2; i < 5; i++) {
-                                   [location setObject:@"" forKey:[[[location objectForKey:@"dayList"] objectAtIndex:i] objectForKey:@"desc"]];
+                                   //[location setObject:@"" forKey:[[[location objectForKey:@"dayList"] objectAtIndex:i] objectForKey:@"desc"]];
+                                   [location removeObjectForKey:[[[location objectForKey:@"dayList"] objectAtIndex:i] objectForKey:@"desc"]];
                                }
                                if (!isCheckingZip)
                                    [self showWeeklyForecast];
