@@ -339,9 +339,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hxs-RP-qnz">
-                                <rect key="frame" x="20" y="518" width="280" height="30"/>
+                                <rect key="frame" x="20" y="34" width="52" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Close">
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Back">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -364,6 +365,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5h7-Y0-AU2"/>
                     <connections>
+                        <outlet property="backButton" destination="hxs-RP-qnz" id="Fon-2u-1Fc"/>
                         <outlet property="cityAndStateLabel" destination="86r-qd-a2v" id="MjS-Lv-3Mq"/>
                         <outlet property="dandyPng" destination="qdT-fL-nFb" id="wdg-ij-TWR"/>
                         <outlet property="descTextview" destination="5pu-Wl-luS" id="fvW-e5-o7u"/>
@@ -574,7 +576,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQy-ge-zFV">
-                                <rect key="frame" x="20" y="20" width="52" height="30"/>
+                                <rect key="frame" x="20" y="34" width="52" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Back">
