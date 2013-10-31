@@ -75,6 +75,7 @@ NSString          *city,
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
                                [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
                                [locationManager stopUpdatingLocation];
+                               [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                [self allergenLevelChangeFontColor];
                            }];
 }
@@ -185,7 +186,7 @@ NSString          *city,
     enterZipTextField.hidden = YES;
     goButton.hidden = YES;
     changeDefaultCityButton.hidden = NO;
-
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (enterZipTextField.text.length == 5) {
         [[NSUserDefaults standardUserDefaults] setObject: enterZipTextField.text forKey:@"defaultLocation"];
         [self fetchPollenDataFromZip:enterZipTextField.text];
