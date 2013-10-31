@@ -35,34 +35,11 @@ NSMutableDictionary *location;
 NSURL               *documentDirectoryURL;
 NSFileManager       *fileManager;
 NSMutableArray      *locations;
-NSString            *searchedCity,
+NSString            *generatedZip,
+                    *searchedCity,
                     *searchedState,
                     *searchedZip,
                     *safeString;
-
-
-//- (NSDictionary *)plistCompliantObject {
-//    NSMutableDictionary *dict = @{}.mutableCopy;
-//    [self enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-//        if ([obj respondsToSelector:@selector(plistCompliantObject)]) {
-//            dict[key] = [obj plistCompliantObject];
-//        } else if (obj != [NSNull null]) {
-//            dict[key] = obj;
-//        }
-//    }];
-//    return dict;
-//}
-//
-//- (id)plistCompliantArray {
-//    NSMutableArray *array = @[].mutableCopy;
-//    for (id obj in self) {
-//        if ([obj respondsToSelector:@selector(plistCompliantObject)])
-//            [array addObject:[obj plistCompliantObject]];
-//        else if (obj != [NSNull null])
-//            [array addObject:obj];
-//    }
-//    return [NSArray arrayWithArray:array];
-//}
 
 
 - (void)showResults {
@@ -100,9 +77,14 @@ NSString            *searchedCity,
                                                                             error:&connectionError];
                                searchedCity = [location objectForKey:@"city"];
                                searchedState = [location objectForKey:@"state"];
+
+                               NSMutableArray *dayList = [[location objectForKey:@"dayList"] mutableCopy];
                                for (int i = 2; i < 5; i++) {
-                                   [location setObject:@"" forKey:[[[location objectForKey:@"dayList"] objectAtIndex:i] objectForKey:@"desc"]];
+                                   NSMutableDictionary *tempForecast = [dayList[i] mutableCopy];
+                                   [tempForecast setObject:@"" forKey:@"desc"];
+                                   dayList[i] = tempForecast;
                                }
+                               [location setObject:dayList forKey:@"dayList"];
                                if (!isCheckingZip)
                                    [self showWeeklyForecast];
                                else [self showResults];
@@ -127,15 +109,26 @@ NSString            *searchedCity,
 }
 
 - (void)loadPList {
-    locations = [[[NSUserDefaults standardUserDefaults] objectForKey:@"mxclRULES"] ?: @[] mutableCopy];
+    locations = [[[NSUserDefaults standardUserDefaults] objectForKey:@"locations"] ?: @[] mutableCopy];
 }
 
 - (void)savePList {
-    NSString *path = [self path];
-    NSMutableDictionary *data = [[NSDictionary dictionaryWithContentsOfFile:path] ?: @{} mutableCopy];
-    [data setObject:locations forKey:@"locations"];
-    //BAM!!!
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"mxclRULES"];
+    [[NSUserDefaults standardUserDefaults] setObject:locations forKey:@"locations"];
+}
+
+- (void)getZipCodeFromCity:(NSString *)city andState:(NSString *)state {
+    city = [city stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://zipcodedistanceapi.redline13.com/rest/2YD0hiPGAPhlUJGmuC8E2w8XyELhTlyWkbWCuLi4Bzqvj6SNJ0sLxAJ5fvm9RV5b/city-zips.json/%@/%@", city, state]]]
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
+                                                                                               options:NSJSONReadingMutableContainers
+                                                                                                 error:&connectionError];
+                                   NSArray *zipCodes = [initialDump objectForKey:@"zip_codes"];
+                                   generatedZip = [zipCodes firstObject];
+                                   isCheckingZip = NO;
+                                   [self fetchPollenDataFromZip:[zipCodes firstObject]];
+                               }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,8 +146,7 @@ NSString            *searchedCity,
 -       (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *tempLocation = locations[indexPath.row];
-    isCheckingZip = NO;
-    [self fetchPollenDataFromZip:[tempLocation objectForKey:@"zip"]];
+    [self getZipCodeFromCity:[tempLocation objectForKey:@"city"] andState:[tempLocation objectForKey:@"state"]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView

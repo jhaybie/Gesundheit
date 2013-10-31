@@ -71,10 +71,10 @@ NSString          *city,
                            }];
 }
 
-- (void)loadPList {
-    NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
-
-}
+//- (void)loadPList {
+//    NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
+//
+//}
 
 - (void)allergenLevelChangeFontColor {
     float level = allergenLevelButton.currentTitle.floatValue;
@@ -120,8 +120,7 @@ NSString          *city,
         [self getCurrentLocationZip];
     } else
         [self fetchPollenDataFromZip:defaultLocation];
-
-    }
+}
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
 
