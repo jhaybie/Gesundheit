@@ -71,6 +71,11 @@ NSString          *city,
                            }];
 }
 
+- (void)loadPList {
+    NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
+
+}
+
 - (void)allergenLevelChangeFontColor {
     float level = allergenLevelButton.currentTitle.floatValue;
     UIColor *textColor;
@@ -109,9 +114,14 @@ NSString          *city,
     [self buttonBorder];
     [self showGifImage];
     isShown = NO;
-    locationManager = [[CLLocationManager alloc] init];
-    [self getCurrentLocationZip];
-}
+    NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
+    if ([defaultLocation isEqualToString:@"currentLocation"]) {
+        locationManager = [[CLLocationManager alloc] init];
+        [self getCurrentLocationZip];
+    } else
+        [self fetchPollenDataFromZip:defaultLocation];
+
+    }
 
 - (IBAction)allergenLevelNumberWasTouched:(id)sender {
 
