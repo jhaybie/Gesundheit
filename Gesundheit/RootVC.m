@@ -70,7 +70,6 @@ NSString          *city,
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:0
                                                                             error:&connectionError];
-                               changeDefaultCityButton.hidden = NO;
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
@@ -138,11 +137,14 @@ NSString          *city,
     [[allergenLevelButton layer] setBorderWidth:4.0f];
     [[allergenLevelButton layer] setBorderColor:[UIColor whiteColor].CGColor];
 
-    [[addLocationButton layer] setCornerRadius:10.0f];
-    [[addLocationButton layer] setBorderWidth:2.0f];
+    [[addLocationButton layer] setCornerRadius:15.0f];
+    [[addLocationButton layer] setBorderWidth:1.0f];
     [[addLocationButton layer] setOpacity:.85f];
-    [[addLocationButton layer] setBorderColor:[UIColor whiteColor].CGColor];
-
+    [[addLocationButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    
+    [[goButton layer] setCornerRadius:15.0f];
+    [[goButton layer] setBorderWidth:1.0];
+    [[goButton layer] setBorderColor:[UIColor blueColor].CGColor];
 
 }
 
@@ -179,10 +181,12 @@ NSString          *city,
 }
 
 - (IBAction)onGoButtonTap:(id)sender {
+    [enterZipTextField resignFirstResponder];
+    enterZipTextField.hidden = YES;
+    goButton.hidden = YES;
+    changeDefaultCityButton.hidden = NO;
+
     if (enterZipTextField.text.length == 5) {
-        [enterZipTextField resignFirstResponder];
-        enterZipTextField.hidden = YES;
-        goButton.hidden = YES;
         [[NSUserDefaults standardUserDefaults] setObject: enterZipTextField.text forKey:@"defaultLocation"];
         [self fetchPollenDataFromZip:enterZipTextField.text];
     }
