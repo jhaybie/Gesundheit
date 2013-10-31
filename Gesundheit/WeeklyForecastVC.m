@@ -9,6 +9,7 @@
 #import "WeeklyForecastVC.h"
 #import "UIImage+animatedGIF.h"
 #import "UIColor+ColorCategory.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface WeeklyForecastVC ()
@@ -18,11 +19,13 @@
 - (IBAction)onCloseButtonTap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyPng;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @end
 
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
+            backButton,
             dandyPng,
             descTextview,
             location,
@@ -38,6 +41,12 @@ NSArray *week;
 
 }
 
+- (void) buttonBorder {
+    [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[backButton layer] setBorderWidth:1.0f];
+    [[backButton layer] setCornerRadius:15.0f];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     week = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
@@ -46,6 +55,7 @@ NSArray *week;
 
     [self getCurrentDate];
     [self showGifImage];
+    [self buttonBorder];
 }
 
 - (void)showGifImage {
