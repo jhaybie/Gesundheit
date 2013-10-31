@@ -55,6 +55,10 @@ NSString          *city,
     [locationManager startUpdatingLocation];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [self startAnimatingDandy];
+}
+
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
                                        queue:[NSOperationQueue mainQueue]
@@ -75,6 +79,20 @@ NSString          *city,
 //    NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
 //
 //}
+
+
+- (void) startAnimatingDandy {
+    [UIView animateWithDuration:5.0f animations:^{
+        dandelionImage.transform = CGAffineTransformMakeTranslation(0, 0);
+        dandelionImage.transform = CGAffineTransformRotate(dandelionImage.transform, M_PI / 300);
+        [UIView animateWithDuration:5.0f animations:^{
+
+            dandelionImage.transform = CGAffineTransformRotate(dandelionImage.transform, M_PI / -300);
+        } completion:^(BOOL finished) {
+            dandelionImage.transform = CGAffineTransformRotate(dandelionImage.transform, M_PI / 300);
+        }];
+    }];
+}
 
 - (void)allergenLevelChangeFontColor {
     float level = allergenLevelButton.currentTitle.floatValue;
