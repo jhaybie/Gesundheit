@@ -65,6 +65,7 @@ NSString               *name,
     drugstores = [[NSMutableArray alloc] init];
     city = [city stringByReplacingOccurrencesOfString:@" "
                                            withString:@"+"];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=pharmacies+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -80,6 +81,7 @@ NSString               *name,
                                    tempRx.coord = CLLocationCoordinate2DMake([[[tempDict objectForKey:@"location"] objectForKey:@"lat"] floatValue], [[[tempDict objectForKey:@"location"] objectForKey:@"lng"] floatValue]);
                                    tempRx.openNow = (BOOL)[[searchResults[i] objectForKey:@"opening_hours"] objectForKey:@"open_now"];
                                    [drugstores addObject:tempRx];
+                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                }
                                [drugstoresTableView reloadData];
                            }];
@@ -121,7 +123,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     state = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:2];
     coord = tempDrugstore.coord;
 
-
     MapVC *mvc = [self.storyboard instantiateViewControllerWithIdentifier:@"MapVC"];
     mvc.name = name;
     mvc.address1 = address;
@@ -149,5 +150,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     city = zipCodeTextField.text;
     state = @"";
     [self fetchSearchResults];
+    zipCodeTextField.text = @"";
 }
 @end

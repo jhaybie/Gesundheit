@@ -116,6 +116,7 @@ NSString            *generatedZip,
                                    dayList[i] = tempForecast;
                                }
                                [location setObject:dayList forKey:@"dayList"];
+                               [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                if (!isCheckingZip)
                                    [self showWeeklyForecast];
                                else [self showResults];
@@ -211,6 +212,7 @@ numberOfRowsInSection:(NSInteger)section  {
     if (zipTextField.text.length == 5) {
         searchedZip = zipTextField.text;
         zipTextField.text = @"";
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         [self fetchPollenDataFromZip:searchedZip];
     }
 }
