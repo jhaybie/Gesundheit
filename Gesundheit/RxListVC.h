@@ -12,7 +12,7 @@
 
 
 @interface RxListVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
-//@property (weak, nonatomic) NSString *city;
-//@property (weak, nonatomic) NSString *state;
+@property (weak, nonatomic) NSString *city;
+@property (weak, nonatomic) NSString *state;
 @property (strong, nonatomic) NSDictionary *location;
 @end

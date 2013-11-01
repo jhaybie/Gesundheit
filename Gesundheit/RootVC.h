@@ -11,5 +11,6 @@
 #import "WeeklyForecastVC.h"
 
 
-@interface RootVC : UIViewController <CLLocationManagerDelegate>
+
+@interface RootVC : UIViewController <CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 @end

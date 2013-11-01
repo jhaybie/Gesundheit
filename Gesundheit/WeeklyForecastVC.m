@@ -125,8 +125,9 @@ NSArray *week;
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     RxListVC *rvc = segue.destinationViewController;
-    rvc.location = [location objectForKey:@"city"];
-    rvc.location = [location objectForKey:@"state"];
+    //rvc.location = location;
+    rvc.city = [location objectForKey:@"city"];
+    rvc.state = [location objectForKey:@"state"];
 }
 
 #pragma mark UITableViewDelegate
@@ -166,8 +167,8 @@ NSArray *week;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
     RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-    rlvc.location = [location objectForKey:@"city"];
-    rlvc.location = [location objectForKey:@"state"];
+    rlvc.city = [location objectForKey:@"city"];
+    rlvc.state = [location objectForKey:@"state"];
     [self presentViewController:rlvc
                        animated:NO
                      completion:nil];
