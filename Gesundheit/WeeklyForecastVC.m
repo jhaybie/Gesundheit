@@ -7,7 +7,8 @@
 //
 
 #import "WeeklyForecastVC.h"
-#import "UIImage+animatedGIF.h"
+#import "RxListVC.h"
+#import "RootVC.h"
 #import "UIColor+ColorCategory.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -16,18 +17,27 @@
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descTextview;
 @property (weak, nonatomic) IBOutlet UITableView *weeklyForecastTableView;
-- (IBAction)onCloseButtonTap:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *oneDayTabButton;
+@property (weak, nonatomic) IBOutlet UIButton *fiveDayTabButton;
+@property (weak, nonatomic) IBOutlet UIButton *rxListTabButton;
+@property (weak, nonatomic) IBOutlet UIPageControl *fiveDayPageControl;
+
+
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyPng;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
-@property (weak, nonatomic) IBOutlet UIButton *nearbyRXButton;
+- (IBAction)onTapGoGoRxListVC:(id)sender;
+- (IBAction)onTapGoGoRootVC:(id)sender;
+- (IBAction)onSwipeChangePageSelected:(id)sender;
+
+
 @end
 
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
-            nearbyRXButton,
-            backButton,
+            oneDayTabButton,
+            rxListTabButton,
+            fiveDayTabButton,
             dandyPng,
             descTextview,
             location,
@@ -44,12 +54,26 @@ NSArray *week;
 }
 
 - (void) buttonBorder {
-    [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
-    [[backButton layer] setBorderWidth:1.0f];
-    [[backButton layer] setCornerRadius:15.0f];
-    [[nearbyRXButton layer] setBorderWidth:1.0f];
-    [[nearbyRXButton layer] setBorderColor:[UIColor blueColor].CGColor];
-    [[nearbyRXButton layer] setCornerRadius:15.0f];
+    float borderWidth = 1.0f;
+    float opacity = 0.85f;
+    float corner = 10.0f;
+
+    [[oneDayTabButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[oneDayTabButton layer] setBorderWidth:borderWidth];
+    [[oneDayTabButton layer] setCornerRadius:corner];
+    [[oneDayTabButton layer] setOpacity:opacity];
+
+    [[rxListTabButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[rxListTabButton layer] setBorderWidth:borderWidth];
+    [[rxListTabButton layer] setCornerRadius:corner];
+    [[rxListTabButton layer] setOpacity:opacity];
+
+    [fiveDayTabButton setBackgroundColor:[UIColor whiteColor]];
+    [[fiveDayTabButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[fiveDayTabButton layer] setBorderWidth:borderWidth];
+    [[fiveDayTabButton layer] setCornerRadius:corner];
+    [[fiveDayTabButton layer] setOpacity:opacity];
+
 }
 
 - (void)viewDidLoad {
@@ -99,10 +123,6 @@ NSArray *week;
     }
 }
 
-- (IBAction)onCloseButtonTap:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     RxListVC *rvc = segue.destinationViewController;
     rvc.city = [location objectForKey:@"city"];
@@ -144,4 +164,22 @@ NSArray *week;
     return cell;
 }
 
+- (IBAction)onTapGoGoRxListVC:(id)sender {
+    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    rlvc.city = [location objectForKey:@"city"];
+    rlvc.state = [location objectForKey:@"state"];
+    [self presentViewController:rlvc
+                       animated:NO
+                     completion:nil];
+}
+
+- (IBAction)onTapGoGoRootVC:(id)sender {
+    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
+    [self presentViewController:rvc
+                       animated:NO
+                     completion:nil];
+}
+
+- (IBAction)onSwipeChangePageSelected:(id)sender {
+}
 @end

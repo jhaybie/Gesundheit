@@ -7,7 +7,7 @@
         <!--RootVC - Gesundheit!-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="RootVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RootVC" id="vXZ-lx-hvc" customClass="RootVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ndA-sc-3XC"/>
                         <viewControllerLayoutGuide type="bottom" id="Z19-3b-zYq"/>
@@ -121,7 +121,7 @@
                                 <rect key="frame" x="0.0" y="505" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.9960784912109375" blue="0.9960784912109375" alpha="1" colorSpace="deviceRGB"/>
-                                <state key="normal">
+                                <state key="normal" title="1 day">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -130,7 +130,7 @@
                                 <rect key="frame" x="218" y="505" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="rx list">
+                                <state key="normal" title="Rx List">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -183,11 +183,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="tfe-5i-LAP">
-                    <connections>
-                        <segue destination="Vy9-4v-tWj" kind="modal" identifier="forecastSegue" modalTransitionStyle="coverVertical" animates="NO" id="6v5-NX-rxp"/>
-                    </connections>
-                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="tfe-5i-LAP"/>
             </objects>
             <point key="canvasLocation" x="-4236" y="-4354"/>
         </scene>
@@ -399,23 +395,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXN-xw-aVw">
-                                <rect key="frame" x="41" y="467" width="239" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Look for nearby drugstores">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Sr0-OG-cS1" kind="modal" animates="NO" id="Xcy-vA-Fle"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmB-jU-RgF">
                                 <rect key="frame" x="110" y="505" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="1 day">
+                                <state key="normal" title="5 day">
                                     <color key="titleColor" red="1" green="0.99607849120000003" blue="0.99607849120000003" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -428,16 +412,29 @@
                                     <color key="titleColor" red="1" green="0.99607849120000003" blue="0.99607849120000003" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onTapGoGoRootVC:" destination="Vy9-4v-tWj" eventType="touchUpInside" id="17a-kw-A7a"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIS-2V-nKr">
                                 <rect key="frame" x="218" y="505" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="1 day">
+                                <state key="normal" title="Rx List">
                                     <color key="titleColor" red="1" green="0.99607849120000003" blue="0.99607849120000003" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onTapGoGoRxListVC:" destination="Vy9-4v-tWj" eventType="touchUpInside" id="Diz-fu-cJq"/>
+                                </connections>
                             </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Kmr-n0-EDl">
+                                <rect key="frame" x="141" y="531" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="onSwipeChangePageSelected:" destination="Vy9-4v-tWj" eventType="valueChanged" id="Zte-vN-h3i"/>
+                                </connections>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -447,8 +444,11 @@
                         <outlet property="cityAndStateLabel" destination="86r-qd-a2v" id="MjS-Lv-3Mq"/>
                         <outlet property="dandyPng" destination="qdT-fL-nFb" id="wdg-ij-TWR"/>
                         <outlet property="descTextview" destination="5pu-Wl-luS" id="fvW-e5-o7u"/>
+                        <outlet property="fiveDayPageControl" destination="Kmr-n0-EDl" id="ZGv-Qc-AfM"/>
+                        <outlet property="fiveDayTabButton" destination="pmB-jU-RgF" id="DNz-34-dsP"/>
                         <outlet property="gifBackRoundImage" destination="b6w-Q0-Djj" id="wyu-YL-Pae"/>
-                        <outlet property="nearbyRXButton" destination="nXN-xw-aVw" id="UKn-pt-SNd"/>
+                        <outlet property="oneDayTabButton" destination="JYW-wp-hFh" id="k2J-hl-Fj6"/>
+                        <outlet property="rxListTabButton" destination="SIS-2V-nKr" id="dAI-jD-QML"/>
                         <outlet property="weeklyForecastTableView" destination="UR4-BI-FGD" id="2Ot-yD-Xkh"/>
                     </connections>
                 </viewController>
