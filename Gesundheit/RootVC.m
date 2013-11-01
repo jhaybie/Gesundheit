@@ -12,6 +12,9 @@
 #import "UIColor+ColorCategory.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
+
+
 @interface RootVC ()
 @property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
 @property (weak, nonatomic) IBOutlet UIButton *changeDefaultCityButton;
@@ -61,6 +64,32 @@ NSString          *city,
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
+}
+
+- (void)rotateDandy:(UIImageView *)image
+//        aroundPoint:(CGPoint)rotationPoint
+           duration:(NSTimeInterval)duration
+            degrees:(CGFloat)degrees {
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, nil, 200, 400, M_1_PI, DEGREES_TO_RADIANS(0), DEGREES_TO_RADIANS(9), YES);
+
+    CAKeyframeAnimation *dandyAnimation;
+
+    dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    dandyAnimation.path = path;
+    CGPathRelease(path);
+
+//    CGPoint transportPoint = CGPointMake(dand, <#CGFloat y#>)
+
+    dandyAnimation.duration = duration;
+    dandyAnimation.removedOnCompletion = NO;
+    dandyAnimation.autoreverses = YES;
+    dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
+    dandyAnimation.speed = 20;
+    dandyAnimation.fillMode = kCAFillModeForwards;
+
+    [dandelionImage.layer addAnimation:dandyAnimation forKey:@"position"];
+
 }
 
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
@@ -130,6 +159,18 @@ NSString          *city,
     } else {
         [self fetchPollenDataFromZip:defaultLocation];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+        [self rotateDandy:dandelionImage duration:100 degrees:5];
+    [self makeShadowsOnButton];
+}
+
+- (void) makeShadowsOnButton {
+    allergenLevelButton.layer.shadowColor = [[UIColor blackColor] CGColor];
+    allergenLevelButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    allergenLevelButton.layer.shadowOpacity = .85f;
+    allergenLevelButton.layer.shadowRadius = 3.0f;
 }
 
 - (void) buttonBorder {
