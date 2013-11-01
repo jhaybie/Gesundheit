@@ -29,11 +29,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionImage;
 @property (weak, nonatomic) IBOutlet UIButton *rootVCDisabledButton;
 @property (weak, nonatomic) IBOutlet UIButton *weeklyForecastVCActiveButton;
-@property (weak, nonatomic) IBOutlet UIButton *favoriteLocationsVCActiveButton;
 @property (weak, nonatomic) IBOutlet UIButton *rxListVCActiveButton;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 - (IBAction)onTapGoGoRxListVC:(id)sender;
-- (IBAction)onTapGoGoFavoriteLocationsVC:(id)sender;
+
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
+
 
 
 
@@ -45,7 +46,6 @@
 
 @implementation RootVC
 @synthesize cityLabel,
-            favoriteLocationsVCActiveButton,
             rxListVCActiveButton,
             weeklyForecastVCActiveButton,
             rootVCDisabledButton,
@@ -192,11 +192,6 @@ NSString          *city,
     [[allergenLevelButton layer] setBorderWidth:4.0f];
     [[allergenLevelButton layer] setBorderColor:[UIColor whiteColor].CGColor];
 
-    [[favoriteLocationsVCActiveButton layer] setCornerRadius:corner];
-    [[favoriteLocationsVCActiveButton layer] setBorderWidth:1.0f];
-    [[favoriteLocationsVCActiveButton layer] setOpacity:1.0f];
-    [[favoriteLocationsVCActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
-
     [[rxListVCActiveButton layer] setCornerRadius:corner];
     [[rxListVCActiveButton layer] setBorderWidth:1.0f];
     [[rxListVCActiveButton layer] setOpacity:1.0f];
@@ -243,13 +238,6 @@ NSString          *city,
     rlvc.city = [location objectForKey:@"city"];
     rlvc.state = [location objectForKey:@"state"];
     [self presentViewController:rlvc animated:NO completion:nil];
-}
-
-- (IBAction)onTapGoGoFavoriteLocationsVC:(id)sender {
-    FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
-    [self presentViewController:flvc
-                       animated:NO
-                     completion:nil];
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {

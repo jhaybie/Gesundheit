@@ -118,7 +118,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNn-nC-8WX">
-                                <rect key="frame" x="12" y="505" width="70" height="30"/>
+                                <rect key="frame" x="0.0" y="505" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.9960784912109375" blue="0.9960784912109375" alpha="1" colorSpace="deviceRGB"/>
                                 <state key="normal">
@@ -127,7 +127,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtR-4Q-gKw">
-                                <rect key="frame" x="240" y="505" width="70" height="30"/>
+                                <rect key="frame" x="218" y="505" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="rx list">
@@ -139,7 +139,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6U-vT-RYt">
-                                <rect key="frame" x="90" y="505" width="70" height="30"/>
+                                <rect key="frame" x="110" y="505" width="100" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="5 day">
@@ -148,18 +148,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onTapGoGoWeeklyForecastVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="i3X-SQ-tjM"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-OH-m7F">
-                                <rect key="frame" x="165" y="505" width="70" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="fav">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onTapGoGoFavoriteLocationsVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rl7-gv-iUO"/>
                                 </connections>
                             </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Fzf-Ld-YHl">
@@ -183,8 +171,8 @@
                         <outlet property="dandelionImage" destination="QFb-bb-y0J" id="q13-SG-nSf"/>
                         <outlet property="descriptionTextView" destination="WPO-31-HrN" id="tJb-Dj-lAB"/>
                         <outlet property="enterZipTextField" destination="kAc-Qk-4Au" id="wWZ-Fd-A2T"/>
-                        <outlet property="favoriteLocationsVCActiveButton" destination="VFA-OH-m7F" id="BOf-0Q-FjX"/>
                         <outlet property="goButton" destination="SDX-hU-8gY" id="RJu-E4-5Z3"/>
+                        <outlet property="pageControl" destination="Fzf-Ld-YHl" id="8GQ-eq-hkW"/>
                         <outlet property="predominantTypeLabel" destination="ssr-1r-Owc" id="qPh-6v-j3N"/>
                         <outlet property="rootVCDisabledButton" destination="VNn-nC-8WX" id="PLw-k7-yQ7"/>
                         <outlet property="rxListVCActiveButton" destination="qtR-4Q-gKw" id="Z3T-bC-6SG"/>
