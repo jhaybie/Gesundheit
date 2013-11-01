@@ -34,6 +34,8 @@
 - (IBAction)onTapGoGoRxListVC:(id)sender;
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
+- (IBAction)swipingPageControlMotion:(id)sender;
+
 
 
 
@@ -246,6 +248,9 @@ NSString          *city,
     [self presentViewController:wfvc
                        animated:NO
                      completion:nil];
+}
+
+- (IBAction)swipingPageControlMotion:(id)sender {
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
