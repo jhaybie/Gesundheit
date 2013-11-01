@@ -108,7 +108,7 @@ NSString            *generatedZip,
                                                                             error:&connectionError];
                                searchedCity = [location objectForKey:@"city"];
                                searchedState = [location objectForKey:@"state"];
-
+                               
                                NSMutableArray *dayList = [[location objectForKey:@"dayList"] mutableCopy];
                                for (int i = 2; i < 5; i++) {
                                    NSMutableDictionary *tempForecast = [dayList[i] mutableCopy];
@@ -133,13 +133,6 @@ NSString            *generatedZip,
     [super viewDidLoad];
     [self buttonBorders];
     [self showBackgroundImage];
-    [self loadPList];
-}
-
-- (id)path {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths firstObject];
-    return [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
 }
 
 - (void)loadPList {
@@ -174,7 +167,12 @@ NSString            *generatedZip,
     searchedCity = [[NSString alloc] init];
     searchedState = [[NSString alloc] init];
     searchedZip = [[NSString alloc] init];
+    [self loadPList];
     [zipTableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self savePList];
 }
 
 -       (void)tableView:(UITableView *)tableView
@@ -196,9 +194,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView
-          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleDelete;
+//-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+//          editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return UITableViewCellEditingStyleDelete;
+//}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [locations removeObjectAtIndex:indexPath.row];
+        [zipTableView reloadData];
+
+    }
 }
 
 - (int)tableView:(UITableView *)tableView
