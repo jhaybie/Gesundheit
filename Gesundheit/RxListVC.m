@@ -45,9 +45,9 @@
              rxListDisabledButton,
              backroundImage,
              dandyImagePng,
-//             city,
+             city,
              searchButton,
-//             state,
+             state,
              drugstoresTableView,
              zipCodeTextField;
 
@@ -56,9 +56,7 @@ CLLocationCoordinate2D coord;
 NSArray                *searchResults;
 NSMutableArray         *drugstores;
 NSString               *name,
-                       *address,
-                       *city,
-                       *state;
+                       *address;
 
 - (void)buttonBorders {
     float radius = 10.0f;
@@ -84,8 +82,8 @@ NSString               *name,
 
 - (void)fetchSearchResults {
     drugstores = [[NSMutableArray alloc] init];
-    city = [[location objectForKey:@"city"] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    state = [location objectForKey:@"state"];
+    city = [city stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    //state = [location objectForKey:@"state"];
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=pharmacies+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
