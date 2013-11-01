@@ -58,6 +58,7 @@
             descriptionTextView,
             enterZipTextField,
             goButton,
+            pageControl,
             predominantTypeLabel,
             allergenLevelButton;
 
@@ -65,13 +66,24 @@
 BOOL              isShown;
 CLGeocoder        *geocoder;
 CLLocationManager *locationManager;
-int               weekDayValue;
+int               currentLocationIndex,
+                  weekDayValue;
 NSArray           *week;
 NSDictionary      *location;
+NSMutableArray    *locations;
 NSString          *city,
                   *state,
                   *zip,
                   *predominantType;
+
+
+- (void)loadPList {
+    locations = [[[NSUserDefaults standardUserDefaults] objectForKey:@"locations"] ?: @[] mutableCopy];
+}
+
+- (void)savePList {
+    [[NSUserDefaults standardUserDefaults] setObject:locations forKey:@"locations"];
+}
 
 - (void)getCurrentLocationZip {
     locationManager.delegate = self;
@@ -153,15 +165,22 @@ NSString          *city,
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
-        WeeklyForecastVC *wfvc = segue.destinationViewController;
-        wfvc.location = location;
-    }
+    currentLocationIndex++;
+    location = locations[currentLocationIndex];
+    cityLabel.text = [location objectForKey:@"city"];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+//    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
+//        WeeklyForecastVC *wfvc = segue.destinationViewController;
+//        wfvc.location = location;
+//    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     geocoder = [[CLGeocoder alloc] init];
+    currentLocationIndex = 0;
     [self buttonBorder];
     [self showGifImage];
     isShown = NO;
@@ -175,7 +194,9 @@ NSString          *city,
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-        [self rotateDandy:dandelionImage duration:100 degrees:5];
+    [self loadPList];
+    [pageControl sizeForNumberOfPages:locations.count];
+    [self rotateDandy:dandelionImage duration:100 degrees:5];
     [self makeShadowsOnButton];
 }
 
@@ -250,8 +271,9 @@ NSString          *city,
                      completion:nil];
 }
 
-- (IBAction)swipingPageControlMotion:(id)sender {
-}
+//- (IBAction)swipingPageControlMotion:(id)sender {
+//    pageControl.c
+//}
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
     changeDefaultCityButton.hidden = YES;
