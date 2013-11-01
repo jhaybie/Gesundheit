@@ -8,7 +8,8 @@
 
 #import "FavoriteLocationsVC.h"
 #import "RootVC.h"
-#import "UIImage+animatedGIF.h"
+#import "WeeklyForecastVC.h"
+#import "RxListVC.h"
 #import "UIColor+ColorCategory.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -16,7 +17,6 @@
 
 
 @interface RootVC ()
-@property (weak, nonatomic) IBOutlet UIButton    *searchButtonToggler;
 @property (weak, nonatomic) IBOutlet UIButton *changeDefaultCityButton;
 @property (weak, nonatomic) IBOutlet UILabel     *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel     *currentDateLabel;
@@ -27,8 +27,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *enterZipTextField;
 @property (weak, nonatomic) IBOutlet UIButton *allergenLevelButton;
 @property (weak, nonatomic) IBOutlet UIImageView *dandelionImage;
-- (IBAction)onTouchSearch:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *addLocationButton;
+@property (weak, nonatomic) IBOutlet UIButton *rootVCDisabledButton;
+@property (weak, nonatomic) IBOutlet UIButton *weeklyForecastVCActiveButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteLocationsVCActiveButton;
+@property (weak, nonatomic) IBOutlet UIButton *rxListVCActiveButton;
+- (IBAction)onTapGoGoRxListVC:(id)sender;
+- (IBAction)onTapGoGoFavoriteLocationsVC:(id)sender;
+- (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
+
+
+
+
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender;
 - (IBAction)onGoButtonTap:(id)sender;
 @end
@@ -36,7 +45,10 @@
 
 @implementation RootVC
 @synthesize cityLabel,
-            addLocationButton,
+            favoriteLocationsVCActiveButton,
+            rxListVCActiveButton,
+            weeklyForecastVCActiveButton,
+            rootVCDisabledButton,
             dandelionImage,
             changeDefaultCityButton,
             currentDateLabel,
@@ -45,8 +57,7 @@
             enterZipTextField,
             goButton,
             predominantTypeLabel,
-            allergenLevelButton,
-            searchButtonToggler;
+            allergenLevelButton;
 
 
 BOOL              isShown;
@@ -174,28 +185,40 @@ NSString          *city,
 }
 
 - (void) buttonBorder {
+    float corner = 10.0f;
+
     [[allergenLevelButton layer] setCornerRadius:40.0f];
     [[allergenLevelButton layer] setOpacity:0.85f];
     [[allergenLevelButton layer] setBorderWidth:4.0f];
     [[allergenLevelButton layer] setBorderColor:[UIColor whiteColor].CGColor];
 
-    [[addLocationButton layer] setCornerRadius:15.0f];
-    [[addLocationButton layer] setBorderWidth:1.0f];
-    [[addLocationButton layer] setOpacity:.85f];
-    [[addLocationButton layer] setBorderColor:[UIColor blueColor].CGColor];
-    
+    [[favoriteLocationsVCActiveButton layer] setCornerRadius:corner];
+    [[favoriteLocationsVCActiveButton layer] setBorderWidth:1.0f];
+    [[favoriteLocationsVCActiveButton layer] setOpacity:1.0f];
+    [[favoriteLocationsVCActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
+    [[rxListVCActiveButton layer] setCornerRadius:corner];
+    [[rxListVCActiveButton layer] setBorderWidth:1.0f];
+    [[rxListVCActiveButton layer] setOpacity:1.0f];
+    [[rxListVCActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
+    [[weeklyForecastVCActiveButton layer] setCornerRadius:corner];
+    [[weeklyForecastVCActiveButton layer] setBorderWidth:1.0f];
+    [[weeklyForecastVCActiveButton layer] setOpacity:1.0f];
+    [[weeklyForecastVCActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
+    [[rootVCDisabledButton layer] setCornerRadius:corner];
+    [[rootVCDisabledButton layer] setBorderWidth:1.0f];
+    [[rootVCDisabledButton layer] setOpacity:.85f];
+    [[rootVCDisabledButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+
     [[goButton layer] setCornerRadius:15.0f];
     [[goButton layer] setBorderWidth:1.0];
     [[goButton layer] setBorderColor:[UIColor blueColor].CGColor];
 
 }
 
-- (IBAction)onTouchSearch:(id)sender {
-        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"ZipCodeController"];
-        [self presentViewController:flvc
-                           animated:YES
-                         completion:nil];
-}
+
 
 #pragma mark CLLocationManagerDelegate
 
@@ -213,6 +236,28 @@ NSString          *city,
                            [self fetchPollenDataFromZip:zip];
                        }
                    }];
+}
+
+- (IBAction)onTapGoGoRxListVC:(id)sender {
+    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    rlvc.city = [location objectForKey:@"city"];
+    rlvc.state = [location objectForKey:@"state"];
+    [self presentViewController:rlvc animated:NO completion:nil];
+}
+
+- (IBAction)onTapGoGoFavoriteLocationsVC:(id)sender {
+    FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
+    [self presentViewController:flvc
+                       animated:NO
+                     completion:nil];
+}
+
+- (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
+    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+    wfvc.location = location;
+    [self presentViewController:wfvc
+                       animated:NO
+                     completion:nil];
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
