@@ -268,8 +268,8 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
     RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-    rlvc.city = [location objectForKey:@"city"];
-    rlvc.state = [location objectForKey:@"state"];
+    rlvc.location = [location objectForKey:@"city"];
+    rlvc.location = [location objectForKey:@"state"];
     [self presentViewController:rlvc animated:NO completion:nil];
 }
 

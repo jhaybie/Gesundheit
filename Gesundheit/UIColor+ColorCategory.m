@@ -29,6 +29,5 @@
 + (UIColor *) highColor {
     return [UIColor colorWithRed:178.0f/255.0f green:65.0f/255.0f blue:7.0f/255.0f alpha:1];
 }
-
-
 @end
+
