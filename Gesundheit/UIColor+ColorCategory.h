@@ -17,3 +17,4 @@
 + (UIColor *) highColor;
 
 @end
+
