@@ -7,6 +7,8 @@
 //
 
 #import "RxListVC.h"
+#import "RootVC.h"
+#import "WeeklyForecastVC.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -25,20 +27,27 @@
 @property (weak, nonatomic) IBOutlet UITableView *drugstoresTableView;
 @property (strong, nonatomic) IBOutlet UIImageView *backroundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyImagePng;
-@property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UITextField *zipCodeTextField;
-- (IBAction)onBackButtonTap:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *oneDayActiveButton;
+@property (weak, nonatomic) IBOutlet UIButton *fiveDayActiveButton;
+@property (weak, nonatomic) IBOutlet UIButton *rxListDisabledButton;
+
 - (IBAction)onSearchButtonTap:(id)sender;
+- (IBAction)onTapGoGoRootVC:(id)sender;
+- (IBAction)onTapGoGoFiveDayForecastVC:(id)sender;
 @end
 
 @implementation RxListVC
-@synthesize  backroundImage,
-             backButton,
+@synthesize  oneDayActiveButton,
+             location,
+             fiveDayActiveButton,
+             rxListDisabledButton,
+             backroundImage,
              dandyImagePng,
-             city,
+//             city,
              searchButton,
-             state,
+//             state,
              drugstoresTableView,
              zipCodeTextField;
 
@@ -52,9 +61,21 @@ NSString               *name,
                        *state;
 
 - (void)buttonBorders {
-    [[backButton layer] setCornerRadius:15.0f];
-    [[backButton layer] setBorderWidth:1.0f];
-    [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    float radius = 10.0f;
+    float width = 1.0f;
+
+    [[oneDayActiveButton layer] setCornerRadius:radius];
+    [[oneDayActiveButton layer] setBorderWidth:width];
+    [[oneDayActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
+    [[fiveDayActiveButton layer] setCornerRadius:radius];
+    [[fiveDayActiveButton layer] setBorderWidth:width];
+    [[fiveDayActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
+    [rxListDisabledButton setBackgroundColor:[UIColor whiteColor]];
+    [[rxListDisabledButton layer] setCornerRadius:radius];
+    [[rxListDisabledButton layer] setBorderWidth:width];
+    [[rxListDisabledButton layer] setBorderColor:[UIColor whiteColor].CGColor];
 
     [[searchButton layer] setCornerRadius:15.0f];
     [[searchButton layer] setBorderWidth:1.0f];
@@ -63,8 +84,9 @@ NSString               *name,
 
 - (void)fetchSearchResults {
     drugstores = [[NSMutableArray alloc] init];
-    city = [city stringByReplacingOccurrencesOfString:@" "
-                                           withString:@"+"];
+    city = [[location objectForKey:@"city"] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    state = [location objectForKey:@"state"];
+
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=pharmacies+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
                                        queue:[NSOperationQueue mainQueue]
@@ -151,5 +173,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     state = @"";
     [self fetchSearchResults];
     zipCodeTextField.text = @"";
+}
+
+- (IBAction)onTapGoGoRootVC:(id)sender {
+    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
+    [self presentViewController:rvc
+                       animated:NO
+                     completion:nil];
+}
+
+- (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
+    [self dismissViewControllerAnimated:NO completion:nil];
+
+//    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+//    wfvc.location =
+//    [self presentViewController:wfvc
+//                       animated:NO
+//                     completion:nil];
 }
 @end
