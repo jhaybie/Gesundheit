@@ -38,7 +38,8 @@
 - (IBAction)swipingPageControlMotion:(id)sender;
 
 
-
+@property (retain) UISwipeGestureRecognizer * swipeLeftRecognizer;
+@property (retain) UISwipeGestureRecognizer * swipeRightRecognizer;
 
 
 
@@ -76,7 +77,12 @@ NSString          *city,
                   *state,
                   *zip,
                   *predominantType;
+UISwipeGestureRecognizer * _swipeLeftRecognizer;
+UISwipeGestureRecognizer * _swipeRightRecognizer;
 
+-(void)swipingPageControlMotion:(id)sender {
+
+}
 
 - (void)loadPList {
     locations = [[[NSUserDefaults standardUserDefaults] objectForKey:@"locations"] ?: @[] mutableCopy];
@@ -165,21 +171,24 @@ NSString          *city,
 
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    currentLocationIndex++;
-//    location = locations[currentLocationIndex];
-//    cityLabel.text = [location objectForKey:@"city"];
-//    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-//    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-//    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-//    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
-//        WeeklyForecastVC *wfvc = segue.destinationViewController;
-//        wfvc.location = location;
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    currentLocationIndex++;
+    location = locations[currentLocationIndex];
+    cityLabel.text = [location objectForKey:@"city"];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
+        WeeklyForecastVC *wfvc = segue.destinationViewController;
+        wfvc.location = location;
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeRecognizer];
     geocoder = [[CLGeocoder alloc] init];
     currentLocationIndex = 0;
     [self buttonBorder];
@@ -265,12 +274,15 @@ NSString          *city,
 }
 
 - (IBAction)onSwipeGestureActivated:(id)sender {
-    currentLocationIndex++;
-    location = locations[currentLocationIndex];
-    cityLabel.text = [location objectForKey:@"city"];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+    if (pageControl.numberOfPages !=1) {
+        if (pageControl.currentPage == 0 && sender == _swipeRightRecognizer) {
+            currentLocationIndex++;
+            location = locations[currentLocationIndex];
+            cityLabel.text = [location objectForKey:@"city"];
+            descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+            predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+            [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];        }
+    }
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
