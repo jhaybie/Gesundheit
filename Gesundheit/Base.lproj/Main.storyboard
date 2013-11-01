@@ -77,21 +77,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="h0O-ex-GN3" kind="modal" id="V6i-6B-NCs"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCo-PM-0AI">
-                                <rect key="frame" x="86" y="524" width="149" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="15"/>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Saved Locations">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onTouchSearch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Gyf-qP-xQ7"/>
+                                    <segue destination="h0O-ex-GN3" kind="modal" animates="NO" id="V6i-6B-NCs"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmE-Ww-kPm">
@@ -131,6 +117,51 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" alpha="0.75" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNn-nC-8WX">
+                                <rect key="frame" x="12" y="524" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.9960784912109375" blue="0.9960784912109375" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qtR-4Q-gKw">
+                                <rect key="frame" x="240" y="524" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="rx list">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTapGoGoRxListVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="wiX-Iz-10G"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6U-vT-RYt">
+                                <rect key="frame" x="90" y="524" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="5 day">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTapGoGoWeeklyForecastVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="i3X-SQ-tjM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFA-OH-m7F">
+                                <rect key="frame" x="165" y="524" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="fav">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTapGoGoFavoriteLocationsVC:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rl7-gv-iUO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -140,7 +171,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Gesundheit!" id="Nza-Yn-c1v"/>
                     <connections>
-                        <outlet property="addLocationButton" destination="dCo-PM-0AI" id="s9X-1q-vWY"/>
                         <outlet property="allergenLevelButton" destination="s4O-N9-MKX" id="8eS-HO-ZMf"/>
                         <outlet property="changeDefaultCityButton" destination="zmE-Ww-kPm" id="YMg-yM-CPy"/>
                         <outlet property="cityLabel" destination="WA3-vO-X0G" id="ddj-JG-nys"/>
@@ -149,15 +179,18 @@
                         <outlet property="dandelionImage" destination="QFb-bb-y0J" id="q13-SG-nSf"/>
                         <outlet property="descriptionTextView" destination="WPO-31-HrN" id="tJb-Dj-lAB"/>
                         <outlet property="enterZipTextField" destination="kAc-Qk-4Au" id="wWZ-Fd-A2T"/>
+                        <outlet property="favoriteLocationsVCActiveButton" destination="VFA-OH-m7F" id="BOf-0Q-FjX"/>
                         <outlet property="goButton" destination="SDX-hU-8gY" id="RJu-E4-5Z3"/>
                         <outlet property="predominantTypeLabel" destination="ssr-1r-Owc" id="qPh-6v-j3N"/>
-                        <outlet property="searchButtonToggler" destination="dCo-PM-0AI" id="WuR-42-lpd"/>
+                        <outlet property="rootVCDisabledButton" destination="VNn-nC-8WX" id="PLw-k7-yQ7"/>
+                        <outlet property="rxListVCActiveButton" destination="qtR-4Q-gKw" id="Z3T-bC-6SG"/>
+                        <outlet property="weeklyForecastVCActiveButton" destination="u6U-vT-RYt" id="LMn-cL-zCJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="left" id="tfe-5i-LAP">
                     <connections>
-                        <segue destination="Vy9-4v-tWj" kind="modal" identifier="forecastSegue" modalTransitionStyle="coverVertical" id="6v5-NX-rxp"/>
+                        <segue destination="Vy9-4v-tWj" kind="modal" identifier="forecastSegue" modalTransitionStyle="coverVertical" animates="NO" id="6v5-NX-rxp"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -166,7 +199,7 @@
         <!--Favorite LocationsVC-->
         <scene sceneID="BD6-rt-fmt">
             <objects>
-                <viewController storyboardIdentifier="ZipCodeController" id="xvQ-tp-wYP" customClass="FavoriteLocationsVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FavoriteLocationsVC" id="xvQ-tp-wYP" customClass="FavoriteLocationsVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uI3-h2-apk"/>
                         <viewControllerLayoutGuide type="bottom" id="9FG-e7-3sM"/>
@@ -392,7 +425,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Sr0-OG-cS1" kind="modal" id="Xcy-vA-Fle"/>
+                                    <segue destination="Sr0-OG-cS1" kind="modal" animates="NO" id="Xcy-vA-Fle"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -568,7 +601,7 @@
         <!--Rx ListVC-->
         <scene sceneID="6XV-2g-wx1">
             <objects>
-                <viewController id="Sr0-OG-cS1" customClass="RxListVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RxListVC" id="Sr0-OG-cS1" customClass="RxListVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="W66-Xm-QO6"/>
                         <viewControllerLayoutGuide type="bottom" id="CBC-km-BtT"/>
