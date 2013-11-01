@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *rxListVCActiveButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 - (IBAction)onTapGoGoRxListVC:(id)sender;
+- (IBAction)onSwipeGestureActivated:(id)sender;
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
 - (IBAction)swipingPageControlMotion:(id)sender;
@@ -164,18 +165,18 @@ NSString          *city,
 
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    currentLocationIndex++;
-    location = locations[currentLocationIndex];
-    cityLabel.text = [location objectForKey:@"city"];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    currentLocationIndex++;
+//    location = locations[currentLocationIndex];
+//    cityLabel.text = [location objectForKey:@"city"];
+//    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+//    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+//    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
 //    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
 //        WeeklyForecastVC *wfvc = segue.destinationViewController;
 //        wfvc.location = location;
 //    }
-}
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -261,6 +262,15 @@ NSString          *city,
     rlvc.city = [location objectForKey:@"city"];
     rlvc.state = [location objectForKey:@"state"];
     [self presentViewController:rlvc animated:NO completion:nil];
+}
+
+- (IBAction)onSwipeGestureActivated:(id)sender {
+    currentLocationIndex++;
+    location = locations[currentLocationIndex];
+    cityLabel.text = [location objectForKey:@"city"];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
