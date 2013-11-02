@@ -108,28 +108,23 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
             degrees:(CGFloat)degrees {
     [dandelionImage.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, nil, 0, 570, 20, M_PI_2, 2, NO);
+    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(92), NO);
 
     CAKeyframeAnimation *dandyAnimation;
-
     dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     dandyAnimation.path = path;
     CGPathRelease(path);
-
-//    CGPoint transportPoint = CGPointMake(dand, <#CGFloat y#>)
-    
     dandyAnimation.duration = duration;
     dandyAnimation.removedOnCompletion = NO;
     dandyAnimation.autoreverses = YES;
     dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
-    dandyAnimation.speed = 1;
+    dandyAnimation.speed = .1f;
+    dandyAnimation.repeatCount = INFINITY;
     dandyAnimation.fillMode = kCAFillModeBoth;
 
     [dandelionImage.layer addAnimation:dandyAnimation forKey:@"position"];
 
 }
-
-
 
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
@@ -148,12 +143,6 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
                                [self allergenLevelChangeFontColor];
                            }];
 }
-
-//- (id)path {
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths firstObject];
-//    return [documentsDirectory stringByAppendingPathComponent:@"Gesundheit.plist"];
-//}
 
 - (void)allergenLevelChangeFontColor {
     float level = allergenLevelButton.currentTitle.floatValue;
@@ -179,30 +168,23 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    currentLocationIndex++;
-    location = locations[currentLocationIndex];
-    cityLabel.text = [location objectForKey:@"city"];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
-        WeeklyForecastVC *wfvc = segue.destinationViewController;
-        wfvc.location = location;
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    currentLocationIndex++;
+//    location = locations[currentLocationIndex];
+//    cityLabel.text = [location objectForKey:@"city"];
+//    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+//    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+//    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+//    if ([segue.identifier isEqualToString:@"forecastSegue"]) {
+//        WeeklyForecastVC *wfvc = segue.destinationViewController;
+//        wfvc.location = location;
+//    }
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:swipeRecognizer];
-    geocoder = [[CLGeocoder alloc] init];
-    currentLocationIndex = 0;
-    [self buttonBorder];
-    [self showGifImage];
-    isShown = NO;
-    location = [locations firstObject];
+    [self swipeLeftGesture];
+
 //    cityLabel.text = [location objectForKey:@"city"];
 //    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
 //    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
@@ -214,6 +196,29 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
         [self fetchPollenDataFromZip:defaultLocation];
 
 }
+- (void) swipeLeftGesture {
+    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeRecognizer];
+    geocoder = [[CLGeocoder alloc] init];
+    currentLocationIndex = 0;
+    [self buttonBorder];
+    [self showGifImage];
+    isShown = NO;
+    location = [locations firstObject];
+}
+- (void) rightSwipeActions {
+    if (pageControl.numberOfPages !=1) {
+        if (pageControl.currentPage == 0) { //&& sender == _swipeRightRecognizer) {
+            currentLocationIndex++;
+            location = locations[currentLocationIndex];
+            cityLabel.text = [location objectForKey:@"city"];
+            descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+            predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+            [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];        }
+    }
+}
+
 
 - (void)viewDidAppear:(BOOL)animated {
 
@@ -223,7 +228,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
 //    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [pageControl sizeForNumberOfPages:locations.count];
-    [self rotateDandy:dandelionImage duration:20 degrees:M_PI];
+    [self rotateDandy:dandelionImage duration:1 degrees:2];
 
     [self makeShadowsOnButton];
 }
@@ -275,7 +280,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
         FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
-        [self presentViewController:flvc animated:YES completion:nil];
+        [self presentViewController:flvc animated:NO completion:nil];
     }
     [super motionEnded:motion withEvent:event];
 }
@@ -325,10 +330,6 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
                        animated:NO
                      completion:nil];
 }
-
-//- (IBAction)swipingPageControlMotion:(id)sender {
-//    pageControl.c
-//}
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
     changeDefaultCityButton.hidden = YES;
