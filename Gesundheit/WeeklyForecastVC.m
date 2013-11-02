@@ -10,6 +10,7 @@
 #import "RxListVC.h"
 #import "RootVC.h"
 #import "UIColor+ColorCategory.h"
+#import "FavoriteLocationsVC.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -53,6 +54,18 @@ NSArray *week;
     descTextview.hidden = YES;
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return true;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
+        [self presentViewController:flvc animated:YES completion:nil];
+    }
+    [super motionEnded:motion withEvent:event];
+}
+
 - (void) buttonBorder {
     float borderWidth = 1.0f;
     float opacity = 0.85f;
@@ -69,10 +82,14 @@ NSArray *week;
     [[rxListTabButton layer] setOpacity:opacity];
 
     [fiveDayTabButton setBackgroundColor:[UIColor whiteColor]];
-    [[fiveDayTabButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[fiveDayTabButton layer] setBorderColor:[UIColor whiteColor].CGColor];
     [[fiveDayTabButton layer] setBorderWidth:borderWidth];
     [[fiveDayTabButton layer] setCornerRadius:corner];
     [[fiveDayTabButton layer] setOpacity:opacity];
+    fiveDayTabButton.layer.shadowColor = [[UIColor blackColor] CGColor];
+    fiveDayTabButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    fiveDayTabButton.layer.shadowOpacity = .85f;
+    fiveDayTabButton.layer.shadowRadius = 2.0f;
 
 }
 

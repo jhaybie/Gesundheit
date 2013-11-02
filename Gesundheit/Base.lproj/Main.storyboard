@@ -208,27 +208,27 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1NT-xo-z7X">
-                                <rect key="frame" x="30" y="141" width="261" height="382"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="34" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1NT-xo-z7X">
+                                <rect key="frame" x="30" y="141" width="261" height="266"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="xxx" textLabel="9qA-bX-x1k" detailTextLabel="DXh-Ce-RLz" rowHeight="56" style="IBUITableViewCellStyleValue1" id="DLK-A9-e0r">
-                                        <rect key="frame" x="0.0" y="22" width="261" height="56"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="xxx" textLabel="9qA-bX-x1k" detailTextLabel="DXh-Ce-RLz" rowHeight="34" style="IBUITableViewCellStyleValue1" id="DLK-A9-e0r">
+                                        <rect key="frame" x="0.0" y="22" width="261" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DLK-A9-e0r" id="tVm-6U-f2F">
-                                            <rect key="frame" x="0.0" y="0.0" width="194" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="194" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9qA-bX-x1k">
-                                                    <rect key="frame" x="15" y="17" width="33" height="21"/>
+                                                    <rect key="frame" x="15" y="6" width="33" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DXh-Ce-RLz">
-                                                    <rect key="frame" x="135" y="17" width="59" height="21"/>
+                                                    <rect key="frame" x="135" y="6" width="59" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
@@ -262,19 +262,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0N7-Ag-KXU">
-                                <rect key="frame" x="20" y="48" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Back">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="onBackButtonTap:" destination="xvQ-tp-wYP" eventType="touchUpInside" id="8Lo-Sd-xtp"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBx-Dw-v8l">
                                 <rect key="frame" x="252" y="108" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -300,6 +287,13 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shake to go back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kco-aX-zBA">
+                                <rect key="frame" x="30" y="432" width="261" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -307,7 +301,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addButton" destination="xBx-Dw-v8l" id="0f9-7T-CNV"/>
-                        <outlet property="backButton" destination="0N7-Ag-KXU" id="pyV-Hm-JdU"/>
                         <outlet property="backgroundSkyIMG" destination="id2-J9-2MG" id="S9N-r9-hMT"/>
                         <outlet property="cityAndStateLabel" destination="QP2-MB-wuP" id="oJz-Vl-vJv"/>
                         <outlet property="closestStationLabel" destination="gVD-GP-A3J" id="m1n-Uv-YRO"/>
@@ -715,6 +708,13 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="NRP-Ls-dNY">
+                                <rect key="frame" x="141" y="531" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="goGoPageControlSwipe:" destination="Sr0-OG-cS1" eventType="valueChanged" id="EyO-tN-wYu"/>
+                                </connections>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -724,6 +724,7 @@
                         <outlet property="drugstoresTableView" destination="00L-43-P8m" id="q6M-ig-w7P"/>
                         <outlet property="fiveDayActiveButton" destination="fd9-bt-MJf" id="nz3-qb-oAV"/>
                         <outlet property="oneDayActiveButton" destination="kvB-Cz-xCp" id="ZIf-YB-89p"/>
+                        <outlet property="pageControl" destination="NRP-Ls-dNY" id="fuR-tY-LgM"/>
                         <outlet property="rxListDisabledButton" destination="6Ij-rg-TaH" id="5XV-Dk-FGN"/>
                         <outlet property="searchButton" destination="rJM-WM-07h" id="3KZ-US-Uwx"/>
                         <outlet property="zipCodeTextField" destination="TjX-wU-e6Y" id="i3C-Lc-87Q"/>

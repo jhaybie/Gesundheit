@@ -228,7 +228,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     allergenLevelButton.layer.shadowColor = [[UIColor blackColor] CGColor];
     allergenLevelButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
     allergenLevelButton.layer.shadowOpacity = .85f;
-    allergenLevelButton.layer.shadowRadius = 3.0f;
+    allergenLevelButton.layer.shadowRadius = 2.0f;
 }
 
 - (void) buttonBorder {
@@ -253,6 +253,10 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     [[rootVCDisabledButton layer] setBorderWidth:1.0f];
     [[rootVCDisabledButton layer] setOpacity:.85f];
     [[rootVCDisabledButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    rootVCDisabledButton.layer.shadowColor = [[UIColor blackColor] CGColor];
+    rootVCDisabledButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    rootVCDisabledButton.layer.shadowOpacity = .85f;
+    rootVCDisabledButton.layer.shadowRadius = 3.0f;
 
     [[goButton layer] setCornerRadius:15.0f];
     [[goButton layer] setBorderWidth:1.0];
@@ -260,7 +264,17 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 }
 
+- (BOOL)canBecomeFirstResponder {
+    return true;
+}
 
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
+        [self presentViewController:flvc animated:YES completion:nil];
+    }
+    [super motionEnded:motion withEvent:event];
+}
 
 #pragma mark CLLocationManagerDelegate
 

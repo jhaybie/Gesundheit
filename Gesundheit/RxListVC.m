@@ -9,6 +9,7 @@
 #import "RxListVC.h"
 #import "RootVC.h"
 #import "WeeklyForecastVC.h"
+#import "FavoriteLocationsVC.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -32,10 +33,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *oneDayActiveButton;
 @property (weak, nonatomic) IBOutlet UIButton *fiveDayActiveButton;
 @property (weak, nonatomic) IBOutlet UIButton *rxListDisabledButton;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 - (IBAction)onSearchButtonTap:(id)sender;
 - (IBAction)onTapGoGoRootVC:(id)sender;
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender;
+- (IBAction)goGoPageControlSwipe:(id)sender;
 @end
 
 @implementation RxListVC
@@ -57,6 +60,17 @@ NSArray                *searchResults;
 NSMutableArray         *drugstores;
 NSString               *name,
                        *address;
+- (BOOL)canBecomeFirstResponder {
+    return true;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
+        [self presentViewController:flvc animated:YES completion:nil];
+    }
+    [super motionEnded:motion withEvent:event];
+}
 
 - (void)buttonBorders {
     float radius = 10.0f;
@@ -74,6 +88,10 @@ NSString               *name,
     [[rxListDisabledButton layer] setCornerRadius:radius];
     [[rxListDisabledButton layer] setBorderWidth:width];
     [[rxListDisabledButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    rxListDisabledButton.layer.shadowColor = [[UIColor blackColor] CGColor];
+    rxListDisabledButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    rxListDisabledButton.layer.shadowOpacity = .85f;
+    rxListDisabledButton.layer.shadowRadius = 2.0f;
 
     [[searchButton layer] setCornerRadius:15.0f];
     [[searchButton layer] setBorderWidth:1.0f];
@@ -188,5 +206,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    [self presentViewController:wfvc
 //                       animated:NO
 //                     completion:nil];
+}
+
+- (IBAction)goGoPageControlSwipe:(id)sender {
 }
 @end
