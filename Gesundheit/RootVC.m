@@ -106,8 +106,9 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //        aroundPoint:(CGPoint)rotationPoint
            duration:(NSTimeInterval)duration
             degrees:(CGFloat)degrees {
+    [dandelionImage.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, nil, 200, 400, M_1_PI, DEGREES_TO_RADIANS(0), DEGREES_TO_RADIANS(9), YES);
+    CGPathAddArc(path, nil, 0, 570, 20, M_PI_2, 2, NO);
 
     CAKeyframeAnimation *dandyAnimation;
 
@@ -116,17 +117,19 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     CGPathRelease(path);
 
 //    CGPoint transportPoint = CGPointMake(dand, <#CGFloat y#>)
-
+    
     dandyAnimation.duration = duration;
     dandyAnimation.removedOnCompletion = NO;
     dandyAnimation.autoreverses = YES;
     dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
-    dandyAnimation.speed = 20;
-    dandyAnimation.fillMode = kCAFillModeForwards;
+    dandyAnimation.speed = 1;
+    dandyAnimation.fillMode = kCAFillModeBoth;
 
     [dandelionImage.layer addAnimation:dandyAnimation forKey:@"position"];
 
 }
+
+
 
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
@@ -220,7 +223,8 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
 //    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [pageControl sizeForNumberOfPages:locations.count];
-    [self rotateDandy:dandelionImage duration:100 degrees:5];
+    [self rotateDandy:dandelionImage duration:20 degrees:M_PI];
+
     [self makeShadowsOnButton];
 }
 
