@@ -16,13 +16,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *closestStationLabel;
 @property (weak, nonatomic) IBOutlet UITextField *zipTextField;
 @property (weak, nonatomic) IBOutlet UITableView *zipTableView;
-- (IBAction)onAddButtonPress:(id)sender;
-- (IBAction)onBackButtonTap:(id)sender;
-- (IBAction)onSearchButtonTap:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *searchButton;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundSkyIMG;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyBackgroundIMG;
+
+- (IBAction)onAddButtonPress:(id)sender;
+- (IBAction)onSearchButtonTap:(id)sender;
 
 @end
 
@@ -66,6 +66,19 @@ NSString            *generatedZip,
 
 }
 
+// reconizes shake gesture ! to dissmiss fiveDayForecastVC (i cant figure out how to refactor a file name)
+
+- (BOOL)canBecomeFirstResponder {
+    return true;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        [self dismissViewControllerAnimated:NO completion:nil];
+    }
+    [super motionEnded:motion withEvent:event];
+}
+
 - (void) showBackgroundImage {
     backgroundSkyIMG.image = [UIImage imageNamed:@"skyBackRound2"];
     dandyBackgroundIMG.image = [UIImage imageNamed:@"testDandyDan"];
@@ -73,6 +86,9 @@ NSString            *generatedZip,
     [zipTableView setAlpha:.75];
 
 }
+
+// shak gesture 2 methods above!
+
 - (void)showResults {
     if (isCheckingZip) {
         for (int i = 0; i < locations.count; i++) {
@@ -118,15 +134,8 @@ NSString            *generatedZip,
                                [location setObject:dayList forKey:@"dayList"];
                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                if (!isCheckingZip)
-                                   [self showWeeklyForecast];
-                               else [self showResults];
+                                [self showResults];
                            }];
-}
-
-- (void)showWeeklyForecast {
-    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-    wvc.location = location;
-    [self presentViewController:wvc animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -232,11 +241,6 @@ numberOfRowsInSection:(NSInteger)section  {
     [locations addObject:location];
     [self savePList];
     [zipTableView reloadData];
-}
-
-- (IBAction)onBackButtonTap:(id)sender {
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
 }
 
 @end
