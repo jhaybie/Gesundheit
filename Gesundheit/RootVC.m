@@ -86,6 +86,10 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 - (void)loadPList {
     locations = [[[NSUserDefaults standardUserDefaults] objectForKey:@"locations"] ?: @[] mutableCopy];
+    cityLabel.text = [location objectForKey:@"city"];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
 }
 
 - (void)savePList {
@@ -211,10 +215,10 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 - (void)viewDidAppear:(BOOL)animated {
 
     [self loadPList];
-    cityLabel.text = [location objectForKey:@"city"];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+//    cityLabel.text = [location objectForKey:@"city"];
+//    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+//    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+//    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [pageControl sizeForNumberOfPages:locations.count];
     [self rotateDandy:dandelionImage duration:100 degrees:5];
     [self makeShadowsOnButton];
