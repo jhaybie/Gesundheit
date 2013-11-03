@@ -15,6 +15,8 @@
 + (UIColor *) mediumColor;
 + (UIColor *) medHighColor;
 + (UIColor *) highColor;
++ (UIColor *) darkGreenColor;
++ (UIColor *) veryDarkGreenColor;
 
 @end
 
