@@ -11,6 +11,7 @@
 		9101F8DA1821984300337F4E /* UIColor+ColorCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 9101F8D91821984300337F4E /* UIColor+ColorCategory.m */; };
 		9101F8DE1821F84E00337F4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9101F8DD1821F84E00337F4E /* QuartzCore.framework */; };
 		91197315181C42E800FA6A8B /* FavoriteLocationsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */; };
+		9126DE9018260A5200B4A4F9 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 9126DE8F18260A5200B4A4F9 /* grass.png */; };
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
 		917A59431822D627002880B2 /* skyBackRound2.png in Resources */ = {isa = PBXBuildFile; fileRef = 917A59421822D627002880B2 /* skyBackRound2.png */; };
 		917A59451822D62F002880B2 /* testDandyDan.png in Resources */ = {isa = PBXBuildFile; fileRef = 917A59441822D62F002880B2 /* testDandyDan.png */; };
@@ -54,6 +55,7 @@
 		9101F8DD1821F84E00337F4E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		91197313181C42E800FA6A8B /* FavoriteLocationsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteLocationsVC.h; sourceTree = "<group>"; };
 		91197314181C42E800FA6A8B /* FavoriteLocationsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteLocationsVC.m; sourceTree = "<group>"; };
+		9126DE8F18260A5200B4A4F9 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
 		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		917A59421822D627002880B2 /* skyBackRound2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyBackRound2.png; sourceTree = "<group>"; };
 		917A59441822D62F002880B2 /* testDandyDan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testDandyDan.png; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		E494FF2E1818458000E1E5C3 /* Gesundheit */ = {
 			isa = PBXGroup;
 			children = (
+				9126DE8F18260A5200B4A4F9 /* grass.png */,
 				E4C8969518215158006D3B35 /* Gesundheit.plist */,
 				E494FF371818458000E1E5C3 /* AppDelegate.h */,
 				E494FF381818458000E1E5C3 /* AppDelegate.m */,
@@ -287,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9126DE9018260A5200B4A4F9 /* grass.png in Resources */,
 				917A59451822D62F002880B2 /* testDandyDan.png in Resources */,
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,

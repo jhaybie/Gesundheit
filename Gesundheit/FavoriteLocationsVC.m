@@ -191,7 +191,7 @@ NSString            *generatedZip,
                                }];
 }
 
-- (void)viewWillAppear {
+- (void)viewWillAppear:(BOOL)animated {
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;

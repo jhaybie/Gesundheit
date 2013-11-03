@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *weeklyForecastVCActiveButton;
 @property (weak, nonatomic) IBOutlet UIButton *rxListVCActiveButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UIImageView *tabBarGrass;
 - (IBAction)onTapGoGoRxListVC:(id)sender;
 - (IBAction)onSwipeGestureActivated:(id)sender;
 
@@ -50,6 +51,7 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            tabBarGrass,
             rxListVCActiveButton,
             weeklyForecastVCActiveButton,
             rootVCDisabledButton,
@@ -107,7 +109,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
             degrees:(CGFloat)degrees {
     [dandelionImage.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+    CGPathAddArc(path, nil, -5, 515, 1, DEGREES_TO_RADIANS(80),DEGREES_TO_RADIANS(84), NO);
 
     CAKeyframeAnimation *dandyAnimation;
     dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -163,6 +165,8 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     dandelionGifImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandelionImage.image = [UIImage imageNamed:@"testDandyDan.png"];
     [dandelionImage setAlpha:.50];
+    tabBarGrass.image = [UIImage imageNamed:@"grass.png"];
+    tabBarGrass.alpha = .60;
 
 }
 
@@ -240,7 +244,8 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 }
 
 - (void) buttonBorder {
-    float corner = 10.0f;
+    float corner = 25.0f;
+    float alpha = 0.7f;
 
     [[allergenLevelButton layer] setCornerRadius:40.0f];
     [[allergenLevelButton layer] setOpacity:0.85f];
@@ -248,23 +253,27 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     [[allergenLevelButton layer] setBorderColor:[UIColor whiteColor].CGColor];
 
     [[rxListVCActiveButton layer] setCornerRadius:corner];
-    [[rxListVCActiveButton layer] setBorderWidth:1.0f];
-    [[rxListVCActiveButton layer] setOpacity:1.0f];
-    [[rxListVCActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[rxListVCActiveButton layer] setBorderWidth:2.0f];
+    [[rxListVCActiveButton layer] setOpacity:alpha];
+    [[rxListVCActiveButton layer] setBorderColor:[UIColor veryDarkGreenColor].CGColor];
+    rxListVCActiveButton.backgroundColor = [UIColor darkGreenColor];
 
     [[weeklyForecastVCActiveButton layer] setCornerRadius:corner];
-    [[weeklyForecastVCActiveButton layer] setBorderWidth:1.0f];
-    [[weeklyForecastVCActiveButton layer] setOpacity:1.0f];
-    [[weeklyForecastVCActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [[weeklyForecastVCActiveButton layer] setBorderWidth:2.0f];
+    [[weeklyForecastVCActiveButton layer] setOpacity:alpha];
+    [[weeklyForecastVCActiveButton layer] setBorderColor:[UIColor veryDarkGreenColor].CGColor];
+    weeklyForecastVCActiveButton.backgroundColor = [UIColor darkGreenColor];
 
     [[rootVCDisabledButton layer] setCornerRadius:corner];
-    [[rootVCDisabledButton layer] setBorderWidth:1.0f];
-    [[rootVCDisabledButton layer] setOpacity:.85f];
-    [[rootVCDisabledButton layer] setBorderColor:[UIColor whiteColor].CGColor];
-    rootVCDisabledButton.layer.shadowColor = [[UIColor blackColor] CGColor];
+    [[rootVCDisabledButton layer] setBorderWidth:2.0f];
+    [[rootVCDisabledButton layer] setOpacity:.6f];
+    [[rootVCDisabledButton layer] setBorderColor:[UIColor darkGreenColor].CGColor];
+    rootVCDisabledButton.backgroundColor = [UIColor veryDarkGreenColor];
+    [rootVCDisabledButton setTitleColor:[UIColor veryDarkGreenColor] forState:UIControlStateNormal];
+    rootVCDisabledButton.layer.shadowColor = [[UIColor darkGreenColor] CGColor];
     rootVCDisabledButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
     rootVCDisabledButton.layer.shadowOpacity = .85f;
-    rootVCDisabledButton.layer.shadowRadius = 3.0f;
+    rootVCDisabledButton.layer.shadowRadius = 5.0f;
 
     [[goButton layer] setCornerRadius:15.0f];
     [[goButton layer] setBorderWidth:1.0];
