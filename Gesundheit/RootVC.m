@@ -94,11 +94,13 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 }
 
 - (void) customTabBarColors {
-        [UIView animateWithDuration:5.0f animations:^{
+        [UIView animateWithDuration:3.0f animations:^{
 
             lineBar.backgroundColor = [UIColor darkGreenColor];
             lineBar.alpha = 0.5;
                     lineBar.frame = CGRectMake(-160, 512, 320, 5);
+            tabBarGrass.frame = CGRectMake(0, 776, 320, 208);
+
 
             lineBarBottom.backgroundColor = [UIColor veryDarkGreenColor];
             lineBarBottom.alpha = 0.5;
@@ -108,23 +110,6 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
             lineBarTop.backgroundColor = [UIColor veryDarkGreenColor];
             lineBarTop.alpha = 0.5;
                     lineBarTop.frame = CGRectMake(320, 504, 320, 5);
-
-            rootVCDisabledButton.frame = CGRectMake(55, 515, 85, 85);
-            rootVCDisabledButton.alpha = 0.5f;
-            rootVCDisabledButton.backgroundColor = [UIColor darkGreenColor];
-                    [[rootVCDisabledButton layer] setBorderWidth:.2f];
-
-            weeklyForecastVCActiveButton.frame = CGRectMake(158, 515, 85, 85);
-            weeklyForecastVCActiveButton.alpha = 0.5f;
-            weeklyForecastVCActiveButton.backgroundColor = [UIColor veryDarkGreenColor];
-                    [[weeklyForecastVCActiveButton layer] setBorderWidth:0.2f];
-
-            rxListVCActiveButton.frame = CGRectMake(261, 515, 85, 85);
-            rxListVCActiveButton.alpha = 0.5f;
-            rxListVCActiveButton.backgroundColor = [UIColor veryDarkGreenColor];
-                    [[rxListVCActiveButton layer] setBorderWidth:0.2f];
-
-
 
             lineBar.backgroundColor = [UIColor veryDarkGreenColor];
             lineBar.alpha = 0.85;
@@ -138,20 +123,24 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
             lineBarTop.alpha = 0.85;
                 lineBarTop.frame = CGRectMake(0, 504, 320, 3);
 
-            rootVCDisabledButton.frame = CGRectMake(30, 490, 50, 50);
+            rootVCDisabledButton.frame = CGRectMake(30, 490, 100, 50);
             rootVCDisabledButton.alpha = 0.85;
             rootVCDisabledButton.backgroundColor = [UIColor veryDarkGreenColor];
                 [[rootVCDisabledButton layer] setBorderWidth:2.0f];
 
-            weeklyForecastVCActiveButton.frame = CGRectMake(133, 490, 50, 50);
+            weeklyForecastVCActiveButton.frame = CGRectMake(133, 490, 100, 50);
             weeklyForecastVCActiveButton.alpha = 0.85f;
             weeklyForecastVCActiveButton.backgroundColor = [UIColor darkGreenColor];
                 [[weeklyForecastVCActiveButton layer] setBorderWidth:2.0f];
 
-            rxListVCActiveButton.frame = CGRectMake(236, 490, 50, 50);
+            rxListVCActiveButton.frame = CGRectMake(236, 490, 100, 50);
             rxListVCActiveButton.alpha = 0.85f;
             rxListVCActiveButton.backgroundColor = [UIColor darkGreenColor];
                 [[rxListVCActiveButton layer] setBorderWidth:2.0f];
+            tabBarGrass.frame = CGRectMake(0, 360, tabBarGrass.frame.size.width, tabBarGrass.frame.size.width);
+
+
+
 
     }];
 
@@ -182,7 +171,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     [dandelionImage.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
 
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, NULL, -5, 515, 1, DEGREES_TO_RADIANS(80),DEGREES_TO_RADIANS(84), NO);
+    CGPathAddArc(path, NULL, -15, 590, 1, DEGREES_TO_RADIANS(80),DEGREES_TO_RADIANS(84), NO);
 
     CAKeyframeAnimation *dandyAnimation;
     dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -237,7 +226,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 - (void)showGifImage {
     dandelionGifImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandelionImage.image = [UIImage imageNamed:@"testDandyDan.png"];
-    [dandelionImage setAlpha:.50];
+    [dandelionImage setAlpha:.30];
     tabBarGrass.image = [UIImage imageNamed:@"grass.png"];
     tabBarGrass.alpha = .60;
 
@@ -258,7 +247,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        [self rotateDandy:dandelionImage duration:1 degrees:2];
+    [self customTabBarColors];
     lineBar.backgroundColor = [UIColor veryDarkGreenColor];
     lineBar.alpha = 0.4f;
 
@@ -288,7 +277,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     geocoder = [[CLGeocoder alloc] init];
     currentLocationIndex = 0;
     [self buttonBorder];
-    [self showGifImage];
+//    [self showGifImage];
     isShown = NO;
     location = [locations firstObject];
 }
@@ -314,8 +303,8 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [pageControl sizeForNumberOfPages:locations.count];
     [self customTabBarColors];
-
-
+    [self rotateDandy:dandelionImage duration:1 degrees:2];
+    [self showGifImage];
     [self makeShadowsOnButton];
 }
 
