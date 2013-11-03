@@ -103,7 +103,6 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 }
 
 - (void)rotateDandy:(UIImageView *)image
-//        aroundPoint:(CGPoint)rotationPoint
            duration:(NSTimeInterval)duration
             degrees:(CGFloat)degrees {
     [dandelionImage.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
@@ -123,7 +122,6 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     dandyAnimation.fillMode = kCAFillModeBoth;
 
     [dandelionImage.layer addAnimation:dandyAnimation forKey:@"position"];
-
 }
 
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
@@ -183,6 +181,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+        [self rotateDandy:dandelionImage duration:1 degrees:2];
     [self swipeLeftGesture];
 
 //    cityLabel.text = [location objectForKey:@"city"];
@@ -228,7 +227,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
 //    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [pageControl sizeForNumberOfPages:locations.count];
-    [self rotateDandy:dandelionImage duration:1 degrees:2];
+
 
     [self makeShadowsOnButton];
 }

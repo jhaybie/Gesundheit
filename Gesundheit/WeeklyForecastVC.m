@@ -13,6 +13,8 @@
 #import "FavoriteLocationsVC.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
+
 
 @interface WeeklyForecastVC ()
 @property (weak, nonatomic) IBOutlet UILabel *cityAndStateLabel;
@@ -54,17 +56,17 @@ NSArray *week;
     descTextview.hidden = YES;
 }
 
-- (BOOL)canBecomeFirstResponder {
-    return true;
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake) {
-        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
-        [self presentViewController:flvc animated:YES completion:nil];
-    }
-    [super motionEnded:motion withEvent:event];
-}
+//- (BOOL)canBecomeFirstResponder {
+//    return true;
+//}
+//
+//- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+//    if (motion == UIEventSubtypeMotionShake) {
+//        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
+//        [self presentViewController:flvc animated:YES completion:nil];
+//    }
+//    [super motionEnded:motion withEvent:event];
+//}
 
 - (void) buttonBorder {
     float borderWidth = 1.0f;
@@ -101,6 +103,7 @@ NSArray *week;
 
     [self getCurrentDate];
     [self showGifImage];
+    [self rotateDandy:dandyPng duration:1 degrees:2];
     [self buttonBorder];
 }
 
@@ -128,6 +131,28 @@ NSArray *week;
         weekDayValue = 5;
     else if ([day isEqualToString:@"Saturday"])
         weekDayValue = 6;
+}
+
+- (void)rotateDandy:(UIImageView *)image
+           duration:(NSTimeInterval)duration
+            degrees:(CGFloat)degrees {
+    [dandyPng.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+
+    CAKeyframeAnimation *dandyAnimation;
+    dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    dandyAnimation.path = path;
+    CGPathRelease(path);
+    dandyAnimation.duration = duration;
+    dandyAnimation.removedOnCompletion = NO;
+    dandyAnimation.autoreverses = YES;
+    dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
+    dandyAnimation.speed = .2f;
+    dandyAnimation.repeatCount = INFINITY;
+    dandyAnimation.fillMode = kCAFillModeBoth;
+
+    [dandyPng.layer addAnimation:dandyAnimation forKey:@"position"];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -12,6 +12,8 @@
 #import "FavoriteLocationsVC.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
+
 
 @interface Drugstore : NSObject
 @property (strong, nonatomic) NSString *name;
@@ -60,17 +62,17 @@ NSArray                *searchResults;
 NSMutableArray         *drugstores;
 NSString               *name,
                        *address;
-- (BOOL)canBecomeFirstResponder {
-    return true;
-}
+//- (BOOL)canBecomeFirstResponder {
+//    return true;
+//}
 
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake) {
-        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
-        [self presentViewController:flvc animated:YES completion:nil];
-    }
-    [super motionEnded:motion withEvent:event];
-}
+//- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+//    if (motion == UIEventSubtypeMotionShake) {
+//        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
+//        [self presentViewController:flvc animated:NO completion:nil];
+//    }
+//    [super motionEnded:motion withEvent:event];
+//}
 
 - (void)buttonBorders {
     float radius = 10.0f;
@@ -125,10 +127,33 @@ NSString               *name,
                            }];
 }
 
+- (void)rotateDandy:(UIImageView *)image
+           duration:(NSTimeInterval)duration
+            degrees:(CGFloat)degrees {
+    [dandyImagePng.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+
+    CAKeyframeAnimation *dandyAnimation;
+    dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    dandyAnimation.path = path;
+    CGPathRelease(path);
+    dandyAnimation.duration = duration;
+    dandyAnimation.removedOnCompletion = NO;
+    dandyAnimation.autoreverses = YES;
+    dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
+    dandyAnimation.speed = .2f;
+    dandyAnimation.repeatCount = INFINITY;
+    dandyAnimation.fillMode = kCAFillModeBoth;
+
+    [dandyImagePng.layer addAnimation:dandyAnimation forKey:@"position"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self buttonBorders];
     [self showBackgroundImages];
+    [self rotateDandy:dandyImagePng duration:1 degrees:2];
     [self fetchSearchResults];
 }
 
@@ -141,7 +166,7 @@ NSString               *name,
 }
 
 - (IBAction)onBackButtonTap:(id)sender {
-    [self dismissViewControllerAnimated:YES
+    [self dismissViewControllerAnimated:NO
                              completion:nil];
 }
 
@@ -167,7 +192,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     mvc.city = city;
     mvc.state = state;
     mvc.coord = coord;
-    [self presentViewController:mvc animated:YES completion:nil];
+    [self presentViewController:mvc animated:NO completion:nil];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView

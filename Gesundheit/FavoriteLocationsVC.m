@@ -8,6 +8,7 @@
 
 #import "FavoriteLocationsVC.h"
 #import <QuartzCore/QuartzCore.h>
+#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
 
 
 @interface FavoriteLocationsVC ()
@@ -64,6 +65,28 @@ NSString            *generatedZip,
     [[addButton layer] setBorderColor:[UIColor blueColor].CGColor];
     [[addButton layer] setBorderWidth:1.0f];
 
+}
+
+- (void)rotateDandy:(UIImageView *)image
+           duration:(NSTimeInterval)duration
+            degrees:(CGFloat)degrees {
+    [dandyBackgroundIMG.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+
+    CAKeyframeAnimation *dandyAnimation;
+    dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    dandyAnimation.path = path;
+    CGPathRelease(path);
+    dandyAnimation.duration = duration;
+    dandyAnimation.removedOnCompletion = NO;
+    dandyAnimation.autoreverses = YES;
+    dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
+    dandyAnimation.speed = .2f;
+    dandyAnimation.repeatCount = INFINITY;
+    dandyAnimation.fillMode = kCAFillModeBoth;
+
+    [dandyBackgroundIMG.layer addAnimation:dandyAnimation forKey:@"position"];
 }
 
 // reconizes shake gesture ! to dissmiss fiveDayForecastVC (i cant figure out how to refactor a file name)
@@ -141,6 +164,7 @@ NSString            *generatedZip,
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self buttonBorders];
+    [self rotateDandy:dandyBackgroundIMG duration:1 degrees:2];
     [self showBackgroundImage];
 }
 
@@ -167,7 +191,7 @@ NSString            *generatedZip,
                                }];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear {
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;
@@ -233,6 +257,7 @@ numberOfRowsInSection:(NSInteger)section  {
 }
 
 - (IBAction)onAddButtonPress:(id)sender {
+        [zipTableView reloadData];
     addButton.hidden = YES;
     cityAndStateLabel.hidden = YES;
     closestStationLabel.hidden = YES;
@@ -240,7 +265,7 @@ numberOfRowsInSection:(NSInteger)section  {
     searchedState = [location objectForKey:@"state"];
     [locations addObject:location];
     [self savePList];
-    [zipTableView reloadData];
+
 }
 
 @end

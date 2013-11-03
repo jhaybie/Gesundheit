@@ -10,6 +10,8 @@
 #import "UIColor+ColorCategory.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
+
 @interface LegendVC ()
 @property (weak, nonatomic) IBOutlet UITextView *lowTextField;
 @property (weak, nonatomic) IBOutlet UITextView *lowMedTextField;
@@ -46,7 +48,30 @@
     [super viewDidLoad];
     [self showBackgroundImages];
     [self changeAlpha];
+    [self rotateDandy:dandyImagePng duration:1 degrees:2];
     [self changeColors];
+}
+
+- (void)rotateDandy:(UIImageView *)image
+           duration:(NSTimeInterval)duration
+            degrees:(CGFloat)degrees {
+    [dandyImagePng.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+
+    CAKeyframeAnimation *dandyAnimation;
+    dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    dandyAnimation.path = path;
+    CGPathRelease(path);
+    dandyAnimation.duration = duration;
+    dandyAnimation.removedOnCompletion = NO;
+    dandyAnimation.autoreverses = YES;
+    dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
+    dandyAnimation.speed = .2f;
+    dandyAnimation.repeatCount = INFINITY;
+    dandyAnimation.fillMode = kCAFillModeBoth;
+
+    [dandyImagePng.layer addAnimation:dandyAnimation forKey:@"position"];
 }
 
 - (void)showBackgroundImages {
