@@ -32,6 +32,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *rxListVCActiveButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UIImageView *tabBarGrass;
+@property (weak, nonatomic) IBOutlet UIView *lineBar;
+@property (weak, nonatomic) IBOutlet UIView *lineBarTop;
+@property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
+
 - (IBAction)onTapGoGoRxListVC:(id)sender;
 - (IBAction)onSwipeGestureActivated:(id)sender;
 
@@ -51,6 +55,9 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            lineBarBottom,
+            lineBarTop,
+            lineBar,
             tabBarGrass,
             rxListVCActiveButton,
             weeklyForecastVCActiveButton,
@@ -86,6 +93,100 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 }
 
+- (void) customTabBarColors {
+
+    [UIView animateWithDuration:3.0f animations:^{
+        lineBar.backgroundColor = [UIColor darkGreenColor];
+        lineBar.alpha = 0.1;
+        lineBar.frame = CGRectMake(-320, 512, 320, 10);
+
+        lineBarBottom.backgroundColor = [UIColor veryDarkGreenColor];
+        lineBarBottom.alpha = 0.1;
+        lineBarBottom.frame = CGRectMake(640, 520, 320, 10);
+
+
+        lineBarTop.backgroundColor = [UIColor darkGreenColor];
+        lineBarTop.alpha = 0.1;
+        lineBarTop.frame = CGRectMake(640, 504, 320, 10);
+
+        rootVCDisabledButton.frame = CGRectMake(55, 515, 25, 25);
+        rootVCDisabledButton.alpha = 0.2f;
+        [[rootVCDisabledButton layer] setBorderWidth:1.0f];
+
+        weeklyForecastVCActiveButton.frame = CGRectMake(158, 515, 25, 25);
+        weeklyForecastVCActiveButton.alpha = 0.2f;
+        [[weeklyForecastVCActiveButton layer] setBorderWidth:1.0f];
+
+        rxListVCActiveButton.frame = CGRectMake(261, 515, 25, 25);
+        rxListVCActiveButton.alpha = 0.2f;
+        [[rxListVCActiveButton layer] setBorderWidth:1.0f];
+
+
+        [UIView animateWithDuration:5.0f animations:^{
+
+            lineBar.backgroundColor = [UIColor darkGreenColor];
+            lineBar.alpha = 0.5;
+                    lineBar.frame = CGRectMake(-160, 512, 320, 5);
+
+            lineBarBottom.backgroundColor = [UIColor veryDarkGreenColor];
+            lineBarBottom.alpha = 0.5;
+            lineBarBottom.frame = CGRectMake(320, 520, 320, 5);
+
+
+            lineBarTop.backgroundColor = [UIColor veryDarkGreenColor];
+            lineBarTop.alpha = 0.5;
+                    lineBarTop.frame = CGRectMake(320, 504, 320, 5);
+
+            rootVCDisabledButton.frame = CGRectMake(55, 515, 85, 85);
+            rootVCDisabledButton.alpha = 0.5f;
+            rootVCDisabledButton.backgroundColor = [UIColor darkGreenColor];
+                    [[rootVCDisabledButton layer] setBorderWidth:.2f];
+
+            weeklyForecastVCActiveButton.frame = CGRectMake(158, 515, 85, 85);
+            weeklyForecastVCActiveButton.alpha = 0.5f;
+            weeklyForecastVCActiveButton.backgroundColor = [UIColor veryDarkGreenColor];
+                    [[weeklyForecastVCActiveButton layer] setBorderWidth:0.2f];
+
+            rxListVCActiveButton.frame = CGRectMake(271, 515, 85, 85);
+            rxListVCActiveButton.alpha = 0.5f;
+            rxListVCActiveButton.backgroundColor = [UIColor veryDarkGreenColor];
+                    [[rxListVCActiveButton layer] setBorderWidth:0.2f];
+        }];
+//        } completion:^(BOOL finished) {
+
+
+            lineBar.backgroundColor = [UIColor veryDarkGreenColor];
+            lineBar.alpha = 0.85;
+                    lineBar.frame = CGRectMake(0, 512, 320, 3);
+
+            lineBarBottom.backgroundColor = [UIColor darkGreenColor];
+            lineBarBottom.alpha = 0.85;
+                lineBarBottom.frame = CGRectMake(0, 520, 320, 3);
+
+            lineBarTop.backgroundColor = [UIColor darkGreenColor];
+            lineBarTop.alpha = 0.85;
+                lineBarTop.frame = CGRectMake(0, 504, 320, 3);
+
+            rootVCDisabledButton.frame = CGRectMake(30, 490, 50, 50);
+            rootVCDisabledButton.alpha = 0.85;
+            rootVCDisabledButton.backgroundColor = [UIColor veryDarkGreenColor];
+                [[rootVCDisabledButton layer] setBorderWidth:2.0f];
+
+            weeklyForecastVCActiveButton.frame = CGRectMake(133, 490, 50, 50);
+            weeklyForecastVCActiveButton.alpha = 0.85f;
+            weeklyForecastVCActiveButton.backgroundColor = [UIColor darkGreenColor];
+                [[weeklyForecastVCActiveButton layer] setBorderWidth:2.0f];
+
+            rxListVCActiveButton.frame = CGRectMake(261, 515, 25, 25);
+            rxListVCActiveButton.alpha = 0.85f;
+            rxListVCActiveButton.backgroundColor = [UIColor darkGreenColor];
+                [[rxListVCActiveButton layer] setBorderWidth:2.0f];
+
+    }];
+
+
+}
+
 - (void)loadPList {
     locations = [[[NSUserDefaults standardUserDefaults] objectForKey:@"locations"] ?: @[] mutableCopy];
     cityLabel.text = [location objectForKey:@"city"];
@@ -108,8 +209,9 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
            duration:(NSTimeInterval)duration
             degrees:(CGFloat)degrees {
     [dandelionImage.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
+
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, nil, -5, 515, 1, DEGREES_TO_RADIANS(80),DEGREES_TO_RADIANS(84), NO);
+    CGPathAddArc(path, NULL, -5, 515, 1, DEGREES_TO_RADIANS(80),DEGREES_TO_RADIANS(84), NO);
 
     CAKeyframeAnimation *dandyAnimation;
     dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -121,7 +223,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
     dandyAnimation.speed = .2f;
     dandyAnimation.repeatCount = INFINITY;
-    dandyAnimation.fillMode = kCAFillModeBoth;
+//    dandyAnimation.fillMode = kCAFillModeForwards;
 
     [dandelionImage.layer addAnimation:dandyAnimation forKey:@"position"];
 }
@@ -186,6 +288,15 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 - (void)viewDidLoad {
     [super viewDidLoad];
         [self rotateDandy:dandelionImage duration:1 degrees:2];
+    lineBar.backgroundColor = [UIColor veryDarkGreenColor];
+    lineBar.alpha = 0.4f;
+
+    lineBarBottom.backgroundColor = [UIColor darkGreenColor];
+    lineBarBottom.alpha = 0.4f;
+
+    lineBarTop.backgroundColor = [UIColor darkGreenColor];
+    lineBarTop.alpha = 0.4f;
+
     [self swipeLeftGesture];
 
 //    cityLabel.text = [location objectForKey:@"city"];
@@ -231,6 +342,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
 //    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [pageControl sizeForNumberOfPages:locations.count];
+    [self customTabBarColors];
 
 
     [self makeShadowsOnButton];
@@ -253,19 +365,19 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     [[allergenLevelButton layer] setBorderColor:[UIColor whiteColor].CGColor];
 
     [[rxListVCActiveButton layer] setCornerRadius:corner];
-    [[rxListVCActiveButton layer] setBorderWidth:2.0f];
+    [[rxListVCActiveButton layer] setBorderWidth:10.0f];
     [[rxListVCActiveButton layer] setOpacity:alpha];
     [[rxListVCActiveButton layer] setBorderColor:[UIColor veryDarkGreenColor].CGColor];
     rxListVCActiveButton.backgroundColor = [UIColor darkGreenColor];
 
     [[weeklyForecastVCActiveButton layer] setCornerRadius:corner];
-    [[weeklyForecastVCActiveButton layer] setBorderWidth:2.0f];
+    [[weeklyForecastVCActiveButton layer] setBorderWidth:10.0f];
     [[weeklyForecastVCActiveButton layer] setOpacity:alpha];
     [[weeklyForecastVCActiveButton layer] setBorderColor:[UIColor veryDarkGreenColor].CGColor];
     weeklyForecastVCActiveButton.backgroundColor = [UIColor darkGreenColor];
 
     [[rootVCDisabledButton layer] setCornerRadius:corner];
-    [[rootVCDisabledButton layer] setBorderWidth:2.0f];
+    [[rootVCDisabledButton layer] setBorderWidth:10.0f];
     [[rootVCDisabledButton layer] setOpacity:.6f];
     [[rootVCDisabledButton layer] setBorderColor:[UIColor darkGreenColor].CGColor];
     rootVCDisabledButton.backgroundColor = [UIColor veryDarkGreenColor];

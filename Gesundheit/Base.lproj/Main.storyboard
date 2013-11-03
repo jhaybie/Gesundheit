@@ -25,7 +25,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Qf-Ab-u0X">
-                                <rect key="frame" x="0.0" y="364" width="320" height="208"/>
+                                <rect key="frame" x="0.0" y="360" width="320" height="208"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's Forecast" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYk-qk-SSo">
@@ -72,6 +72,21 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aG8-3Q-aD7">
+                                <rect key="frame" x="0.0" y="512" width="320" height="5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J2P-eN-w75">
+                                <rect key="frame" x="0.0" y="520" width="320" height="5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ad-Ln-BfS">
+                                <rect key="frame" x="0.0" y="504" width="320" height="5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4O-N9-MKX">
                                 <rect key="frame" x="61" y="93" width="195" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -176,6 +191,9 @@
                         <outlet property="descriptionTextView" destination="WPO-31-HrN" id="tJb-Dj-lAB"/>
                         <outlet property="enterZipTextField" destination="kAc-Qk-4Au" id="wWZ-Fd-A2T"/>
                         <outlet property="goButton" destination="SDX-hU-8gY" id="RJu-E4-5Z3"/>
+                        <outlet property="lineBar" destination="aG8-3Q-aD7" id="YBa-ph-bl3"/>
+                        <outlet property="lineBarBottom" destination="J2P-eN-w75" id="C6W-WL-oZj"/>
+                        <outlet property="lineBarTop" destination="0Ad-Ln-BfS" id="ZFP-3Y-Skg"/>
                         <outlet property="pageControl" destination="Fzf-Ld-YHl" id="8GQ-eq-hkW"/>
                         <outlet property="predominantTypeLabel" destination="ssr-1r-Owc" id="qPh-6v-j3N"/>
                         <outlet property="rootVCDisabledButton" destination="VNn-nC-8WX" id="PLw-k7-yQ7"/>
@@ -779,6 +797,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Exz-2w-2Tu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2721" y="-4717"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="IWa-au-SwT">
+            <objects>
+                <viewController id="ewV-So-OFG" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IBr-JM-HjN"/>
+                        <viewControllerLayoutGuide type="bottom" id="0oj-gN-7LZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ied-K4-GLh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ch-PW-JYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
