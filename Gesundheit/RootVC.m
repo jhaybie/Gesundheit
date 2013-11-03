@@ -94,34 +94,6 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 }
 
 - (void) customTabBarColors {
-
-    [UIView animateWithDuration:3.0f animations:^{
-        lineBar.backgroundColor = [UIColor darkGreenColor];
-        lineBar.alpha = 0.1;
-        lineBar.frame = CGRectMake(-320, 512, 320, 10);
-
-        lineBarBottom.backgroundColor = [UIColor veryDarkGreenColor];
-        lineBarBottom.alpha = 0.1;
-        lineBarBottom.frame = CGRectMake(640, 520, 320, 10);
-
-
-        lineBarTop.backgroundColor = [UIColor darkGreenColor];
-        lineBarTop.alpha = 0.1;
-        lineBarTop.frame = CGRectMake(640, 504, 320, 10);
-
-        rootVCDisabledButton.frame = CGRectMake(55, 515, 25, 25);
-        rootVCDisabledButton.alpha = 0.2f;
-        [[rootVCDisabledButton layer] setBorderWidth:1.0f];
-
-        weeklyForecastVCActiveButton.frame = CGRectMake(158, 515, 25, 25);
-        weeklyForecastVCActiveButton.alpha = 0.2f;
-        [[weeklyForecastVCActiveButton layer] setBorderWidth:1.0f];
-
-        rxListVCActiveButton.frame = CGRectMake(261, 515, 25, 25);
-        rxListVCActiveButton.alpha = 0.2f;
-        [[rxListVCActiveButton layer] setBorderWidth:1.0f];
-
-
         [UIView animateWithDuration:5.0f animations:^{
 
             lineBar.backgroundColor = [UIColor darkGreenColor];
@@ -147,17 +119,16 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
             weeklyForecastVCActiveButton.backgroundColor = [UIColor veryDarkGreenColor];
                     [[weeklyForecastVCActiveButton layer] setBorderWidth:0.2f];
 
-            rxListVCActiveButton.frame = CGRectMake(271, 515, 85, 85);
+            rxListVCActiveButton.frame = CGRectMake(261, 515, 85, 85);
             rxListVCActiveButton.alpha = 0.5f;
             rxListVCActiveButton.backgroundColor = [UIColor veryDarkGreenColor];
                     [[rxListVCActiveButton layer] setBorderWidth:0.2f];
-        }];
-//        } completion:^(BOOL finished) {
+
 
 
             lineBar.backgroundColor = [UIColor veryDarkGreenColor];
             lineBar.alpha = 0.85;
-                    lineBar.frame = CGRectMake(0, 512, 320, 3);
+                    lineBar.frame = CGRectMake(0, 510, 320, 7);
 
             lineBarBottom.backgroundColor = [UIColor darkGreenColor];
             lineBarBottom.alpha = 0.85;
@@ -177,7 +148,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
             weeklyForecastVCActiveButton.backgroundColor = [UIColor darkGreenColor];
                 [[weeklyForecastVCActiveButton layer] setBorderWidth:2.0f];
 
-            rxListVCActiveButton.frame = CGRectMake(261, 515, 25, 25);
+            rxListVCActiveButton.frame = CGRectMake(236, 490, 50, 50);
             rxListVCActiveButton.alpha = 0.85f;
             rxListVCActiveButton.backgroundColor = [UIColor darkGreenColor];
                 [[rxListVCActiveButton layer] setBorderWidth:2.0f];
