@@ -115,11 +115,11 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
             lineBar.alpha = 0.85;
                     lineBar.frame = CGRectMake(0, 510, 320, 7);
 
-            lineBarBottom.backgroundColor = [UIColor darkGreenColor];
+            lineBarBottom.backgroundColor = [UIColor whiteColor];
             lineBarBottom.alpha = 0.85;
                 lineBarBottom.frame = CGRectMake(0, 520, 320, 3);
 
-            lineBarTop.backgroundColor = [UIColor darkGreenColor];
+            lineBarTop.backgroundColor = [UIColor whiteColor];
             lineBarTop.alpha = 0.85;
                 lineBarTop.frame = CGRectMake(0, 504, 320, 3);
 
