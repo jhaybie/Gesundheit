@@ -10,5 +10,7 @@
 #import "RxListVC.h"
 
 @interface WeeklyForecastVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@property (strong, nonatomic) NSArray *locations;
+@property (nonatomic) int currentLocationIndex;
 @property (strong, nonatomic) NSDictionary *location;
 @end
