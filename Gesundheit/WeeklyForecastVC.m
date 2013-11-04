@@ -25,11 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *rxListTabButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *fiveDayPageControl;
 @property (weak, nonatomic) IBOutlet UIImageView *grassPng;
-@property (weak, nonatomic) IBOutlet UIView *bottomLine;
-@property (weak, nonatomic) IBOutlet UIView *middleLine;
-@property (weak, nonatomic) IBOutlet UIView *topLine;
-
-
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyPng;
 - (IBAction)onTapGoGoRxListVC:(id)sender;
@@ -42,9 +37,6 @@
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
-            topLine,
-            middleLine,
-            bottomLine,
             grassPng,
             oneDayTabButton,
             rxListTabButton,
@@ -78,30 +70,45 @@ NSArray *week;
 //}
 
 - (void) buttonBorder {
-    float borderWidth = 1.0f;
-    float opacity = 0.85f;
-    float corner = 15.0f;
+    oneDayTabButton.backgroundColor = [UIColor clearColor];
+    UIBezierPath *oneDayPath = [UIBezierPath bezierPathWithRoundedRect:oneDayTabButton.bounds
+                                                     byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
+                                                           cornerRadii:CGSizeMake(10.0,10.0)];
+    CAShapeLayer *oneDayLayer = [CAShapeLayer layer];
+    oneDayLayer.frame = oneDayTabButton.bounds;
+    oneDayLayer.path = oneDayPath.CGPath;
+    oneDayLayer.fillColor = [UIColor darkGreenColor].CGColor;
+    oneDayLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    oneDayLayer.lineWidth = 2;
+    [oneDayTabButton.layer addSublayer:oneDayLayer];
 
-    [[oneDayTabButton layer] setBorderColor:[UIColor blueColor].CGColor];
-    [[oneDayTabButton layer] setBorderWidth:borderWidth];
-    [[oneDayTabButton layer] setCornerRadius:corner];
-    [[oneDayTabButton layer] setOpacity:opacity];
 
-    [[rxListTabButton layer] setBorderColor:[UIColor blueColor].CGColor];
-    [[rxListTabButton layer] setBorderWidth:borderWidth];
-    [[rxListTabButton layer] setCornerRadius:corner];
-    [[rxListTabButton layer] setOpacity:opacity];
 
-    [fiveDayTabButton setBackgroundColor:[UIColor whiteColor]];
-    [[fiveDayTabButton layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[fiveDayTabButton layer] setBorderWidth:borderWidth];
-    [[fiveDayTabButton layer] setCornerRadius:corner];
-    [[fiveDayTabButton layer] setOpacity:opacity];
-    fiveDayTabButton.layer.shadowColor = [[UIColor blackColor] CGColor];
-    fiveDayTabButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    fiveDayTabButton.layer.shadowOpacity = .85f;
-    fiveDayTabButton.layer.shadowRadius = 2.0f;
+    rxListTabButton.backgroundColor = [UIColor clearColor];
+    UIBezierPath *rxListPath = [UIBezierPath bezierPathWithRoundedRect:rxListTabButton.bounds
+                                                     byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
+                                                           cornerRadii:CGSizeMake(10.0, 10.0)];
+    CAShapeLayer *rxListLayer = [CAShapeLayer layer];
+    rxListLayer.frame = rxListTabButton.bounds;
+    rxListLayer.path = rxListPath.CGPath;
+    rxListLayer.fillColor = [UIColor darkGreenColor].CGColor;
+    rxListLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    rxListLayer.lineWidth = 2;
+    [rxListTabButton.layer addSublayer:rxListLayer];
 
+    fiveDayTabButton.backgroundColor = [UIColor clearColor];
+    [fiveDayTabButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+    UIBezierPath *shapePath = [UIBezierPath bezierPathWithRoundedRect:fiveDayTabButton.bounds
+                                                    byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
+                                                          cornerRadii:CGSizeMake(10.0,10.0)];
+
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.frame = fiveDayTabButton.bounds;
+    shapeLayer.path = shapePath.CGPath;
+    shapeLayer.fillColor = [UIColor veryDarkGreenColor].CGColor;
+    shapeLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    shapeLayer.lineWidth = 2;
+    [fiveDayTabButton.layer addSublayer:shapeLayer];
 }
 
 - (void)viewDidLoad {
@@ -114,7 +121,6 @@ NSArray *week;
     [self rotateDandy:dandyPng duration:1 degrees:2];
     [self buttonBorder];
     [self setUpBackgroundImages];
-    [self lineColors];
 }
 
 - (void)showGifImage {
@@ -124,10 +130,6 @@ NSArray *week;
     grassPng.image = [UIImage imageNamed:@"grass.png"];
     grassPng.alpha = .60;
 
-}
-
-- (void)lineColors {
-    middleLine.backgroundColor = [UIColor veryDarkGreenColor];
 }
 
 - (void)setUpBackgroundImages {
@@ -162,7 +164,7 @@ NSArray *week;
             degrees:(CGFloat)degrees {
     [dandyPng.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+    CGPathAddArc(path, nil, -15, 525, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
 
     CAKeyframeAnimation *dandyAnimation;
     dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
