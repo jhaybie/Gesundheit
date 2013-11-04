@@ -265,6 +265,7 @@ NSArray *week;
     RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
     rlvc.location = location;
     rlvc.locations = locations;
+    rlvc.currentLocationIndex = currentLocationIndex;
     rlvc.city = [location objectForKey:@"city"];
     rlvc.state = [location objectForKey:@"state"];
     [self presentViewController:rlvc
