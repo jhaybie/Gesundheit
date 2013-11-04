@@ -47,6 +47,8 @@
 
 @implementation RxListVC
 @synthesize  oneDayActiveButton,
+             citynStateLabel,
+             currentLocationIndex,
              location,
              fiveDayActiveButton,
              rxListDisabledButton,
@@ -54,6 +56,7 @@
              dandyImagePng,
              city,
              locations,
+             pageControl,
              searchButton,
              state,
              drugstoresTableView,
@@ -76,6 +79,33 @@ NSString               *name,
 //    }
 //    [super motionEnded:motion withEvent:event];
 //}
+
+- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
+
+    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        if (currentLocationIndex < locations.count - 1)
+            currentLocationIndex++;
+        else currentLocationIndex = 0;
+    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        if (currentLocationIndex == 0)
+            currentLocationIndex = locations.count - 1;
+        else
+            currentLocationIndex--;
+    }
+//    if (currentLocationIndex != 0) {
+//        location = locations[currentLocationIndex];
+//        pageControl.currentPage = currentLocationIndex;
+//    } else { // location == current location
+//        location = currentLocation;
+//    }
+
+    location = locations[currentLocationIndex];
+    city = [location objectForKey:@"city"];
+    state = [location objectForKey:@"state"];
+    pageControl.currentPage = currentLocationIndex;
+    citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    [self fetchSearchResults];
+}
 
 - (void)buttonBorders {
     oneDayActiveButton.backgroundColor = [UIColor clearColor];
@@ -121,7 +151,7 @@ NSString               *name,
 - (void)fetchSearchResults {
     drugstores = [[NSMutableArray alloc] init];
     city = [city stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    //state = [location objectForKey:@"state"];
+    state = [state stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=pharmacies+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
@@ -167,12 +197,24 @@ NSString               *name,
     [dandyImagePng.layer addAnimation:dandyAnimation forKey:@"position"];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    pageControl.numberOfPages = locations.count;
+    pageControl.currentPage = currentLocationIndex;
+    citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self buttonBorders];
     [self showBackgroundImages];
     [self rotateDandy:dandyImagePng duration:1 degrees:2];
     [self fetchSearchResults];
+    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRecognizer];
+    [self.view addGestureRecognizer:swipeRecognizer2];
 }
 
 - (void) showBackgroundImages {
