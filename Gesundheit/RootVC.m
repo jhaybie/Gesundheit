@@ -37,7 +37,6 @@
 @property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender;
-- (IBAction)onSwipeGestureActivated:(id)sender;
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
 - (IBAction)swipingPageControlMotion:(id)sender;
@@ -204,11 +203,6 @@ NSString          *city,
     [self loadPList];
     [self buttonBorder];
     isCurrentLocation = YES;
-//    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-//    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-//    [self.view addGestureRecognizer:swipeRecognizer];
-
-    [self swipeLeftGesture];
 
     [self swipeLeftGesture];
     locationManager = [[CLLocationManager alloc] init];
@@ -245,8 +239,13 @@ NSString          *city,
 
 - (void)viewDidAppear:(BOOL)animated {
     isAddingLocation = NO;
-    location = locations[currentLocationIndex];
+    //location = locations[currentLocationIndex];
     pageControl.numberOfPages = locations.count;
+    pageControl.currentPage = currentLocationIndex;
+    cityLabel.text = [location objectForKey:@"city"];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [self rotateDandy:dandelionImage duration:1 degrees:2];
     [self showGifImage];
     [self makeShadowsOnButton];
@@ -332,6 +331,9 @@ NSString          *city,
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
     RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    rlvc.location = location;
+    rlvc.locations = locations;
+    rlvc.currentLocationIndex = currentLocationIndex;
     rlvc.city = [location objectForKey:@"city"];
     rlvc.state = [location objectForKey:@"state"];
     [self presentViewController:rlvc animated:NO completion:nil];
@@ -366,6 +368,8 @@ NSString          *city,
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
     WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     wfvc.location = location;
+    wfvc.locations = locations;
+    wfvc.currentLocationIndex = currentLocationIndex;
     [self presentViewController:wfvc
                        animated:NO
                      completion:nil];
