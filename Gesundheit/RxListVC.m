@@ -284,7 +284,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    // [self dismissViewControllerAnimated:NO completion:nil];
 
     WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     wfvc.locations = locations;
