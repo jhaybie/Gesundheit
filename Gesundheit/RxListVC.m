@@ -51,6 +51,7 @@
              backroundImage,
              dandyImagePng,
              city,
+             locations,
              searchButton,
              state,
              drugstoresTableView,
@@ -226,11 +227,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
     [self dismissViewControllerAnimated:NO completion:nil];
 
-//    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-//    wfvc.location =
-//    [self presentViewController:wfvc
-//                       animated:NO
-//                     completion:nil];
+    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+    wfvc.locations = locations;
+    wfvc.location = location;
+    [self presentViewController:wfvc
+                       animated:NO
+                     completion:nil];
 }
 
 - (IBAction)goGoPageControlSwipe:(id)sender {

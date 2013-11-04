@@ -13,4 +13,7 @@
 
 
 @interface RootVC : UIViewController <CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+@property (strong, nonatomic) NSMutableDictionary *location;
+@property (strong, nonatomic) NSMutableArray *locations;
+@property (nonatomic) int currentLocationIndex;
 @end
