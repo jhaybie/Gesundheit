@@ -259,10 +259,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
-    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
-    [self presentViewController:rvc
-                       animated:NO
-                     completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"location changed" object:location];
+
+//    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
+//    [self presentViewController:rvc
+//                       animated:NO
+//                     completion:nil];
 }
 
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
