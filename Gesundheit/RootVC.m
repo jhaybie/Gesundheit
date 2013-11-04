@@ -35,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UIView *lineBar;
 @property (weak, nonatomic) IBOutlet UIView *lineBarTop;
 @property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+- (IBAction)onTapDeleteLocation:(id)sender;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender;
 
@@ -327,6 +329,9 @@ NSString          *city,
                            [self fetchPollenDataFromZip:zip];
                        }
                    }];
+}
+
+- (IBAction)onTapDeleteLocation:(id)sender {
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {

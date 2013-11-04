@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *fiveDayActiveButton;
 @property (weak, nonatomic) IBOutlet UIButton *rxListDisabledButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UILabel *citynStateLabel;
 
 - (IBAction)onSearchButtonTap:(id)sender;
 - (IBAction)onTapGoGoRootVC:(id)sender;
