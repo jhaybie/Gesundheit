@@ -262,15 +262,17 @@ NSArray *week;
 }
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
-    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
-    rvc.location = location.mutableCopy;
-    rvc.locations = locations.mutableCopy;
-    rvc.currentLocationIndex = currentLocationIndex;
-    [self presentViewController:rvc
-                       animated:NO
-                     completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"location changed" object:location];
+//    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
+//    rvc.location = location.mutableCopy;
+//    rvc.locations = locations.mutableCopy;
+//    rvc.currentLocationIndex = currentLocationIndex;
+//    [self presentViewController:rvc
+//                       animated:NO
+//                     completion:nil];
 }
 
 - (IBAction)onSwipeChangePageSelected:(id)sender {
 }
+
 @end

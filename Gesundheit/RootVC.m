@@ -81,6 +81,7 @@ BOOL              isAddingLocation,
                   isShown;
 CLGeocoder        *geocoder;
 CLLocationManager *locationManager;
+id                observer;
 int               currentLocationIndex,
                   weekDayValue;
 NSArray           *week;
@@ -214,6 +215,21 @@ NSString          *city,
     locationManager = [[CLLocationManager alloc] init];
     [self getCurrentLocationZip];
     [self fetchPollenDataFromZip:zip];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    observer = [nc addObserverForName:@"location changed"
+                               object:location
+                                queue:[NSOperationQueue mainQueue]
+                           usingBlock:^(NSNotification *note) {
+                               // [self presentViewController:self animated:NO completion:nil];
+                               cityLabel.text = [location objectForKey:@"city"];
+                               descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+                               predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+                               [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+
+
+                               //self.myLabelOutlet.text = [NSString stringWithFormat:@"%i", [note.object length]];
+    }];
+
 }
 
 - (void) swipeLeftGesture {
@@ -294,9 +310,6 @@ NSString          *city,
     rxLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
     rxLayer.lineWidth = 2;
     [rxListVCActiveButton.layer addSublayer:rxLayer];
-
-
-
 
     [[goButton layer] setCornerRadius:15.0f];
     [[goButton layer] setBorderWidth:1.0];
@@ -395,6 +408,10 @@ NSString          *city,
         [[NSUserDefaults standardUserDefaults] setObject: enterZipTextField.text forKey:@"defaultLocation"];
         [self fetchPollenDataFromZip:enterZipTextField.text];
     }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
 }
 
 @end
