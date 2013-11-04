@@ -193,7 +193,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                location = [NSJSONSerialization JSONObjectWithData:data
-                                                                          options:0
+                                                                          options:NSJSONReadingMutableContainers
                                                                             error:&connectionError];
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
@@ -201,7 +201,8 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
                                [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
                                [locationManager stopUpdatingLocation];
                                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                               [self savePList];
+                               [locations addObject: location];
+                               //[self savePList];
                                [self allergenLevelChangeFontColor];
                            }];
 }
@@ -264,10 +265,10 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
 //    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
 
-    NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
-         locationManager = [[CLLocationManager alloc] init];
-        [self getCurrentLocationZip];
-        [self fetchPollenDataFromZip:defaultLocation];
+    //NSString *defaultLocation = [[NSUserDefaults standardUserDefaults] objectForKey:@"defaultLocation"];
+    locationManager = [[CLLocationManager alloc] init];
+    [self getCurrentLocationZip];
+    [self fetchPollenDataFromZip:zip];
 
 }
 - (void) swipeLeftGesture {
@@ -281,6 +282,7 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
     isShown = NO;
     location = [locations firstObject];
 }
+
 - (void) rightSwipeActions {
     if (pageControl.numberOfPages !=1) {
         if (pageControl.currentPage == 0) { //&& sender == _swipeRightRecognizer) {
@@ -301,7 +303,9 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 //    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
 //    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
 //    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-    [pageControl sizeForNumberOfPages:locations.count];
+
+    //[pageControl sizeForNumberOfPages:locations.count];
+    pageControl.numberOfPages = locations.count;
     [self customTabBarColors];
     [self rotateDandy:dandelionImage duration:1 degrees:2];
     [self showGifImage];
@@ -353,9 +357,11 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 
 }
 
-- (BOOL)canBecomeFirstResponder {
-    return true;
-}
+// ??????????????????????????????
+
+//- (BOOL)canBecomeFirstResponder {
+//    return true;
+//}
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (motion == UIEventSubtypeMotionShake) {
@@ -366,8 +372,6 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 }
 
 #pragma mark CLLocationManagerDelegate
-
-//Ask Don or Max about replacing this deprecated method
 
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
@@ -391,16 +395,16 @@ UISwipeGestureRecognizer * _swipeRightRecognizer;
 }
 
 - (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
-//- (IBAction)onSwipeGestureActivated:(id)sender {
-    if (pageControl.numberOfPages !=1) {
-        if (pageControl.currentPage == 0) { //&& sender == _swipeRightRecognizer) {
-            currentLocationIndex++;
-            location = locations[currentLocationIndex];
-            cityLabel.text = [location objectForKey:@"city"];
-            descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-            predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-            [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];        }
+    if (currentLocationIndex < locations.count) { //&& sender == _swipeRightRecognizer) {
+        location = locations[currentLocationIndex];
+        currentLocationIndex++;
+        pageControl.currentPage++;
+        cityLabel.text = [location objectForKey:@"city"];
+        descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+        predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     }
+
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
