@@ -24,6 +24,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *fiveDayTabButton;
 @property (weak, nonatomic) IBOutlet UIButton *rxListTabButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *fiveDayPageControl;
+@property (weak, nonatomic) IBOutlet UIImageView *grassPng;
+@property (weak, nonatomic) IBOutlet UIView *bottomLine;
+@property (weak, nonatomic) IBOutlet UIView *middleLine;
+@property (weak, nonatomic) IBOutlet UIView *topLine;
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
@@ -38,6 +42,10 @@
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
+            topLine,
+            middleLine,
+            bottomLine,
+            grassPng,
             oneDayTabButton,
             rxListTabButton,
             fiveDayTabButton,
@@ -54,6 +62,7 @@ NSArray *week;
 - (void)viewDidAppear:(BOOL)animated {
     cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     descTextview.hidden = YES;
+    
 }
 
 //- (BOOL)canBecomeFirstResponder {
@@ -71,7 +80,7 @@ NSArray *week;
 - (void) buttonBorder {
     float borderWidth = 1.0f;
     float opacity = 0.85f;
-    float corner = 10.0f;
+    float corner = 15.0f;
 
     [[oneDayTabButton layer] setBorderColor:[UIColor blueColor].CGColor];
     [[oneDayTabButton layer] setBorderWidth:borderWidth];
@@ -100,17 +109,32 @@ NSArray *week;
     week = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
     weeklyForecastTableView.alpha = .75;
     [descTextview setAlpha:.50];
-
     [self getCurrentDate];
     [self showGifImage];
     [self rotateDandy:dandyPng duration:1 degrees:2];
     [self buttonBorder];
+    [self setUpBackgroundImages];
+    [self lineColors];
 }
 
 - (void)showGifImage {
     gifBackRoundImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandyPng.image = [UIImage imageNamed:@"testDandyDan.png"];
     dandyPng.alpha = .50;
+    grassPng.image = [UIImage imageNamed:@"grass.png"];
+    grassPng.alpha = .60;
+
+}
+
+- (void)lineColors {
+    middleLine.backgroundColor = [UIColor veryDarkGreenColor];
+}
+
+- (void)setUpBackgroundImages {
+    [UIView animateWithDuration:0.1f animations:^{
+    grassPng.frame = CGRectMake(grassPng.frame.origin.x, grassPng.frame.origin.y + 500, grassPng.frame.size.width, grassPng.frame.size.width);
+
+    }];
 }
 
 - (void)getCurrentDate {
