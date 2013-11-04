@@ -68,17 +68,6 @@ NSArray                *searchResults;
 NSMutableArray         *drugstores;
 NSString               *name,
                        *address;
-//- (BOOL)canBecomeFirstResponder {
-//    return true;
-//}
-
-//- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-//    if (motion == UIEventSubtypeMotionShake) {
-//        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
-//        [self presentViewController:flvc animated:NO completion:nil];
-//    }
-//    [super motionEnded:motion withEvent:event];
-//}
 
 - (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
 
@@ -92,13 +81,6 @@ NSString               *name,
         else
             currentLocationIndex--;
     }
-//    if (currentLocationIndex != 0) {
-//        location = locations[currentLocationIndex];
-//        pageControl.currentPage = currentLocationIndex;
-//    } else { // location == current location
-//        location = currentLocation;
-//    }
-
     location = locations[currentLocationIndex];
     city = [location objectForKey:@"city"];
     state = [location objectForKey:@"state"];
@@ -284,8 +266,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
-    // [self dismissViewControllerAnimated:NO completion:nil];
-
     WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     wfvc.locations = locations;
     wfvc.location = location;
