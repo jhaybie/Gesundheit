@@ -257,6 +257,10 @@ NSString          *city,
     allergenLevelButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
     allergenLevelButton.layer.shadowOpacity = .85f;
     allergenLevelButton.layer.shadowRadius = 2.0f;
+
+    allergenLevelButton.layer.cornerRadius = 40.0f;
+    allergenLevelButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    allergenLevelButton.layer.borderWidth = 2.0f;
 }
 
 - (void) buttonBorder {
