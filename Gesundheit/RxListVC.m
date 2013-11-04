@@ -289,6 +289,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     wfvc.locations = locations;
     wfvc.location = location;
+    wfvc.currentLocationIndex = currentLocationIndex;
     [self presentViewController:wfvc
                        animated:NO
                      completion:nil];
