@@ -149,7 +149,7 @@ NSString               *name,
             degrees:(CGFloat)degrees {
     [dandyImagePng.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+    CGPathAddArc(path, nil, -15, 525, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
 
     CAKeyframeAnimation *dandyAnimation;
     dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
