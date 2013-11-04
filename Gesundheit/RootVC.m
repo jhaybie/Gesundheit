@@ -163,7 +163,9 @@ NSString          *city,
                                if (currentLocationIndex == 0) {
                                    isCurrentLocation = NO;
                                    currentLocation = location;
-                                   [locations replaceObjectAtIndex:0 withObject:currentLocation];
+                                   if (locations.count  > 0)
+                                       [locations replaceObjectAtIndex:0 withObject:currentLocation];
+                                   else [locations addObject:currentLocation];
                                }
                                if (isAddingLocation) {
                                    currentLocationIndex++;
