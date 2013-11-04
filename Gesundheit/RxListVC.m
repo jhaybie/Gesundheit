@@ -10,6 +10,7 @@
 #import "RootVC.h"
 #import "WeeklyForecastVC.h"
 #import "FavoriteLocationsVC.h"
+#import "UIColor+ColorCategory.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
@@ -76,26 +77,41 @@ NSString               *name,
 //}
 
 - (void)buttonBorders {
-    float radius = 10.0f;
-    float width = 1.0f;
+    oneDayActiveButton.backgroundColor = [UIColor clearColor];
+    UIBezierPath *onePath = [UIBezierPath bezierPathWithRoundedRect:oneDayActiveButton.bounds
+                                                  byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
+                                                        cornerRadii:CGSizeMake(10.0, 10.0)];
+    CAShapeLayer *oneDayLayer = [CAShapeLayer layer];
+    oneDayLayer.frame = oneDayActiveButton.bounds;
+    oneDayLayer.path = onePath.CGPath;
+    oneDayLayer.lineWidth = 2.0f;
+    oneDayLayer.fillColor = [UIColor darkGreenColor].CGColor;
+    oneDayLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    [oneDayActiveButton.layer addSublayer:oneDayLayer];
 
-    [[oneDayActiveButton layer] setCornerRadius:radius];
-    [[oneDayActiveButton layer] setBorderWidth:width];
-    [[oneDayActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    fiveDayActiveButton.backgroundColor = [UIColor clearColor];
+    UIBezierPath *fiveDayPath =[UIBezierPath bezierPathWithRoundedRect:fiveDayActiveButton.bounds
+                                                     byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
+                                                           cornerRadii:CGSizeMake(10.0f, 10.0f)];
+    CAShapeLayer *fiveDayLayer = [CAShapeLayer layer];
+    fiveDayLayer.frame = fiveDayActiveButton.bounds;
+    fiveDayLayer.path = fiveDayPath.CGPath;
+    fiveDayLayer.lineWidth = 2.0f;
+    fiveDayLayer.fillColor = [UIColor darkGreenColor].CGColor;
+    fiveDayLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    [fiveDayActiveButton.layer addSublayer:fiveDayLayer];
 
-    [[fiveDayActiveButton layer] setCornerRadius:radius];
-    [[fiveDayActiveButton layer] setBorderWidth:width];
-    [[fiveDayActiveButton layer] setBorderColor:[UIColor blueColor].CGColor];
-
-    [rxListDisabledButton setBackgroundColor:[UIColor whiteColor]];
-    [[rxListDisabledButton layer] setCornerRadius:radius];
-    [[rxListDisabledButton layer] setBorderWidth:width];
-    [[rxListDisabledButton layer] setBorderColor:[UIColor whiteColor].CGColor];
-    rxListDisabledButton.layer.shadowColor = [[UIColor blackColor] CGColor];
-    rxListDisabledButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    rxListDisabledButton.layer.shadowOpacity = .85f;
-    rxListDisabledButton.layer.shadowRadius = 2.0f;
-
+    rxListDisabledButton.backgroundColor = [UIColor clearColor];
+    UIBezierPath *rxPath = [UIBezierPath bezierPathWithRoundedRect:rxListDisabledButton.bounds
+                                                 byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
+                                                       cornerRadii:CGSizeMake(10.0, 10.0)];
+    CAShapeLayer *rxLayer = [CAShapeLayer layer];
+    rxLayer.frame = rxListDisabledButton.bounds;
+    rxLayer.path = rxPath.CGPath;
+    rxLayer.fillColor = [UIColor veryDarkGreenColor].CGColor;
+    rxLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    rxLayer.lineWidth = 2.0f;
+    [rxListDisabledButton.layer addSublayer:rxLayer];
     [[searchButton layer] setCornerRadius:15.0f];
     [[searchButton layer] setBorderWidth:1.0f];
     [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
