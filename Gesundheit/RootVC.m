@@ -230,19 +230,6 @@ NSString          *city,
     //location = [locations firstObject];
 }
 
-//- (void) rightSwipeActions {
-//    if (pageControl.numberOfPages !=1) {
-//        if (pageControl.currentPage == 0) { //&& sender == _swipeRightRecognizer) {
-//            currentLocationIndex++;
-//            location = locations[currentLocationIndex];
-//            cityLabel.text = [location objectForKey:@"city"];
-//            descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-//            predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-//            [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];        }
-//    }
-//}
-
-
 - (void)viewDidAppear:(BOOL)animated {
     if (currentLocationIndex == 0)
         deleteButton.hidden = YES;
@@ -314,14 +301,6 @@ NSString          *city,
     [[goButton layer] setCornerRadius:15.0f];
     [[goButton layer] setBorderWidth:1.0];
     [[goButton layer] setBorderColor:[UIColor blueColor].CGColor];
-}
-
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (motion == UIEventSubtypeMotionShake) {
-        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
-        [self presentViewController:flvc animated:NO completion:nil];
-    }
-    [super motionEnded:motion withEvent:event];
 }
 
 - (void)locationManager:(CLLocationManager *)manager

@@ -79,18 +79,6 @@ NSArray *week;
     fiveDayPageControl.currentPage = currentLocationIndex;
 }
 
-//- (BOOL)canBecomeFirstResponder {
-//    return true;
-//}
-//
-//- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-//    if (motion == UIEventSubtypeMotionShake) {
-//        FavoriteLocationsVC *flvc = [self.storyboard instantiateViewControllerWithIdentifier:@"FavoriteLocationsVC"];
-//        [self presentViewController:flvc animated:YES completion:nil];
-//    }
-//    [super motionEnded:motion withEvent:event];
-//}
-
 - (void) buttonBorder {
     oneDayTabButton.backgroundColor = [UIColor clearColor];
     UIBezierPath *oneDayPath = [UIBezierPath bezierPathWithRoundedRect:oneDayTabButton.bounds
