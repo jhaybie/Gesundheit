@@ -56,6 +56,7 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            deleteButton,
             lineBarBottom,
             lineBarTop,
             lineBar,
@@ -107,7 +108,7 @@ NSString          *city,
 }
 
 - (void)savePList {
-    //[[NSUserDefaults standardUserDefaults] setObject:locations forKey:@"locations"];
+    [[NSUserDefaults standardUserDefaults] setObject:locations forKey:@"locations"];
 }
 
 - (void)getCurrentLocationZip {
@@ -159,7 +160,7 @@ NSString          *city,
                                    dayList[i] = tempForecast;
                                }
                                [location setObject:dayList forKey:@"dayList"];
-                               if (isCurrentLocation) {
+                               if (currentLocationIndex == 0) {
                                    isCurrentLocation = NO;
                                    currentLocation = location;
                                    [locations replaceObjectAtIndex:0 withObject:currentLocation];
@@ -204,6 +205,7 @@ NSString          *city,
     [super viewDidLoad];
     [self loadPList];
     [self buttonBorder];
+    deleteButton.hidden = YES;
     isCurrentLocation = YES;
 
     [self swipeLeftGesture];
@@ -240,6 +242,9 @@ NSString          *city,
 
 
 - (void)viewDidAppear:(BOOL)animated {
+    if (currentLocationIndex == 0)
+        deleteButton.hidden = YES;
+    else deleteButton.hidden = NO;
     isAddingLocation = NO;
     //location = locations[currentLocationIndex];
     pageControl.numberOfPages = locations.count;
@@ -332,6 +337,13 @@ NSString          *city,
 }
 
 - (IBAction)onTapDeleteLocation:(id)sender {
+    [locations removeObjectAtIndex:currentLocationIndex];
+    currentLocationIndex--;
+    location = locations[currentLocationIndex];
+    [self viewDidAppear: NO];
+    [self savePList];
+    if (currentLocationIndex == 0)
+        deleteButton.hidden = YES;
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
@@ -345,6 +357,7 @@ NSString          *city,
 }
 
 - (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
+
     if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
         if (currentLocationIndex < locations.count - 1)
             currentLocationIndex++;
@@ -368,6 +381,9 @@ NSString          *city,
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
     [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+    if (currentLocationIndex == 0)
+        deleteButton.hidden = YES;
+    else deleteButton.hidden = NO;
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
