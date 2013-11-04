@@ -44,6 +44,7 @@
             dandyPng,
             descTextview,
             location,
+            locations,
             weeklyForecastTableView,
             cityAndStateLabel;
 
@@ -235,6 +236,7 @@ NSArray *week;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
     RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    rlvc.locations = locations;
     rlvc.city = [location objectForKey:@"city"];
     rlvc.state = [location objectForKey:@"state"];
     [self presentViewController:rlvc
