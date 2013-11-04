@@ -41,6 +41,8 @@
             oneDayTabButton,
             rxListTabButton,
             fiveDayTabButton,
+            fiveDayPageControl,
+            currentLocationIndex,
             dandyPng,
             descTextview,
             location,
@@ -52,10 +54,29 @@
 int     weekDayValue;
 NSArray *week;
 
+
+- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
+    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        if (currentLocationIndex < locations.count - 1)
+            currentLocationIndex++;
+        else currentLocationIndex = 0;
+    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        if (currentLocationIndex == 0)
+            currentLocationIndex = locations.count - 1;
+        else
+            currentLocationIndex--;
+    }
+    location = locations[currentLocationIndex];
+    fiveDayPageControl.currentPage = currentLocationIndex;
+    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    [weeklyForecastTableView reloadData];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     descTextview.hidden = YES;
-    
+    fiveDayPageControl.numberOfPages = locations.count;
+    fiveDayPageControl.currentPage = currentLocationIndex;
 }
 
 //- (BOOL)canBecomeFirstResponder {
@@ -122,6 +143,12 @@ NSArray *week;
     [self rotateDandy:dandyPng duration:1 degrees:2];
     [self buttonBorder];
     [self setUpBackgroundImages];
+    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRecognizer];
+    [self.view addGestureRecognizer:swipeRecognizer2];
 }
 
 - (void)showGifImage {
@@ -236,6 +263,7 @@ NSArray *week;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
     RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    rlvc.location = location;
     rlvc.locations = locations;
     rlvc.city = [location objectForKey:@"city"];
     rlvc.state = [location objectForKey:@"state"];
@@ -246,6 +274,9 @@ NSArray *week;
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
     RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
+    rvc.location = location.mutableCopy;
+    rvc.locations = locations.mutableCopy;
+    rvc.currentLocationIndex = currentLocationIndex;
     [self presentViewController:rvc
                        animated:NO
                      completion:nil];
