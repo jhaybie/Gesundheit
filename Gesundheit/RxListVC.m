@@ -64,7 +64,6 @@
 
 
 CLLocationCoordinate2D coord;
-id                     observer;
 NSArray                *searchResults;
 NSMutableArray         *drugstores;
 NSString               *name,
@@ -198,19 +197,6 @@ NSString               *name,
     swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRecognizer];
     [self.view addGestureRecognizer:swipeRecognizer2];
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    observer = [nc addObserverForName:@"Go To RXListVC"
-                               object:location
-                                queue:[NSOperationQueue mainQueue]
-                           usingBlock:^(NSNotification *note) {
-                               [self presentViewController:self animated:NO completion:nil];
-                               pageControl.numberOfPages = locations.count;
-                               pageControl.currentPage = currentLocationIndex;
-                               citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-                               [self fetchSearchResults];
-
-                           }];
-
 }
 
 - (void) showBackgroundImages {
@@ -273,17 +259,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
-    [self dismissViewControllerAnimated:NO completion:nil];
-
-//    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
-//    [self presentViewController:rvc
-//                       animated:NO
-//                     completion:nil];
+    //[self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    //[self dismissViewControllerAnimated:NO completion:nil];
 
 
 //    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
@@ -296,10 +277,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)goGoPageControlSwipe:(id)sender {
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:observer];
 }
 
 @end
