@@ -37,7 +37,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *fiveDayActiveButton;
 @property (weak, nonatomic) IBOutlet UIButton *rxListDisabledButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UISwitch *openNowSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *citynStateLabel;
+- (IBAction)onSegmentedControlTap:(id)sender;
+
+- (IBAction)onOpenNowSwitchTap:(id)sender;
 
 - (IBAction)onSearchButtonTap:(id)sender;
 - (IBAction)onTapGoGoRootVC:(id)sender;
@@ -60,12 +65,15 @@
              searchButton,
              state,
              drugstoresTableView,
-             zipCodeTextField;
+             zipCodeTextField,
+             openNowSwitch,
+             segmentedControl;
 
 
 CLLocationCoordinate2D coord;
 NSArray                *searchResults;
-NSMutableArray         *drugstores;
+NSMutableArray         *drugstores,
+                       *doctors;
 NSString               *name,
                        *address;
 
@@ -130,6 +138,33 @@ NSString               *name,
     [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
 }
 
+- (void)fetchSearchResultsForDoctors {
+    doctors = [[NSMutableArray alloc] init];
+    city = [city stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    state = [state stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=allergy+doctors+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
+                                                                                           options:0
+                                                                                             error:&connectionError];
+                               searchResults = [initialDump objectForKey:@"results"];
+                               for (int i = 0; i < searchResults.count; i++) {
+                                   NSDictionary *tempDict = [searchResults[i] objectForKey:@"geometry"];
+                                   Drugstore *tempRx = [[Drugstore alloc] init];
+                                   tempRx.name = [searchResults[i] objectForKey:@"name"];
+                                   tempRx.address = [searchResults[i] objectForKey:@"formatted_address"];
+                                   tempRx.coord = CLLocationCoordinate2DMake([[[tempDict objectForKey:@"location"] objectForKey:@"lat"] floatValue], [[[tempDict objectForKey:@"location"] objectForKey:@"lng"] floatValue]);
+                                   tempRx.openNow = (BOOL)[[searchResults[i] objectForKey:@"opening_hours"] objectForKey:@"open_now"];
+                                   [drugstores addObject:tempRx];
+                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                               }
+                               [drugstoresTableView reloadData];
+                           }];
+}
+
 - (void)fetchSearchResults {
     drugstores = [[NSMutableArray alloc] init];
     city = [city stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -180,6 +215,7 @@ NSString               *name,
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    segmentedControl.selectedSegmentIndex = 0;
     pageControl.numberOfPages = locations.count;
     pageControl.currentPage = currentLocationIndex;
     citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
@@ -191,6 +227,7 @@ NSString               *name,
     [self showBackgroundImages];
     [self rotateDandy:dandyImagePng duration:1 degrees:2];
     [self fetchSearchResults];
+    [self fetchSearchResultsForDoctors];
     UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
     swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
@@ -239,8 +276,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xxx"];
-    Drugstore *tempDrugstore = drugstores[indexPath.row];
+    Drugstore *tempDrugstore;
+    if (segmentedControl.selectedSegmentIndex == 0) {
+        tempDrugstore = drugstores[indexPath.row];
+    }
+    else {
+        tempDrugstore = doctors[indexPath.row];
+    }
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.textLabel.text = tempDrugstore.name;
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:10];
     cell.detailTextLabel.numberOfLines = 2;
     NSString *tempAddress1 = [[tempDrugstore.address componentsSeparatedByString:@", "] firstObject];
     NSString *tempCity = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:1];
@@ -249,11 +294,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 
+- (IBAction)onSegmentedControlTap:(id)sender {
+    [drugstoresTableView reloadData];
+//    if (segmentedControl.selectedSegmentIndex == 0) {
+//        [self fetchSearchResults];
+//    } else {
+//        [self fetchSearchResultsForDoctors];
+//    }
+}
+
+- (IBAction)onOpenNowSwitchTap:(id)sender {
+
+}
+
 - (IBAction)onSearchButtonTap:(id)sender {
     [zipCodeTextField resignFirstResponder];
     city = zipCodeTextField.text;
     state = @"";
     [self fetchSearchResults];
+    [self fetchSearchResultsForDoctors];
     zipCodeTextField.text = @"";
 }
 
