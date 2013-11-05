@@ -258,22 +258,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
-    //[self dismissViewControllerAnimated:NO completion:nil];
+    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    [tempLocations setObject:locations forKey:@"locations"];
+    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:tempLocations];
 }
 
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
-    //[self dismissViewControllerAnimated:NO completion:nil];
-
-
-//    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-//    wfvc.locations = locations;
-//    wfvc.location = location;
-//    wfvc.currentLocationIndex = currentLocationIndex;
-//    [self presentViewController:wfvc
-//                       animated:NO
-//                     completion:nil];
+    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    [tempLocations setObject:locations forKey:@"locations"];
+    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:tempLocations];
 }
 
 - (IBAction)goGoPageControlSwipe:(id)sender {
