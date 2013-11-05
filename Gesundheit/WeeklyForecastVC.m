@@ -208,7 +208,6 @@ NSArray *week;
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     RxListVC *rvc = segue.destinationViewController;
-    //rvc.location = location;
     rvc.city = [location objectForKey:@"city"];
     rvc.state = [location objectForKey:@"state"];
 }
@@ -249,24 +248,18 @@ NSArray *week;
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
-    //[self dismissViewControllerAnimated:NO completion:nil];
-
-
-//    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-//    rlvc.location = location;
-//    rlvc.locations = locations;
-//    rlvc.currentLocationIndex = currentLocationIndex;
-//    rlvc.city = [location objectForKey:@"city"];
-//    rlvc.state = [location objectForKey:@"state"];
-//    [self presentViewController:rlvc
-//                       animated:NO
-//                     completion:nil];
+    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    [tempLocations setObject:locations forKey:@"locations"];
+    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:tempLocations];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
-    //[self dismissViewControllerAnimated:NO completion:nil];
+    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    [tempLocations setObject:locations forKey:@"locations"];
+    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:tempLocations];
 }
 
 - (IBAction)onSwipeChangePageSelected:(id)sender {

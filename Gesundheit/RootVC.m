@@ -94,6 +94,8 @@ NSString          *city,
                   *state,
                   *zip,
                   *predominantType;
+RxListVC          *rvc;
+WeeklyForecastVC  *wvc;
 
 
 -(void)swipingPageControlMotion:(id)sender {
@@ -138,8 +140,6 @@ NSString          *city,
     dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
     dandyAnimation.speed = .2f;
     dandyAnimation.repeatCount = INFINITY;
-//    dandyAnimation.fillMode = kCAFillModeForwards;
-
     [dandelionImage.layer addAnimation:dandyAnimation forKey:@"position"];
 }
 
@@ -209,8 +209,8 @@ NSString          *city,
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-    RxListVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+    rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
     
     [self loadPList];
     [self buttonBorder];
@@ -223,13 +223,16 @@ NSString          *city,
     [self fetchPollenDataFromZip:zip];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     rootObserver = [nc addObserverForName:@"Go To RootVC"
-                               object:location
+                               object:nil
                                 queue:[NSOperationQueue mainQueue]
                            usingBlock:^(NSNotification *note) {
-                               //[self]
-                               //[self presentViewController:self animated:NO completion:nil];
                                [rvc dismissViewControllerAnimated:NO completion:nil];
                                [wvc dismissViewControllerAnimated:NO completion:nil];
+                               NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+                               tempLocations = (NSMutableDictionary *) note.object;
+                               int index = [[tempLocations objectForKey:@"index"] intValue];
+                               location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
+                               pageControl.currentPage = index;
 
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
@@ -237,26 +240,33 @@ NSString          *city,
                                [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     }];
     rxListObserver = [nc addObserverForName:@"Go To RXListVC"
-                                     object:location
+                                     object:nil
                                       queue:[NSOperationQueue mainQueue]
                                  usingBlock:^(NSNotification *note) {
+                                     NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+                                     tempLocations = (NSMutableDictionary *) note.object;
+                                     int index = [[tempLocations objectForKey:@"index"] intValue];
+                                     location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
                                      rvc.location = location;
-                                     rvc.locations = locations;
-                                     rvc.currentLocationIndex = currentLocationIndex;
+                                     rvc.locations = [tempLocations objectForKey:@"locations"];
+                                     rvc.currentLocationIndex = index;
                                      rvc.city = [location objectForKey:@"city"];
                                      rvc.state = [location objectForKey:@"state"];
                                      [wvc dismissViewControllerAnimated:NO completion:nil];
-                                     [self dismissViewControllerAnimated:NO completion:nil];
                                      [self presentViewController:rvc animated:NO completion:nil];
                                      NSLog(@"Rx touch");
     }];
     weeklyForecastObserver = [nc addObserverForName:@"Go To WeeklyForecastVC"
-                                             object:location
+                                             object:nil
                                               queue:[NSOperationQueue mainQueue]
                                          usingBlock:^(NSNotification *note) {
-                                             wvc.currentLocationIndex = currentLocationIndex;
+                                             NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+                                             tempLocations = (NSMutableDictionary *) note.object;
+                                             int index = [[tempLocations objectForKey:@"index"] intValue];
+                                             location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
+                                             wvc.currentLocationIndex = index;
                                              wvc.location = location;
-                                             wvc.locations = locations;
+                                             wvc.locations = [tempLocations objectForKey:@"locations"];
                                              [self dismissViewControllerAnimated:NO completion:nil];
                                              [rvc dismissViewControllerAnimated:NO completion:nil];
                                              [self presentViewController:wvc animated:NO completion:nil];
@@ -273,9 +283,7 @@ NSString          *city,
     [self.view addGestureRecognizer:swipeRecognizer2];
     geocoder = [[CLGeocoder alloc] init];
     currentLocationIndex = 0;
-//    [self showGifImage];
     isShown = NO;
-    //location = [locations firstObject];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -283,7 +291,6 @@ NSString          *city,
         deleteButton.hidden = YES;
     else deleteButton.hidden = NO;
     isAddingLocation = NO;
-    //location = locations[currentLocationIndex];
     pageControl.numberOfPages = locations.count;
     pageControl.currentPage = currentLocationIndex;
     cityLabel.text = [location objectForKey:@"city"];
@@ -373,16 +380,12 @@ NSString          *city,
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
-//    [self dismissViewControllerAnimated:NO completion:nil];
+    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
 
-//    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-//    rlvc.location = location;
-//    rlvc.locations = locations;
-//    rlvc.currentLocationIndex = currentLocationIndex;
-//    rlvc.city = [location objectForKey:@"city"];
-//    rlvc.state = [location objectForKey:@"state"];
-//    [self presentViewController:rlvc animated:NO completion:nil];
+
+    [tempLocations setObject:locations forKey:@"locations"];
+    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:tempLocations];
 }
 
 - (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
@@ -417,15 +420,10 @@ NSString          *city,
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
 
-//    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-//    wvc.currentLocationIndex = currentLocationIndex;
-//    wvc.location = location;
-//    wvc.locations = locations;
-//    [self presentViewController:wvc animated:NO completion:nil];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
-//    [self dismissViewControllerAnimated:NO
-//                             completion:nil];
+    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    [tempLocations setObject:locations forKey:@"locations"];
+    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:tempLocations];
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
@@ -453,17 +451,5 @@ NSString          *city,
     [[NSNotificationCenter defaultCenter] removeObserver:rxListObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:weeklyForecastObserver];
 }
-
-/*   --------------------  DELETE ME  --------------------------
- for (int i = 0; i < 100; i++) {
-     if (i % 3 == 0 && i % 5 == 0)
-         NSLog(@"Multiple of 3 AND 5");
-     else if (i % 3 == 0)
-         NSLog(@"Multiple of 3");
-     else if (i % 5 == 0)
-         NSLog(@"Multiple of 5");
-     else NSLog(@"%i", i);
- }
-     --------------------  DELETE ME  -------------------------- */
 
 @end
