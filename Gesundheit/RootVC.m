@@ -351,7 +351,6 @@ WeeklyForecastVC  *wvc;
     rxLayer.lineWidth = 2;
     [rxListVCActiveButton.layer addSublayer:rxLayer];
 
-    [[goButton layer] setCornerRadius:15.0f];
     [[goButton layer] setBorderWidth:1.0];
     [[goButton layer] setBorderColor:[UIColor blueColor].CGColor];
 }
@@ -439,6 +438,12 @@ WeeklyForecastVC  *wvc;
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
     changeDefaultCityButton.hidden = YES;
     enterZipTextField.hidden = NO;
+    goButton.frame = CGRectMake(self.view.frame.origin.x + 320, 1000, goButton.frame.size.width, goButton.frame.size.width);
+    enterZipTextField.frame = CGRectMake(self.view.frame.origin.x, 1000, self.view.frame.size.width, enterZipTextField.frame.size.height);
+    [UIView animateWithDuration:0.25f animations:^{
+            enterZipTextField.frame = CGRectMake(self.view.frame.origin.x / 2, descriptionTextView.frame.origin.y + 2, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
+                goButton.frame = CGRectMake(self.view.frame.origin.x + 281, descriptionTextView.frame.origin.y + 2, goButton.frame.size.width, goButton.frame.size.height );
+    }];
     [enterZipTextField becomeFirstResponder];
     goButton.hidden = NO;
 }
