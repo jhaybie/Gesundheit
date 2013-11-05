@@ -390,24 +390,19 @@ WeeklyForecastVC  *wvc;
 }
 
 - (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
-
     if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        // animation Left goes here
 
-        [UIView animateWithDuration:1.0f animations:^{
-            allergenLevelButton.frame = CGRectMake(allergenLevelButton.frame.origin.x - 260, allergenLevelButton.frame.origin.y, allergenLevelButton.frame.size.width, allergenLevelButton.frame.size.height);
-        } completion:^(BOOL finished) {
-            allergenLevelButton.frame = CGRectMake(allergenLevelButton.frame.origin.x + 260, allergenLevelButton.frame.origin.y, allergenLevelButton.frame.size.width, allergenLevelButton.frame.size.height);
-            [UIView animateWithDuration:1.0F animations:^{
-                allergenLevelButton.frame = CGRectMake(allergenLevelButton.frame.origin.x, allergenLevelButton.frame.origin.y, allergenLevelButton.frame.size.width, allergenLevelButton.frame.size.height);
-            }];
-                
-                    }];
+
+
+
+
 
         if (currentLocationIndex < locations.count - 1) {
             currentLocationIndex++;
         } else currentLocationIndex = 0;
     } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-
+        // animation Right goes here
 
 
 
