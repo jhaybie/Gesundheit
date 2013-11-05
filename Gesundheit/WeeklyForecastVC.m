@@ -50,7 +50,7 @@
             weeklyForecastTableView,
             cityAndStateLabel;
 
-
+id      observer;
 int     weekDayValue;
 NSArray *week;
 
@@ -137,6 +137,16 @@ NSArray *week;
     swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRecognizer];
     [self.view addGestureRecognizer:swipeRecognizer2];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    observer = [nc addObserverForName:@"Go To WeeklyForecastVC"
+                               object:location
+                                queue:[NSOperationQueue mainQueue]
+                           usingBlock:^(NSNotification *note) {
+                               cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+                               descTextview.hidden = YES;
+                               fiveDayPageControl.numberOfPages = locations.count;
+                               fiveDayPageControl.currentPage = currentLocationIndex;
+                           }];
 }
 
 - (void)showGifImage {
@@ -145,7 +155,6 @@ NSArray *week;
     dandyPng.alpha = .50;
     grassPng.image = [UIImage imageNamed:@"grass.png"];
     grassPng.alpha = .60;
-
 }
 
 - (void)setUpBackgroundImages {
@@ -250,29 +259,31 @@ NSArray *week;
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
-    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-    rlvc.location = location;
-    rlvc.locations = locations;
-    rlvc.currentLocationIndex = currentLocationIndex;
-    rlvc.city = [location objectForKey:@"city"];
-    rlvc.state = [location objectForKey:@"state"];
-    [self presentViewController:rlvc
-                       animated:NO
-                     completion:nil];
-}
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
+    [self dismissViewControllerAnimated:NO completion:nil];
 
-- (IBAction)onTapGoGoRootVC:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"location changed" object:location];
-//    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
-//    rvc.location = location.mutableCopy;
-//    rvc.locations = locations.mutableCopy;
-//    rvc.currentLocationIndex = currentLocationIndex;
-//    [self presentViewController:rvc
+
+//    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+//    rlvc.location = location;
+//    rlvc.locations = locations;
+//    rlvc.currentLocationIndex = currentLocationIndex;
+//    rlvc.city = [location objectForKey:@"city"];
+//    rlvc.state = [location objectForKey:@"state"];
+//    [self presentViewController:rlvc
 //                       animated:NO
 //                     completion:nil];
 }
 
+- (IBAction)onTapGoGoRootVC:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
 - (IBAction)onSwipeChangePageSelected:(id)sender {
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
 }
 
 @end

@@ -64,6 +64,7 @@
 
 
 CLLocationCoordinate2D coord;
+id                     observer;
 NSArray                *searchResults;
 NSMutableArray         *drugstores;
 NSString               *name,
@@ -197,6 +198,19 @@ NSString               *name,
     swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRecognizer];
     [self.view addGestureRecognizer:swipeRecognizer2];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    observer = [nc addObserverForName:@"Go To RXListVC"
+                               object:location
+                                queue:[NSOperationQueue mainQueue]
+                           usingBlock:^(NSNotification *note) {
+                               [self presentViewController:self animated:NO completion:nil];
+                               pageControl.numberOfPages = locations.count;
+                               pageControl.currentPage = currentLocationIndex;
+                               citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+                               [self fetchSearchResults];
+
+                           }];
+
 }
 
 - (void) showBackgroundImages {
@@ -204,7 +218,6 @@ NSString               *name,
     dandyImagePng.image = [UIImage imageNamed:@"testDandyDan.png"];
     [dandyImagePng setAlpha:.5];
     [drugstoresTableView setAlpha:.75];
-
 }
 
 - (IBAction)onBackButtonTap:(id)sender {
@@ -259,7 +272,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"location changed" object:location];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
+    [self dismissViewControllerAnimated:NO completion:nil];
 
 //    RootVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RootVC"];
 //    [self presentViewController:rvc
@@ -268,15 +282,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
-    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-    wfvc.locations = locations;
-    wfvc.location = location;
-    wfvc.currentLocationIndex = currentLocationIndex;
-    [self presentViewController:wfvc
-                       animated:NO
-                     completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
+    [self dismissViewControllerAnimated:NO completion:nil];
+
+
+//    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+//    wfvc.locations = locations;
+//    wfvc.location = location;
+//    wfvc.currentLocationIndex = currentLocationIndex;
+//    [self presentViewController:wfvc
+//                       animated:NO
+//                     completion:nil];
 }
 
 - (IBAction)goGoPageControlSwipe:(id)sender {
 }
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+}
+
 @end

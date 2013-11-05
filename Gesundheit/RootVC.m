@@ -206,6 +206,10 @@ NSString          *city,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    //WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+    //RxListVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    
     [self loadPList];
     [self buttonBorder];
     deleteButton.hidden = YES;
@@ -216,18 +220,14 @@ NSString          *city,
     [self getCurrentLocationZip];
     [self fetchPollenDataFromZip:zip];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    observer = [nc addObserverForName:@"location changed"
+    observer = [nc addObserverForName:@"Go To RootVC"
                                object:location
                                 queue:[NSOperationQueue mainQueue]
                            usingBlock:^(NSNotification *note) {
-                               // [self presentViewController:self animated:NO completion:nil];
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
                                [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-
-
-                               //self.myLabelOutlet.text = [NSString stringWithFormat:@"%i", [note.object length]];
     }];
 
 }
@@ -341,13 +341,16 @@ NSString          *city,
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
-    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-    rlvc.location = location;
-    rlvc.locations = locations;
-    rlvc.currentLocationIndex = currentLocationIndex;
-    rlvc.city = [location objectForKey:@"city"];
-    rlvc.state = [location objectForKey:@"state"];
-    [self presentViewController:rlvc animated:NO completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
+    [self dismissViewControllerAnimated:NO completion:nil];
+//
+//    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+//    rlvc.location = location;
+//    rlvc.locations = locations;
+//    rlvc.currentLocationIndex = currentLocationIndex;
+//    rlvc.city = [location objectForKey:@"city"];
+//    rlvc.state = [location objectForKey:@"state"];
+//    [self presentViewController:rlvc animated:NO completion:nil];
 }
 
 - (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
@@ -381,13 +384,17 @@ NSString          *city,
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
-    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-    wfvc.location = location;
-    wfvc.locations = locations;
-    wfvc.currentLocationIndex = currentLocationIndex;
-    [self presentViewController:wfvc
-                       animated:NO
-                     completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
+    [self dismissViewControllerAnimated:NO completion:nil];
+//
+//
+//    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+//    wfvc.location = location;
+//    wfvc.locations = locations;
+//    wfvc.currentLocationIndex = currentLocationIndex;
+//    [self presentViewController:wfvc
+//                       animated:NO
+//                     completion:nil];
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
