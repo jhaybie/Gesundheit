@@ -43,6 +43,9 @@
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
 - (IBAction)swipingPageControlMotion:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UILabel *allergenLevel;
+@property (weak, nonatomic) IBOutlet UILabel *predTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descLabel;
 
 @property (retain) UISwipeGestureRecognizer * swipeLeftRecognizer;
 @property (retain) UISwipeGestureRecognizer * swipeRightRecognizer;
