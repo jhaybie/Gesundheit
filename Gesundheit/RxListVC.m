@@ -158,7 +158,7 @@ NSString               *name,
                                    tempRx.address = [searchResults[i] objectForKey:@"formatted_address"];
                                    tempRx.coord = CLLocationCoordinate2DMake([[[tempDict objectForKey:@"location"] objectForKey:@"lat"] floatValue], [[[tempDict objectForKey:@"location"] objectForKey:@"lng"] floatValue]);
                                    tempRx.openNow = (BOOL)[[searchResults[i] objectForKey:@"opening_hours"] objectForKey:@"open_now"];
-                                   [drugstores addObject:tempRx];
+                                   [doctors addObject:tempRx];
                                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                }
                                [drugstoresTableView reloadData];
@@ -296,11 +296,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (IBAction)onSegmentedControlTap:(id)sender {
     [drugstoresTableView reloadData];
-//    if (segmentedControl.selectedSegmentIndex == 0) {
-//        [self fetchSearchResults];
-//    } else {
-//        [self fetchSearchResultsForDoctors];
-//    }
 }
 
 - (IBAction)onOpenNowSwitchTap:(id)sender {
