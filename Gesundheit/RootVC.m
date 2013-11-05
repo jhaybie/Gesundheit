@@ -354,8 +354,10 @@ WeeklyForecastVC  *wvc;
     rxLayer.lineWidth = 2;
     [rxListVCActiveButton.layer addSublayer:rxLayer];
 
-    [[goButton layer] setBorderWidth:1.0];
+    [[goButton layer] setBorderWidth:2.0];
     [[goButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    [goButton setBackgroundColor:[UIColor whiteColor]];
+    [goButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
