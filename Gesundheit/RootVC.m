@@ -231,6 +231,7 @@ WeeklyForecastVC  *wvc;
                                NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
                                tempLocations = (NSMutableDictionary *) note.object;
                                int index = [[tempLocations objectForKey:@"index"] intValue];
+                               currentLocationIndex = index;
                                location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
                                pageControl.currentPage = index;
 
@@ -292,7 +293,7 @@ WeeklyForecastVC  *wvc;
     else deleteButton.hidden = NO;
     isAddingLocation = NO;
     pageControl.numberOfPages = locations.count;
-    pageControl.currentPage = currentLocationIndex;
+    //pageControl.currentPage = currentLocationIndex;
     cityLabel.text = [location objectForKey:@"city"];
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
@@ -400,15 +401,12 @@ WeeklyForecastVC  *wvc;
         else
             currentLocationIndex--;
     }
-    if (currentLocationIndex != -1) {
-        location = locations[currentLocationIndex];
-        pageControl.currentPage = currentLocationIndex;
-    } else { // location == current location
+    if (currentLocationIndex == 0) {
         location = currentLocation;
-    }
-
+    } else {
         location = locations[currentLocationIndex];
-        pageControl.currentPage = currentLocationIndex;
+    }
+    pageControl.currentPage = currentLocationIndex;
     cityLabel.text = [location objectForKey:@"city"];
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];

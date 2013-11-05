@@ -77,6 +77,7 @@ NSArray *week;
     descTextview.hidden = YES;
     fiveDayPageControl.numberOfPages = locations.count;
     fiveDayPageControl.currentPage = currentLocationIndex;
+    [self getCurrentDate];
 }
 
 - (void) buttonBorder {
@@ -126,7 +127,6 @@ NSArray *week;
     week = @[@"Sunday", @"Monday", @"Tuesday", @"Wednesday", @"Thursday", @"Friday", @"Saturday"];
     weeklyForecastTableView.alpha = .75;
     [descTextview setAlpha:.50];
-    [self getCurrentDate];
     [self showGifImage];
     [self rotateDandy:dandyPng duration:1 degrees:2];
     [self buttonBorder];
