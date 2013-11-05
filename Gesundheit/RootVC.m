@@ -81,7 +81,9 @@ BOOL              isAddingLocation,
                   isShown;
 CLGeocoder        *geocoder;
 CLLocationManager *locationManager;
-id                observer;
+id                rootObserver,
+                  rxListObserver,
+                  weeklyForecastObserver;
 int               currentLocationIndex,
                   weekDayValue;
 NSArray           *week;
@@ -207,8 +209,8 @@ NSString          *city,
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    //WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-    //RxListVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
+    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+    RxListVC *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
     
     [self loadPList];
     [self buttonBorder];
@@ -220,16 +222,46 @@ NSString          *city,
     [self getCurrentLocationZip];
     [self fetchPollenDataFromZip:zip];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    observer = [nc addObserverForName:@"Go To RootVC"
+    rootObserver = [nc addObserverForName:@"Go To RootVC"
                                object:location
                                 queue:[NSOperationQueue mainQueue]
                            usingBlock:^(NSNotification *note) {
+                               //[self]
+                               //[self presentViewController:self animated:NO completion:nil];
+                               [rvc dismissViewControllerAnimated:NO completion:nil];
+                               [wvc dismissViewControllerAnimated:NO completion:nil];
+
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
                                [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     }];
-
+    rxListObserver = [nc addObserverForName:@"Go To RXListVC"
+                                     object:location
+                                      queue:[NSOperationQueue mainQueue]
+                                 usingBlock:^(NSNotification *note) {
+                                     rvc.location = location;
+                                     rvc.locations = locations;
+                                     rvc.currentLocationIndex = currentLocationIndex;
+                                     rvc.city = [location objectForKey:@"city"];
+                                     rvc.state = [location objectForKey:@"state"];
+                                     [wvc dismissViewControllerAnimated:NO completion:nil];
+                                     [self dismissViewControllerAnimated:NO completion:nil];
+                                     [self presentViewController:rvc animated:NO completion:nil];
+                                     NSLog(@"Rx touch");
+    }];
+    weeklyForecastObserver = [nc addObserverForName:@"Go To WeeklyForecastVC"
+                                             object:location
+                                              queue:[NSOperationQueue mainQueue]
+                                         usingBlock:^(NSNotification *note) {
+                                             wvc.currentLocationIndex = currentLocationIndex;
+                                             wvc.location = location;
+                                             wvc.locations = locations;
+                                             [self dismissViewControllerAnimated:NO completion:nil];
+                                             [rvc dismissViewControllerAnimated:NO completion:nil];
+                                             [self presentViewController:wvc animated:NO completion:nil];
+                                             NSLog(@"5-Day touch");
+    }];
 }
 
 - (void) swipeLeftGesture {
@@ -342,8 +374,8 @@ NSString          *city,
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
-    [self dismissViewControllerAnimated:NO completion:nil];
-//
+//    [self dismissViewControllerAnimated:NO completion:nil];
+
 //    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
 //    rlvc.location = location;
 //    rlvc.locations = locations;
@@ -384,17 +416,16 @@ NSString          *city,
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
+
+//    WeeklyForecastVC *wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
+//    wvc.currentLocationIndex = currentLocationIndex;
+//    wvc.location = location;
+//    wvc.locations = locations;
+//    [self presentViewController:wvc animated:NO completion:nil];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
-    [self dismissViewControllerAnimated:NO completion:nil];
-//
-//
-//    WeeklyForecastVC *wfvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
-//    wfvc.location = location;
-//    wfvc.locations = locations;
-//    wfvc.currentLocationIndex = currentLocationIndex;
-//    [self presentViewController:wfvc
-//                       animated:NO
-//                     completion:nil];
+//    [self dismissViewControllerAnimated:NO
+//                             completion:nil];
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
@@ -418,7 +449,9 @@ NSString          *city,
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:observer];
+    [[NSNotificationCenter defaultCenter] removeObserver:rootObserver];
+    [[NSNotificationCenter defaultCenter] removeObserver:rxListObserver];
+    [[NSNotificationCenter defaultCenter] removeObserver:weeklyForecastObserver];
 }
 
 /*   --------------------  DELETE ME  --------------------------

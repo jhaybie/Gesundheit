@@ -50,7 +50,7 @@
             weeklyForecastTableView,
             cityAndStateLabel;
 
-id      observer;
+
 int     weekDayValue;
 NSArray *week;
 
@@ -137,16 +137,6 @@ NSArray *week;
     swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeRecognizer];
     [self.view addGestureRecognizer:swipeRecognizer2];
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    observer = [nc addObserverForName:@"Go To WeeklyForecastVC"
-                               object:location
-                                queue:[NSOperationQueue mainQueue]
-                           usingBlock:^(NSNotification *note) {
-                               cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-                               descTextview.hidden = YES;
-                               fiveDayPageControl.numberOfPages = locations.count;
-                               fiveDayPageControl.currentPage = currentLocationIndex;
-                           }];
 }
 
 - (void)showGifImage {
@@ -260,7 +250,7 @@ NSArray *week;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    //[self dismissViewControllerAnimated:NO completion:nil];
 
 
 //    RxListVC *rlvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
@@ -276,14 +266,10 @@ NSArray *week;
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    //[self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)onSwipeChangePageSelected:(id)sender {
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:observer];
 }
 
 @end
