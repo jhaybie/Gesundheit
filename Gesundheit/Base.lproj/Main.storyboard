@@ -114,15 +114,15 @@
                                 <rect key="frame" x="210" y="238" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" keyboardAppearance="alert"/>
                             </textField>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDX-hU-8gY">
-                                <rect key="frame" x="280" y="238" width="30" height="30"/>
+                                <rect key="frame" x="280" y="407" width="39" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Go">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -707,7 +707,7 @@
                                 <rect key="frame" x="30" y="125" width="177" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                             </textField>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aSL-mw-Ruf">
                                 <rect key="frame" x="0.0" y="501" width="320" height="67"/>
@@ -791,20 +791,6 @@
                                     <action selector="onSegmentedControlTap:" destination="Sr0-OG-cS1" eventType="valueChanged" id="2CZ-yK-2Zc"/>
                                 </connections>
                             </segmentedControl>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9GD-ZU-fKn">
-                                <rect key="frame" x="237" y="462" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="onOpenNowSwitchTap:" destination="Sr0-OG-cS1" eventType="valueChanged" id="pvB-KT-fAQ"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Open Now" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PM7-4H-kJg">
-                                <rect key="frame" x="144" y="467" width="82" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -815,7 +801,6 @@
                         <outlet property="drugstoresTableView" destination="00L-43-P8m" id="q6M-ig-w7P"/>
                         <outlet property="fiveDayActiveButton" destination="fd9-bt-MJf" id="nz3-qb-oAV"/>
                         <outlet property="oneDayActiveButton" destination="kvB-Cz-xCp" id="ZIf-YB-89p"/>
-                        <outlet property="openNowSwitch" destination="9GD-ZU-fKn" id="Qxe-a8-EA4"/>
                         <outlet property="pageControl" destination="NRP-Ls-dNY" id="fuR-tY-LgM"/>
                         <outlet property="rxListDisabledButton" destination="6Ij-rg-TaH" id="5XV-Dk-FGN"/>
                         <outlet property="searchButton" destination="rJM-WM-07h" id="3KZ-US-Uwx"/>

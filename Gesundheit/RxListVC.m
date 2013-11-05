@@ -38,12 +38,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *rxListDisabledButton;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-@property (weak, nonatomic) IBOutlet UISwitch *openNowSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *citynStateLabel;
+
 - (IBAction)onSegmentedControlTap:(id)sender;
-
-- (IBAction)onOpenNowSwitchTap:(id)sender;
-
 - (IBAction)onSearchButtonTap:(id)sender;
 - (IBAction)onTapGoGoRootVC:(id)sender;
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender;
@@ -66,7 +63,6 @@
              state,
              drugstoresTableView,
              zipCodeTextField,
-             openNowSwitch,
              segmentedControl;
 
 
@@ -303,7 +299,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onSearchButtonTap:(id)sender {
-    [zipCodeTextField resignFirstResponder];
+    zipCodeTextField.frame = CGRectMake(self.view.frame.origin.x / 2, self.view.frame.origin.y + 750, self.view.frame.size.width - 20, zipCodeTextField.frame.size.height);
+    [UIView animateWithDuration:0.25f animations:^{
+            zipCodeTextField.frame = CGRectMake(drugstoresTableView.frame.origin.x -24 , drugstoresTableView.frame.origin.y + 125, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
+
+    }];
+            [zipCodeTextField becomeFirstResponder];
     city = zipCodeTextField.text;
     state = @"";
     [self fetchSearchResults];
