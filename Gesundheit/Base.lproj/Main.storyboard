@@ -216,6 +216,7 @@
                         <outlet property="lineBarTop" destination="0Ad-Ln-BfS" id="ZFP-3Y-Skg"/>
                         <outlet property="pageControl" destination="Fzf-Ld-YHl" id="8GQ-eq-hkW"/>
                         <outlet property="predTypeLabel" destination="LVB-Hg-ohr" id="jZo-u1-zaZ"/>
+                        <outlet property="predominantTypeLabel" destination="ssr-1r-Owc" id="afU-h4-xRZ"/>
                         <outlet property="rootVCDisabledButton" destination="VNn-nC-8WX" id="PLw-k7-yQ7"/>
                         <outlet property="rxListVCActiveButton" destination="qtR-4Q-gKw" id="Z3T-bC-6SG"/>
                         <outlet property="tabBarGrass" destination="8Qf-Ab-u0X" id="hgu-Ui-54y"/>
