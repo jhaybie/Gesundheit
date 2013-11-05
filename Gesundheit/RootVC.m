@@ -392,13 +392,30 @@ WeeklyForecastVC  *wvc;
 - (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
 
     if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        if (currentLocationIndex < locations.count - 1)
+
+        [UIView animateWithDuration:1.0f animations:^{
+            allergenLevelButton.frame = CGRectMake(allergenLevelButton.frame.origin.x - 260, allergenLevelButton.frame.origin.y, allergenLevelButton.frame.size.width, allergenLevelButton.frame.size.height);
+        } completion:^(BOOL finished) {
+            allergenLevelButton.frame = CGRectMake(allergenLevelButton.frame.origin.x + 260, allergenLevelButton.frame.origin.y, allergenLevelButton.frame.size.width, allergenLevelButton.frame.size.height);
+            [UIView animateWithDuration:1.0F animations:^{
+                allergenLevelButton.frame = CGRectMake(allergenLevelButton.frame.origin.x, allergenLevelButton.frame.origin.y, allergenLevelButton.frame.size.width, allergenLevelButton.frame.size.height);
+            }];
+                
+                    }];
+
+        if (currentLocationIndex < locations.count - 1) {
             currentLocationIndex++;
-        else currentLocationIndex = 0;
+        } else currentLocationIndex = 0;
     } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        if (currentLocationIndex == 0)
+
+
+
+
+
+
+        if (currentLocationIndex == 0) {
             currentLocationIndex = locations.count - 1;
-        else
+        } else
             currentLocationIndex--;
     }
     if (currentLocationIndex == 0) {
