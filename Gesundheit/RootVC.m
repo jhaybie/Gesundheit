@@ -183,6 +183,10 @@ WeeklyForecastVC  *wvc;
     [dandelionImage.layer addAnimation:dandyAnimation forKey:@"position"];
 }
 
+-(void)dismissAlert:(UIAlertView *)message {
+    [message dismissWithClickedButtonIndex:0 animated:YES];
+}
+
 - (void)fetchPollenDataFromZip:(NSString *)zipCode {
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
                                        queue:[NSOperationQueue mainQueue]
@@ -191,13 +195,14 @@ WeeklyForecastVC  *wvc;
                                                                           options:NSJSONReadingMutableContainers
                                                                             error:&connectionError];
                                if (connectionError) {
-                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
                                    [message show];
                                    cityLabel.text = @"";
                                    descriptionTextView.text = @"";
                                    predominantTypeLabel.text = @"";
                                    [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
                                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                   [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
