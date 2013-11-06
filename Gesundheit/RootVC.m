@@ -464,10 +464,10 @@ WeeklyForecastVC  *wvc;
     changeDefaultCityButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
     changeDefaultCityButton.layer.shadowColor = [UIColor blackColor].CGColor;
 
-    refreshButton.layer.cornerRadius = 15.0f;
+    refreshButton.layer.cornerRadius = 25.0f;
     refreshButton.layer.borderWidth = 1.0f;
     refreshButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    refreshButton.backgroundColor = [UIColor blueColor];
+
 }
 
 - (void)locationManager:(CLLocationManager *)manager
