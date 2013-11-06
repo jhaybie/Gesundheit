@@ -148,7 +148,6 @@ NSString               *name,
     doctors = [[NSMutableArray alloc] init];
     city = [city stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     state = [state stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=allergy+doctors+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
                                        queue:[NSOperationQueue mainQueue]
@@ -169,6 +168,28 @@ NSString               *name,
                                }
                                [drugstoresTableView reloadData];
                            }];
+    if (searchResults.count == 0) { // use different Google API Key
+        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=allergy+doctors+in+%@+%@&sensor=true&key=AIzaSyCnEjkf4LfOZAo8wMcyAsbFyuAvuPF0CVE", city, state]]]
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
+                                                                                               options:0
+                                                                                                 error:&connectionError];
+                                   searchResults = [initialDump objectForKey:@"results"];
+                                   for (int i = 0; i < searchResults.count; i++) {
+                                       NSDictionary *tempDict = [searchResults[i] objectForKey:@"geometry"];
+                                       Drugstore *tempRx = [[Drugstore alloc] init];
+                                       tempRx.name = [searchResults[i] objectForKey:@"name"];
+                                       tempRx.address = [searchResults[i] objectForKey:@"formatted_address"];
+                                       tempRx.coord = CLLocationCoordinate2DMake([[[tempDict objectForKey:@"location"] objectForKey:@"lat"] floatValue], [[[tempDict objectForKey:@"location"] objectForKey:@"lng"] floatValue]);
+                                       tempRx.openNow = (BOOL)[[searchResults[i] objectForKey:@"opening_hours"] objectForKey:@"open_now"];
+                                       [doctors addObject:tempRx];
+                                       [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                   }
+                                   [drugstoresTableView reloadData];
+                               }];
+
+    }
 }
 
 - (void)fetchSearchResults {
@@ -196,6 +217,27 @@ NSString               *name,
                                }
                                [drugstoresTableView reloadData];
                            }];
+    if (searchResults.count == 0) { // use different Google API Key
+        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=pharmacies+in+%@+%@&sensor=true&key=AIzaSyCnEjkf4LfOZAo8wMcyAsbFyuAvuPF0CVE", city, state]]]
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
+                                                                                               options:0
+                                                                                                 error:&connectionError];
+                                   searchResults = [initialDump objectForKey:@"results"];
+                                   for (int i = 0; i < searchResults.count; i++) {
+                                       NSDictionary *tempDict = [searchResults[i] objectForKey:@"geometry"];
+                                       Drugstore *tempRx = [[Drugstore alloc] init];
+                                       tempRx.name = [searchResults[i] objectForKey:@"name"];
+                                       tempRx.address = [searchResults[i] objectForKey:@"formatted_address"];
+                                       tempRx.coord = CLLocationCoordinate2DMake([[[tempDict objectForKey:@"location"] objectForKey:@"lat"] floatValue], [[[tempDict objectForKey:@"location"] objectForKey:@"lng"] floatValue]);
+                                       tempRx.openNow = (BOOL)[[searchResults[i] objectForKey:@"opening_hours"] objectForKey:@"open_now"];
+                                       [drugstores addObject:tempRx];
+                                       [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                   }
+                                   [drugstoresTableView reloadData];
+                               }];
+    }
 }
 
 - (void)rotateDandy:(UIImageView *)image
