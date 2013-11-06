@@ -153,6 +153,15 @@ WeeklyForecastVC  *wvc;
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:NSJSONReadingMutableContainers
                                                                             error:&connectionError];
+                               if (connectionError) {
+                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                                   [message show];
+                                   cityLabel.text = @"";
+                                   descriptionTextView.text = @"";
+                                   predominantTypeLabel.text = @"";
+                                   [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
+                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                               } else {
                                cityLabel.text = [location objectForKey:@"city"];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
@@ -181,6 +190,7 @@ WeeklyForecastVC  *wvc;
                                    [self savePList];
                                }
                                [self allergenLevelChangeFontColor];
+                               }
                            }];
 }
 
