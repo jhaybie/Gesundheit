@@ -9,7 +9,6 @@
 #import "RxListVC.h"
 #import "RootVC.h"
 #import "WeeklyForecastVC.h"
-#import "FavoriteLocationsVC.h"
 #import "UIColor+ColorCategory.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -40,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *citynStateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *openSearchButton;
+@property (weak, nonatomic) IBOutlet UIImageView *grassPNG;
 
 - (IBAction)onTapGoGoOpenSearch:(id)sender;
 - (IBAction)onSegmentedControlTap:(id)sender;
@@ -51,6 +51,7 @@
 
 @implementation RxListVC
 @synthesize  oneDayActiveButton,
+             grassPNG,
              openSearchButton,
              citynStateLabel,
              currentLocationIndex,
@@ -248,6 +249,8 @@ NSString               *name,
 - (void) showBackgroundImages {
     backroundImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandyImagePng.image = [UIImage imageNamed:@"testDandyDan.png"];
+    grassPNG.image = [UIImage imageNamed:@"grass.png"];
+    grassPNG.alpha = .60;
     [dandyImagePng setAlpha:.5];
     [drugstoresTableView setAlpha:.75];
 }

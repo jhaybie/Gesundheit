@@ -25,12 +25,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *highLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *backRoundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyImagePng;
+@property (weak, nonatomic) IBOutlet UIImageView *grassPng;
 
 @end
 
 @implementation LegendVC
 
 @synthesize backRoundImage,
+            grassPng,
             dandyImagePng,
             lowLabel,
             lowTextField,
@@ -77,6 +79,8 @@
 - (void)showBackgroundImages {
     backRoundImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandyImagePng.image = [UIImage imageNamed:@"testDandyDan.png"];
+    grassPng.image = [UIImage imageNamed:@"grass"];
+    grassPng.alpha = 0.60;
     [dandyImagePng setAlpha:.50];
 
 
