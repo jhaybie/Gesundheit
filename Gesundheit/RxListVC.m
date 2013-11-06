@@ -141,7 +141,7 @@ NSString               *name,
 
 - (void) roundTheCorners {
     drugstoresTableView.layer.cornerRadius = 20.0f;
-    openSearchButton.layer.cornerRadius = 15.0f;
+    openSearchButton.layer.cornerRadius = 20.0f;
     segmentedControl.layer.cornerRadius = 20.0f;
 }
 - (void)fetchSearchResultsForDoctors {
