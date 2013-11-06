@@ -225,6 +225,7 @@ WeeklyForecastVC  *wvc;
                                        [locations replaceObjectAtIndex:0 withObject:currentLocation];
                                    else {
                                        [locations addObject:currentLocation];
+                                       pageControl.currentPage = locations.count;
                                    }
                                }
                                if (isAddingLocation) {
@@ -267,7 +268,14 @@ WeeklyForecastVC  *wvc;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    [message show];
+    cityLabel.text = @"";
+    descriptionTextView.text = @"";
+    predominantTypeLabel.text = @"";
+    [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
     wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
     [self loadPList];
@@ -354,7 +362,7 @@ WeeklyForecastVC  *wvc;
     isAddingLocation = NO;
     pageControl.numberOfPages = locations.count;
     //pageControl.currentPage = currentLocationIndex;
-    cityLabel.text = [location objectForKey:@"city"];
+    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"city"]];
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
     [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
