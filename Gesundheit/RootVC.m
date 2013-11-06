@@ -266,6 +266,7 @@ WeeklyForecastVC  *wvc;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
     wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
@@ -330,7 +331,6 @@ WeeklyForecastVC  *wvc;
                                              [self presentViewController:wvc animated:NO completion:nil];
                                              NSLog(@"5-Day touch");
     }];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     [self fetchFavorites];
     [self fetchPollenDataFromZip:zip];
 }
