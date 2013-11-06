@@ -427,7 +427,7 @@ WeeklyForecastVC  *wvc;
     [goButton setBackgroundColor:[UIColor whiteColor]];
     [goButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
 
-    deleteButton.layer.cornerRadius = 15.0f;
+    deleteButton.layer.cornerRadius = 20.0f;
     deleteButton.layer.borderColor = [UIColor whiteColor].CGColor;
     deleteButton.layer.borderWidth = 1.0f;
     deleteButton.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -435,7 +435,7 @@ WeeklyForecastVC  *wvc;
     deleteButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
     deleteButton.layer.shadowRadius = 2.0f;
 
-    changeDefaultCityButton.layer.cornerRadius = 15.0f;
+    changeDefaultCityButton.layer.cornerRadius = 20.0f;
     changeDefaultCityButton.layer.borderColor = [UIColor whiteColor].CGColor;
     changeDefaultCityButton.layer.borderWidth = 1.0f;
     changeDefaultCityButton.layer.shadowRadius = 2.0f;
@@ -530,8 +530,8 @@ WeeklyForecastVC  *wvc;
     goButton.frame = CGRectMake(self.view.frame.origin.x + 320, 1000, goButton.frame.size.width, goButton.frame.size.width);
     enterZipTextField.frame = CGRectMake(self.view.frame.origin.x, 1000, self.view.frame.size.width, enterZipTextField.frame.size.height);
     [UIView animateWithDuration:0.25f animations:^{
-            enterZipTextField.frame = CGRectMake(self.view.frame.origin.x / 2, descriptionTextView.frame.origin.y + 2, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
-                goButton.frame = CGRectMake(self.view.frame.origin.x + 281, descriptionTextView.frame.origin.y + 2, goButton.frame.size.width, goButton.frame.size.height );
+            enterZipTextField.frame = CGRectMake(self.view.frame.origin.x / 2, descriptionTextView.frame.origin.y + 27, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
+                goButton.frame = CGRectMake(self.view.frame.origin.x + 281, descriptionTextView.frame.origin.y + 27, goButton.frame.size.width, goButton.frame.size.height );
     }];
     [enterZipTextField becomeFirstResponder];
     goButton.hidden = NO;
