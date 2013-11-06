@@ -303,12 +303,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoOpenSearch:(id)sender {
-        [openSearchButton isFirstResponder];
     searchButton.hidden = NO;
     zipCodeTextField.hidden = NO;
 
     zipCodeTextField.frame = CGRectMake(self.view.frame.origin.x / 2, self.view.frame.origin.y + 750, self.view.frame.size.width - 20, zipCodeTextField.frame.size.height);
     searchButton.frame = CGRectMake(openSearchButton.frame.origin.x + 200, openSearchButton.frame.origin.y + 400, openSearchButton.frame.size.width, openSearchButton.frame.size.height);
+    [zipCodeTextField becomeFirstResponder];
     [UIView animateWithDuration:0.25f animations:^{
         zipCodeTextField.frame = CGRectMake(drugstoresTableView.frame.origin.x -24 , drugstoresTableView.frame.origin.y + 125, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
         searchButton.frame = CGRectMake(drugstoresTableView.frame.origin.x + 261 , drugstoresTableView.frame.origin.y + 125, openSearchButton.frame.size.width, searchButton.frame.size.height);
@@ -320,7 +320,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onSearchButtonTap:(id)sender {
-
+    [zipCodeTextField resignFirstResponder];
+    zipCodeTextField.hidden = YES;
+    searchButton.hidden = YES;
 
     city = zipCodeTextField.text;
     state = @"";
