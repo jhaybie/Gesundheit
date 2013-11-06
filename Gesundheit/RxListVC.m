@@ -146,10 +146,7 @@ NSString               *name,
     openSearchButton.layer.borderColor = [UIColor whiteColor].CGColor;
     openSearchButton.layer.borderWidth = 1.0f;
     openSearchButton.backgroundColor = [UIColor clearColor];
-    openSearchButton.layer.shadowColor = [UIColor blackColor].CGColor;
-    openSearchButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    openSearchButton.layer.shadowOpacity = .7;
-    openSearchButton.layer.shadowRadius = 2.0f;
+
 
 }
 - (void)fetchSearchResultsForDoctors {

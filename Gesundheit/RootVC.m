@@ -398,11 +398,6 @@ WeeklyForecastVC  *wvc;
 }
 
 - (void) makeShadowsOnButton {
-    allergenLevelButton.layer.shadowColor = [[UIColor blackColor] CGColor];
-    allergenLevelButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    allergenLevelButton.layer.shadowOpacity = .85f;
-    allergenLevelButton.layer.shadowRadius = 2.0f;
-
     allergenLevelButton.layer.cornerRadius = 40.0f;
     allergenLevelButton.layer.borderColor = [UIColor whiteColor].CGColor;
     allergenLevelButton.layer.borderWidth = 2.0f;
@@ -455,18 +450,10 @@ WeeklyForecastVC  *wvc;
     deleteButton.layer.cornerRadius = 20.0f;
     deleteButton.layer.borderColor = [UIColor whiteColor].CGColor;
     deleteButton.layer.borderWidth = 1.0f;
-    deleteButton.layer.shadowColor = [UIColor blackColor].CGColor;
-    deleteButton.layer.shadowOpacity = 0.70f;
-    deleteButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    deleteButton.layer.shadowRadius = 2.0f;
 
     changeDefaultCityButton.layer.cornerRadius = 20.0f;
     changeDefaultCityButton.layer.borderColor = [UIColor whiteColor].CGColor;
     changeDefaultCityButton.layer.borderWidth = 1.0f;
-    changeDefaultCityButton.layer.shadowRadius = 2.0f;
-    changeDefaultCityButton.layer.shadowOpacity = 0.70f;
-    changeDefaultCityButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    changeDefaultCityButton.layer.shadowColor = [UIColor blackColor].CGColor;
 
     refreshButton.layer.cornerRadius = 25.0f;
     refreshButton.layer.borderWidth = 1.0f;
