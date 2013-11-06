@@ -64,6 +64,7 @@
             lineBarBottom,
             lineBarTop,
             lineBar,
+
             tabBarGrass,
             rxListVCActiveButton,
             weeklyForecastVCActiveButton,
@@ -104,6 +105,16 @@ WeeklyForecastVC  *wvc;
 
 -(void)swipingPageControlMotion:(id)sender {
 
+}
+
+- (void) getTheDayOfTheWeek {
+    NSDate *today = [NSDate date];
+    NSDateFormatter *myFormatter = [[NSDateFormatter alloc] init];
+    [myFormatter setDateFormat:@"EEEE"];
+    NSString *dayOfWeek = [myFormatter stringFromDate:today];
+    currentDateLabel.text = [NSString stringWithFormat:@"%@", dayOfWeek];
+
+    
 }
 
 - (void)loadPList {
@@ -217,6 +228,7 @@ WeeklyForecastVC  *wvc;
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
     [self loadPList];
     [self buttonBorder];
+    [self getTheDayOfTheWeek];
     deleteButton.hidden = YES;
     isCurrentLocation = YES;
 
@@ -303,6 +315,7 @@ WeeklyForecastVC  *wvc;
     [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
 
     [self showGifImage];
+    [self rotateDandy:dandelionImage duration:1 degrees:2];
     [self makeShadowsOnButton];
 }
 
@@ -315,6 +328,8 @@ WeeklyForecastVC  *wvc;
     allergenLevelButton.layer.cornerRadius = 40.0f;
     allergenLevelButton.layer.borderColor = [UIColor whiteColor].CGColor;
     allergenLevelButton.layer.borderWidth = 2.0f;
+
+    descriptionTextView.layer.cornerRadius = 20.0f;
 }
 
 - (void) buttonBorder {
