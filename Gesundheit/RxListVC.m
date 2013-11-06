@@ -143,12 +143,13 @@ NSString               *name,
     drugstoresTableView.layer.cornerRadius = 20.0f;
     openSearchButton.layer.cornerRadius = 20.0f;
     segmentedControl.layer.cornerRadius = 20.0f;
-    openSearchButton.layer.borderColor = [UIColor blueColor].CGColor;
+    openSearchButton.layer.borderColor = [UIColor whiteColor].CGColor;
     openSearchButton.layer.borderWidth = 1.0f;
     openSearchButton.backgroundColor = [UIColor clearColor];
-    openSearchButton.layer.shadowColor = [UIColor whiteColor].CGColor;
-    openSearchButton.layer.shadowOpacity = .75;
-    openSearchButton.layer.shadowRadius = 1.0f;
+    openSearchButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    openSearchButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    openSearchButton.layer.shadowOpacity = .7;
+    openSearchButton.layer.shadowRadius = 2.0f;
 
 }
 - (void)fetchSearchResultsForDoctors {
