@@ -112,23 +112,30 @@ WeeklyForecastVC  *wvc;
         [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
                                            queue:[NSOperationQueue mainQueue]
                                completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
-                                                                              options:NSJSONReadingMutableContainers
-                                                                                error:&connectionError];
-                                   [tempLocation setObject:tempZip forKey:@"zip"];
-                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                   NSMutableArray *dayList = [[tempLocation objectForKey:@"dayList"] mutableCopy];
-                                   for (int x = 2; x < 5; x++) {
-                                       NSMutableDictionary *tempForecast = [dayList[x] mutableCopy];
-                                       [tempForecast setObject:@"" forKey:@"desc"];
-                                       dayList[x] = tempForecast;
+
+
+                                   if (!data) {
+                                       UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                                       [message show];
+                                       return;
                                    }
-                                   [tempLocation setObject:dayList forKey:@"dayList"];
-                                   [tempLocation setObject:tempZip forKey:@"zip"];
-                                   [locations replaceObjectAtIndex:i withObject:tempLocation];
-                                   [self savePList];
+                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
+                                                                                  options:NSJSONReadingMutableContainers
+                                                                                    error:&connectionError];
+                                       [tempLocation setObject:tempZip forKey:@"zip"];
+                                       [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                       NSMutableArray *dayList = [[tempLocation objectForKey:@"dayList"] mutableCopy];
+                                       for (int x = 2; x < 5; x++) {
+                                           NSMutableDictionary *tempForecast = [dayList[x] mutableCopy];
+                                           [tempForecast setObject:@"" forKey:@"desc"];
+                                           dayList[x] = tempForecast;
+                                       }
+                                       [tempLocation setObject:dayList forKey:@"dayList"];
+                                       [tempLocation setObject:tempZip forKey:@"zip"];
+                                       [locations replaceObjectAtIndex:i withObject:tempLocation];
+                                       [self savePList];
                                }];
-    }
+                               }
 }
 
 - (void) getTheDayOfTheWeek {
@@ -191,6 +198,14 @@ WeeklyForecastVC  *wvc;
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (!data) {
+                                   cityLabel.text = @"";
+                                   [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
+                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                                   [message show];
+
+                                   return;
+                               }
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:NSJSONReadingMutableContainers
                                                                             error:&connectionError];
@@ -204,40 +219,41 @@ WeeklyForecastVC  *wvc;
                                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
-                               cityLabel.text = [location objectForKey:@"city"];
-                               descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-                               predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-                               [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-                               [locationManager stopUpdatingLocation];
-                               [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                               NSMutableArray *dayList = [[location objectForKey:@"dayList"] mutableCopy];
-                               for (int i = 2; i < 5; i++) {
-                                   NSMutableDictionary *tempForecast = [dayList[i] mutableCopy];
-                                   [tempForecast setObject:@"" forKey:@"desc"];
-                                   dayList[i] = tempForecast;
-                               }
-                               [location setObject:dayList forKey:@"dayList"];
-                               [location setObject:zipCode forKey:@"zip"];
-                               if (currentLocationIndex == 0) {
-                                   isCurrentLocation = NO;
-                                   currentLocation = location;
-                                   if (locations.count  > 0)
-                                       [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                   else {
-                                       [locations addObject:currentLocation];
-                                       pageControl.currentPage = locations.count;
+                                   cityLabel.text = [location objectForKey:@"city"];
+                                   descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+                                   predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+                                   [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+                                   [locationManager stopUpdatingLocation];
+                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                   NSMutableArray *dayList = [[location objectForKey:@"dayList"] mutableCopy];
+                                   for (int i = 2; i < 5; i++) {
+                                       NSMutableDictionary *tempForecast = [dayList[i] mutableCopy];
+                                       [tempForecast setObject:@"" forKey:@"desc"];
+                                       dayList[i] = tempForecast;
                                    }
+                                   [location setObject:dayList forKey:@"dayList"];
+                                   [location setObject:zipCode forKey:@"zip"];
+                                   if (currentLocationIndex == 0) {
+                                       isCurrentLocation = NO;
+                                       currentLocation = location;
+                                       if (locations.count  > 0)
+                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
+                                       else {
+                                           [locations addObject:currentLocation];
+                                           pageControl.currentPage = locations.count;
+                                       }
+                                   }
+                                   if (isAddingLocation) {
+                                       currentLocationIndex++;
+                                       pageControl.numberOfPages++;
+                                       [locations addObject:location];
+                                       pageControl.currentPage = locations.count;
+                                       [self savePList];
+                                       isAddingLocation = NO;
+                                   }
+                                   [self allergenLevelChangeFontColor];
                                }
-                               if (isAddingLocation) {
-                                   currentLocationIndex++;
-                                   pageControl.numberOfPages++;
-                                   [locations addObject:location];
-                                   pageControl.currentPage = locations.count;
-                                   [self savePList];
-                                   isAddingLocation = NO;
-                               }
-                               [self allergenLevelChangeFontColor];
-                               }
+
                            }];
 }
 
@@ -360,12 +376,13 @@ WeeklyForecastVC  *wvc;
     else deleteButton.hidden = NO;
     isAddingLocation = NO;
     pageControl.numberOfPages = locations.count;
-    //pageControl.currentPage = currentLocationIndex;
-    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"city"]];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-
+    pageControl.currentPage = currentLocationIndex;
+    if (location != nil) {
+        cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"city"]];
+        descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+        predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+    }
     [self showGifImage];
     [self rotateDandy:dandelionImage duration:1 degrees:2];
     [self makeShadowsOnButton];
