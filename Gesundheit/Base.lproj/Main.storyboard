@@ -714,11 +714,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.61568629740000003" green="0.37254902719999999" blue="0.086274512110000007" alpha="1" colorSpace="deviceRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJM-WM-07h">
-                                <rect key="frame" x="220" y="125" width="71" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJM-WM-07h">
+                                <rect key="frame" x="286" y="326" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="15"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="10"/>
                                 <state key="normal" title="Search">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -791,6 +791,19 @@
                                     <action selector="onSegmentedControlTap:" destination="Sr0-OG-cS1" eventType="valueChanged" id="2CZ-yK-2Zc"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t90-Kj-V7E">
+                                <rect key="frame" x="270" y="36" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTapGoGoOpenSearch:" destination="Sr0-OG-cS1" eventType="touchUpInside" id="47G-vh-KXR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -801,6 +814,7 @@
                         <outlet property="drugstoresTableView" destination="00L-43-P8m" id="q6M-ig-w7P"/>
                         <outlet property="fiveDayActiveButton" destination="fd9-bt-MJf" id="nz3-qb-oAV"/>
                         <outlet property="oneDayActiveButton" destination="kvB-Cz-xCp" id="ZIf-YB-89p"/>
+                        <outlet property="openSearchButton" destination="t90-Kj-V7E" id="bSD-cT-P1N"/>
                         <outlet property="pageControl" destination="NRP-Ls-dNY" id="fuR-tY-LgM"/>
                         <outlet property="rxListDisabledButton" destination="6Ij-rg-TaH" id="5XV-Dk-FGN"/>
                         <outlet property="searchButton" destination="rJM-WM-07h" id="3KZ-US-Uwx"/>

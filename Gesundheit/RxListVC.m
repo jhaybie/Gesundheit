@@ -39,7 +39,9 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *citynStateLabel;
+@property (weak, nonatomic) IBOutlet UIButton *openSearchButton;
 
+- (IBAction)onTapGoGoOpenSearch:(id)sender;
 - (IBAction)onSegmentedControlTap:(id)sender;
 - (IBAction)onSearchButtonTap:(id)sender;
 - (IBAction)onTapGoGoRootVC:(id)sender;
@@ -49,6 +51,7 @@
 
 @implementation RxListVC
 @synthesize  oneDayActiveButton,
+             openSearchButton,
              citynStateLabel,
              currentLocationIndex,
              location,
@@ -211,6 +214,7 @@ NSString               *name,
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [openSearchButton becomeFirstResponder];
     segmentedControl.selectedSegmentIndex = 0;
     pageControl.numberOfPages = locations.count;
     pageControl.currentPage = currentLocationIndex;
@@ -219,6 +223,8 @@ NSString               *name,
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    searchButton.hidden = YES;
+    zipCodeTextField.hidden = YES;
     [self buttonBorders];
     [self showBackgroundImages];
     [self rotateDandy:dandyImagePng duration:1 degrees:2];
@@ -290,21 +296,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 
+- (IBAction)onTapGoGoOpenSearch:(id)sender {
+        [openSearchButton isFirstResponder];
+    searchButton.hidden = NO;
+    zipCodeTextField.hidden = NO;
+
+    zipCodeTextField.frame = CGRectMake(self.view.frame.origin.x / 2, self.view.frame.origin.y + 750, self.view.frame.size.width - 20, zipCodeTextField.frame.size.height);
+    searchButton.frame = CGRectMake(openSearchButton.frame.origin.x + 200, openSearchButton.frame.origin.y + 400, openSearchButton.frame.size.width, openSearchButton.frame.size.height);
+    [UIView animateWithDuration:0.25f animations:^{
+        zipCodeTextField.frame = CGRectMake(drugstoresTableView.frame.origin.x -24 , drugstoresTableView.frame.origin.y + 125, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
+        searchButton.frame = CGRectMake(drugstoresTableView.frame.origin.x + 261 , drugstoresTableView.frame.origin.y + 125, openSearchButton.frame.size.width, searchButton.frame.size.height);
+    }];
+}
+
 - (IBAction)onSegmentedControlTap:(id)sender {
     [drugstoresTableView reloadData];
 }
 
-- (IBAction)onOpenNowSwitchTap:(id)sender {
-
-}
-
 - (IBAction)onSearchButtonTap:(id)sender {
-    zipCodeTextField.frame = CGRectMake(self.view.frame.origin.x / 2, self.view.frame.origin.y + 750, self.view.frame.size.width - 20, zipCodeTextField.frame.size.height);
-    [UIView animateWithDuration:0.25f animations:^{
-            zipCodeTextField.frame = CGRectMake(drugstoresTableView.frame.origin.x -24 , drugstoresTableView.frame.origin.y + 125, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
 
-    }];
-            [zipCodeTextField becomeFirstResponder];
+
     city = zipCodeTextField.text;
     state = @"";
     [self fetchSearchResults];

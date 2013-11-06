@@ -13,6 +13,7 @@
 #import "UIColor+ColorCategory.h"
 #import <QuartzCore/QuartzCore.h>
 
+
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
 
 
@@ -214,7 +215,6 @@ WeeklyForecastVC  *wvc;
 
     wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-    
     [self loadPList];
     [self buttonBorder];
     deleteButton.hidden = YES;
@@ -301,7 +301,7 @@ WeeklyForecastVC  *wvc;
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
     [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-    [self rotateDandy:dandelionImage duration:1 degrees:2];
+
     [self showGifImage];
     [self makeShadowsOnButton];
 }
