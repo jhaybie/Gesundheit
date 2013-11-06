@@ -322,7 +322,6 @@ WeeklyForecastVC  *wvc;
                                      rvc.state = [location objectForKey:@"state"];
                                      [wvc dismissViewControllerAnimated:NO completion:nil];
                                      [self presentViewController:rvc animated:NO completion:nil];
-                                     NSLog(@"Rx touch");
     }];
     weeklyForecastObserver = [nc addObserverForName:@"Go To WeeklyForecastVC"
                                              object:nil
@@ -338,7 +337,6 @@ WeeklyForecastVC  *wvc;
                                              [self dismissViewControllerAnimated:NO completion:nil];
                                              [rvc dismissViewControllerAnimated:NO completion:nil];
                                              [self presentViewController:wvc animated:NO completion:nil];
-                                             NSLog(@"5-Day touch");
     }];
     [self fetchFavorites];
     [self fetchPollenDataFromZip:zip];
