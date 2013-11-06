@@ -120,6 +120,8 @@ WeeklyForecastVC  *wvc;
                                        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                                        [message show];
                                        refreshButton.hidden = NO;
+                                       weeklyForecastVCActiveButton.enabled = NO;
+                                       rxListVCActiveButton.enabled = NO;
                                        return;
                                    }
                                    tempLocation = [NSJSONSerialization JSONObjectWithData:data
@@ -206,6 +208,8 @@ WeeklyForecastVC  *wvc;
                                    [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
                                    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                                    refreshButton.hidden = NO;
+                                   weeklyForecastVCActiveButton.enabled = NO;
+                                   rxListVCActiveButton.enabled = NO;
                                    [message show];
 
                                    return;
@@ -554,6 +558,8 @@ WeeklyForecastVC  *wvc;
     [self getCurrentLocationZip];
     [self fetchPollenDataFromZip:zip];
     [self fetchFavorites];
+    weeklyForecastVCActiveButton.enabled = YES;
+    rxListVCActiveButton.enabled = YES;
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
