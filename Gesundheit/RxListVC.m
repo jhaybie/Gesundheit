@@ -268,7 +268,11 @@ numberOfRowsInSection:(NSInteger)section {
 
 -       (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Drugstore *tempDrugstore = drugstores[indexPath.row];
+    Drugstore *tempDrugstore;
+    if (segmentedControl.selectedSegmentIndex == 0)
+        tempDrugstore = drugstores[indexPath.row];
+    else
+        tempDrugstore = doctors[indexPath.row];
     name = tempDrugstore.name;
     address = [[tempDrugstore.address componentsSeparatedByString:@", "] firstObject];
     city = [[tempDrugstore.address componentsSeparatedByString:@", "] objectAtIndex:1];
