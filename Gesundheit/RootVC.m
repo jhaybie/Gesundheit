@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Jhaybie. All rights reserved.
 //
 
-#import "FavoriteLocationsVC.h"
+
 #import "RootVC.h"
 #import "WeeklyForecastVC.h"
 #import "RxListVC.h"

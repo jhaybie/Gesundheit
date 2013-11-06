@@ -10,7 +10,7 @@
 #import "RxListVC.h"
 #import "RootVC.h"
 #import "UIColor+ColorCategory.h"
-#import "FavoriteLocationsVC.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
