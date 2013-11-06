@@ -234,6 +234,7 @@ WeeklyForecastVC  *wvc;
                                    [locations addObject:location];
                                    pageControl.currentPage = locations.count;
                                    [self savePList];
+                                   isAddingLocation = NO;
                                }
                                [self allergenLevelChangeFontColor];
                                }
