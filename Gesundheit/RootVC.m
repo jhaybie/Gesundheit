@@ -309,7 +309,7 @@ WeeklyForecastVC  *wvc;
     [self getTheDayOfTheWeek];
     deleteButton.hidden = YES;
     isCurrentLocation = YES;
-
+    pageControl.numberOfPages = locations.count;
     [self swipeLeftGesture];
     locationManager = [[CLLocationManager alloc] init];
     [self getCurrentLocationZip];
