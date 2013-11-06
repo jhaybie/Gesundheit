@@ -318,7 +318,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [zipCodeTextField becomeFirstResponder];
     [UIView animateWithDuration:0.25f animations:^{
         zipCodeTextField.frame = CGRectMake(drugstoresTableView.frame.origin.x -24 , drugstoresTableView.frame.origin.y + 232, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
-        searchButton.frame = CGRectMake(drugstoresTableView.frame.origin.x + 245 , drugstoresTableView.frame.origin.y + 233, openSearchButton.frame.size.width, searchButton.frame.size.height);
+        searchButton.frame = CGRectMake(drugstoresTableView.frame.origin.x + 245 , drugstoresTableView.frame.origin.y + 228, openSearchButton.frame.size.width, searchButton.frame.size.height);
     }];
 }
 
