@@ -373,6 +373,22 @@ WeeklyForecastVC  *wvc;
     [[goButton layer] setBorderColor:[UIColor blueColor].CGColor];
     [goButton setBackgroundColor:[UIColor whiteColor]];
     [goButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+
+    deleteButton.layer.cornerRadius = 15.0f;
+    deleteButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    deleteButton.layer.borderWidth = 1.0f;
+    deleteButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    deleteButton.layer.shadowOpacity = 0.70f;
+    deleteButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    deleteButton.layer.shadowRadius = 2.0f;
+
+    changeDefaultCityButton.layer.cornerRadius = 15.0f;
+    changeDefaultCityButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    changeDefaultCityButton.layer.borderWidth = 1.0f;
+    changeDefaultCityButton.layer.shadowRadius = 2.0f;
+    changeDefaultCityButton.layer.shadowOpacity = 0.70f;
+    changeDefaultCityButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    changeDefaultCityButton.layer.shadowColor = [UIColor blackColor].CGColor;
 }
 
 - (void)locationManager:(CLLocationManager *)manager

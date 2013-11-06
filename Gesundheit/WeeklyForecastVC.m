@@ -77,6 +77,7 @@ NSArray *week;
     descTextview.hidden = YES;
     fiveDayPageControl.numberOfPages = locations.count;
     fiveDayPageControl.currentPage = currentLocationIndex;
+    [self roundedStuffs];
     [self getCurrentDate];
 }
 
@@ -204,6 +205,11 @@ NSArray *week;
         descTextview.text = @"";
         descTextview.hidden = YES;
     }
+}
+
+- (void)roundedStuffs {
+    weeklyForecastTableView.layer.cornerRadius = 20.0f;
+    descTextview.layer.cornerRadius = 20.0f;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
