@@ -49,6 +49,8 @@
 
 @property (retain) UISwipeGestureRecognizer * swipeLeftRecognizer;
 @property (retain) UISwipeGestureRecognizer * swipeRightRecognizer;
+@property (weak, nonatomic) IBOutlet UIButton *refreshButton;
+- (IBAction)onTapGoGoRefreshData:(id)sender;
 
 
 
@@ -63,7 +65,7 @@
             lineBarBottom,
             lineBarTop,
             lineBar,
-
+            refreshButton,
             tabBarGrass,
             rxListVCActiveButton,
             weeklyForecastVCActiveButton,
@@ -268,6 +270,7 @@ WeeklyForecastVC  *wvc;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    refreshButton.hidden = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [message show];
@@ -441,6 +444,11 @@ WeeklyForecastVC  *wvc;
     changeDefaultCityButton.layer.shadowOpacity = 0.70f;
     changeDefaultCityButton.layer.shadowOffset = CGSizeMake(0.0f, 1.0f);
     changeDefaultCityButton.layer.shadowColor = [UIColor blackColor].CGColor;
+
+    refreshButton.layer.cornerRadius = 15.0f;
+    refreshButton.layer.borderWidth = 1.0f;
+    refreshButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    refreshButton.backgroundColor = [UIColor blueColor];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -521,6 +529,9 @@ WeeklyForecastVC  *wvc;
     [tempLocations setObject:locations forKey:@"locations"];
     [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:tempLocations];
+}
+
+- (IBAction)onTapGoGoRefreshData:(id)sender {
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
