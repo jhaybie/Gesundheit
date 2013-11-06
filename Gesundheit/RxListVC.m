@@ -94,6 +94,7 @@ NSString               *name,
     pageControl.currentPage = currentLocationIndex;
     citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     [self fetchSearchResults];
+    [self fetchSearchResultsForDoctors];
 }
 
 - (void)buttonBorders {

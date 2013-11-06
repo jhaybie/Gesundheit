@@ -42,7 +42,6 @@
 - (IBAction)onTapGoGoRxListVC:(id)sender;
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
-- (IBAction)swipingPageControlMotion:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *allergenLevel;
 @property (weak, nonatomic) IBOutlet UILabel *predTypeLabel;
@@ -93,18 +92,43 @@ int               currentLocationIndex,
                   weekDayValue;
 NSArray           *week;
 NSMutableDictionary *currentLocation,
+                  *tempLocation,
                   *location;
 NSMutableArray    *locations;
 NSString          *city,
                   *state,
+                  *tempZip,
                   *zip,
                   *predominantType;
 RxListVC          *rvc;
 WeeklyForecastVC  *wvc;
 
 
--(void)swipingPageControlMotion:(id)sender {
-
+- (void)fetchFavorites {
+    for (int i = 1; i < locations.count; i ++) {
+        tempLocation = [[NSMutableDictionary alloc] init];
+        tempLocation = locations[i];
+        tempZip = [tempLocation objectForKey:@"zip"];
+        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
+                                                                              options:NSJSONReadingMutableContainers
+                                                                                error:&connectionError];
+                                   [tempLocation setObject:tempZip forKey:@"zip"];
+                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                                   NSMutableArray *dayList = [[tempLocation objectForKey:@"dayList"] mutableCopy];
+                                   for (int x = 2; x < 5; x++) {
+                                       NSMutableDictionary *tempForecast = [dayList[x] mutableCopy];
+                                       [tempForecast setObject:@"" forKey:@"desc"];
+                                       dayList[x] = tempForecast;
+                                   }
+                                   [tempLocation setObject:dayList forKey:@"dayList"];
+                                   [tempLocation setObject:tempZip forKey:@"zip"];
+                                   [locations replaceObjectAtIndex:i withObject:tempLocation];
+                                   [self savePList];
+                               }];
+    }
 }
 
 - (void) getTheDayOfTheWeek {
@@ -132,6 +156,7 @@ WeeklyForecastVC  *wvc;
 }
 
 - (void)getCurrentLocationZip {
+    zip = [[NSString alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [locationManager startUpdatingLocation];
@@ -187,12 +212,15 @@ WeeklyForecastVC  *wvc;
                                    dayList[i] = tempForecast;
                                }
                                [location setObject:dayList forKey:@"dayList"];
+                               [location setObject:zipCode forKey:@"zip"];
                                if (currentLocationIndex == 0) {
                                    isCurrentLocation = NO;
                                    currentLocation = location;
                                    if (locations.count  > 0)
                                        [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                   else [locations addObject:currentLocation];
+                                   else {
+                                       [locations addObject:currentLocation];
+                                   }
                                }
                                if (isAddingLocation) {
                                    currentLocationIndex++;
@@ -245,7 +273,6 @@ WeeklyForecastVC  *wvc;
     [self swipeLeftGesture];
     locationManager = [[CLLocationManager alloc] init];
     [self getCurrentLocationZip];
-    [self fetchPollenDataFromZip:zip];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     rootObserver = [nc addObserverForName:@"Go To RootVC"
                                object:nil
@@ -298,6 +325,9 @@ WeeklyForecastVC  *wvc;
                                              [self presentViewController:wvc animated:NO completion:nil];
                                              NSLog(@"5-Day touch");
     }];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    [self fetchFavorites];
+    [self fetchPollenDataFromZip:zip];
 }
 
 - (void) swipeLeftGesture {
