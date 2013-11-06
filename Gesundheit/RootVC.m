@@ -247,6 +247,7 @@ WeeklyForecastVC  *wvc;
                                        if (locations.count  > 0)
                                            [locations replaceObjectAtIndex:0 withObject:currentLocation];
                                        else {
+                                           deleteButton.hidden = NO;
                                            [locations addObject:currentLocation];
                                            pageControl.currentPage = locations.count;
                                        }
@@ -254,6 +255,7 @@ WeeklyForecastVC  *wvc;
                                    if (isAddingLocation) {
                                        currentLocationIndex++;
                                        pageControl.numberOfPages++;
+                                       deleteButton.hidden = NO;
                                        [locations addObject:location];
                                        pageControl.currentPage = locations.count;
                                        [self savePList];
