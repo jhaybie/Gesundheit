@@ -161,8 +161,6 @@ NSArray *week;
     NSString *interval = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"dateTime"];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:(interval.doubleValue/1000)];
     NSString *formattedDateString = [dateFormatter stringFromDate:date];
-    NSLog(@"formattedDateString: %@", formattedDateString);
-
     NSString *day = [[formattedDateString componentsSeparatedByString:@","] firstObject];
     if ([day isEqualToString:@"Sunday"])
         weekDayValue = 0;
