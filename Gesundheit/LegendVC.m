@@ -58,8 +58,9 @@
            duration:(NSTimeInterval)duration
             degrees:(CGFloat)degrees {
     [dandyImagePng.layer setAnchorPoint:CGPointMake(0.0, 1.0)];
+
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathAddArc(path, nil, 0, 570, 1, DEGREES_TO_RADIANS(90),DEGREES_TO_RADIANS(94), NO);
+    CGPathAddArc(path, NULL, -15, 525, 1, DEGREES_TO_RADIANS(80),DEGREES_TO_RADIANS(84), NO);
 
     CAKeyframeAnimation *dandyAnimation;
     dandyAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -71,11 +72,8 @@
     dandyAnimation.rotationMode = kCAAnimationRotateAutoReverse;
     dandyAnimation.speed = .2f;
     dandyAnimation.repeatCount = INFINITY;
-    dandyAnimation.fillMode = kCAFillModeBoth;
-
     [dandyImagePng.layer addAnimation:dandyAnimation forKey:@"position"];
 }
-
 - (void)showBackgroundImages {
     backRoundImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandyImagePng.image = [UIImage imageNamed:@"testDandyDan.png"];
