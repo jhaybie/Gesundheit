@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
+@property (weak, nonatomic) IBOutlet UIToolbar *blurrToolbar;
 - (IBAction)onTapDeleteLocation:(id)sender;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender;
@@ -63,6 +64,7 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            blurrToolbar,
             hiddenSearchView,
             dirtBottomPNG,
             deleteButton,
@@ -228,7 +230,7 @@ WeeklyForecastVC  *wvc;
     else
         textColor = [UIColor highColor];
     [allergenLevelButton setTitleColor:textColor forState:UIControlStateNormal];
-    descriptionTextView.textColor = [UIColor blackColor];
+
 }
 
 - (void)showGifImage {
@@ -361,6 +363,9 @@ WeeklyForecastVC  *wvc;
     allergenLevelButton.layer.borderWidth = 2.0f;
 
     descriptionTextView.layer.cornerRadius = 20.0f;
+
+    blurrToolbar.layer.cornerRadius = 20.0f;
+
 }
 
 - (void) buttonBorder {
@@ -672,8 +677,8 @@ WeeklyForecastVC  *wvc;
 
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
+                                   [self enableTabs];
                                    [location setObject:zip forKey:@"zip"];
-                                   [self refreshDisplay];
                                    [self cleanDictionary];
 //                                   if (isAddingLocation) {
 //                                       [self addLocation];
@@ -689,7 +694,6 @@ WeeklyForecastVC  *wvc;
 //                                   }
                                    [self allergenLevelChangeFontColor];
                                }
-
                            }];
 }
 
