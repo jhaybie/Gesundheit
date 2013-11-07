@@ -622,7 +622,7 @@ WeeklyForecastVC  *wvc;
 - (void)refreshDisplay {
 
     //call fade out/fade in method here
-    
+    [self allergenLevelChangeFontColor];
     cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
