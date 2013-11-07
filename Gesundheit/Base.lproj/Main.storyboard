@@ -33,7 +33,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's Forecast" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYk-qk-SSo">
-                                <rect key="frame" x="18" y="67" width="280" height="47"/>
+                                <rect key="frame" x="20" y="57" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="21"/>
                                 <nil key="highlightedColor"/>
@@ -51,8 +51,8 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="10"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="city" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="250" translatesAutoresizingMaskIntoConstraints="NO" id="WA3-vO-X0G">
-                                <rect key="frame" x="36" y="30" width="250" height="48"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="city" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="WA3-vO-X0G">
+                                <rect key="frame" x="20" y="25" width="280" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
                                 <nil key="highlightedColor"/>
@@ -105,7 +105,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zmE-Ww-kPm">
-                                <rect key="frame" x="275" y="34" width="40" height="40"/>
+                                <rect key="frame" x="275" y="48" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="43"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-8" maxX="0.0" maxY="0.0"/>
@@ -146,6 +146,10 @@
                                 <rect key="frame" x="0.0" y="501" width="320" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="beW-o4-ADm">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6U-vT-RYt">
                                         <rect key="frame" x="109" y="0.0" width="106" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -200,7 +204,7 @@
                                 <color key="backgroundColor" red="0.61568629740000003" green="0.37254902719999999" blue="0.086274512110000007" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhU-O6-081">
-                                <rect key="frame" x="4" y="34" width="40" height="40"/>
+                                <rect key="frame" x="4" y="48" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="66"/>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="-11" maxX="0.0" maxY="0.0"/>
@@ -243,6 +247,7 @@
                         <outlet property="deleteButton" destination="KhU-O6-081" id="Fe3-kf-gIe"/>
                         <outlet property="descLabel" destination="hMX-kt-Twv" id="uam-Or-gbn"/>
                         <outlet property="descriptionTextView" destination="WPO-31-HrN" id="tJb-Dj-lAB"/>
+                        <outlet property="dirtBottomPNG" destination="beW-o4-ADm" id="ZQn-22-Ulw"/>
                         <outlet property="enterZipTextField" destination="kAc-Qk-4Au" id="wWZ-Fd-A2T"/>
                         <outlet property="goButton" destination="SDX-hU-8gY" id="RJu-E4-5Z3"/>
                         <outlet property="lineBar" destination="aG8-3Q-aD7" id="YBa-ph-bl3"/>
@@ -346,6 +351,10 @@
                                 <rect key="frame" x="0.0" y="501" width="320" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sao-6P-yzc">
+                                        <rect key="frame" x="-7" y="0.0" width="327" height="69"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmB-jU-RgF">
                                         <rect key="frame" x="107" y="0.0" width="106" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -411,6 +420,7 @@
                         <outlet property="cityAndStateLabel" destination="86r-qd-a2v" id="MjS-Lv-3Mq"/>
                         <outlet property="dandyPng" destination="qdT-fL-nFb" id="wdg-ij-TWR"/>
                         <outlet property="descTextview" destination="5pu-Wl-luS" id="fvW-e5-o7u"/>
+                        <outlet property="dirtBottomPNG" destination="sao-6P-yzc" id="fyW-xP-ZbZ"/>
                         <outlet property="fiveDayPageControl" destination="Kmr-n0-EDl" id="ZGv-Qc-AfM"/>
                         <outlet property="fiveDayTabButton" destination="pmB-jU-RgF" id="DNz-34-dsP"/>
                         <outlet property="gifBackRoundImage" destination="b6w-Q0-Djj" id="wyu-YL-Pae"/>
@@ -663,6 +673,10 @@
                                 <rect key="frame" x="0.0" y="501" width="320" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="88U-sE-qN2">
+                                        <rect key="frame" x="0.0" y="1" width="320" height="66"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ij-rg-TaH">
                                         <rect key="frame" x="216" y="0.0" width="104" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -757,6 +771,7 @@
                         <outlet property="backroundImage" destination="NjE-hn-pdd" id="Ob4-lS-D7d"/>
                         <outlet property="citynStateLabel" destination="PpZ-kr-UQY" id="eiQ-v5-MtP"/>
                         <outlet property="dandyImagePng" destination="M4G-1y-0Ix" id="M0H-cB-3Dn"/>
+                        <outlet property="dirtBottomPNG" destination="88U-sE-qN2" id="pJU-1Z-bji"/>
                         <outlet property="drugstoresTableView" destination="00L-43-P8m" id="q6M-ig-w7P"/>
                         <outlet property="fiveDayActiveButton" destination="fd9-bt-MJf" id="nz3-qb-oAV"/>
                         <outlet property="grassPNG" destination="VHb-Zw-GUK" id="N6A-XW-sl6"/>
