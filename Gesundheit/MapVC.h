@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MapVC : UIViewController
+@interface MapVC : UIViewController <MKMapViewDelegate>
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *address1;
 @property (strong, nonatomic) NSString *city;

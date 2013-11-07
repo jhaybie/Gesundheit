@@ -26,7 +26,7 @@
              name,
              state;
 
-
+/*
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -43,23 +43,6 @@
 }
 
 -(void) mapStuff {
-    //CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(41.90, -87.65);
-    //    MKCoordinateSpan span        = MKCoordinateSpanMake(.01, .01);
-//    MKCoordinateSpan span;
-//    span.latitudeDelta = 0.01;
-//    span.longitudeDelta = 0.01;
-//    [self.myMapView setRegion:MKCoordinateRegionMake(coord, span)  animated:YES];
-//    MKAnnotationView *point = [[MKAnnotationView alloc] init];
-//
-//    point.canShowCallout = YES;
-//    point.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-//    [myMapView addAnnotation:point];
-//    [myMapView selectAnnotation:point animated:YES];
-
-
-
-
-
     MKCoordinateSpan span;
     span.latitudeDelta = 0.01;
     span.longitudeDelta = 0.01;
@@ -82,9 +65,6 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    // If it's the user location, just return nil.
-    if ([annotation isKindOfClass:[MKUserLocation class]])
-        return nil;
 
     // Handle any custom annotations.
     if ([annotation isKindOfClass:[MKPointAnnotation class]])
@@ -96,12 +76,11 @@
             // If an existing pin view was not available, create one.
             pinView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"xxx"];
             pinView.canShowCallout = YES;
-            pinView.image = [UIImage imageNamed:@"pizza_slice_32.png"];
             pinView.calloutOffset = CGPointMake(0, 32);
 
             // Add a detail disclosure button to the callout.
-            UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            pinView.rightCalloutAccessoryView = rightButton;
+            UIButton* leftButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            pinView.leftCalloutAccessoryView = leftButton;
 
         } else {
             pinView.annotation = annotation;
@@ -111,35 +90,115 @@
     return nil;
 }
 
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    id <MKAnnotation> annotation = [view annotation];
+    if ([annotation isKindOfClass:[MKPointAnnotation class]])
+    {
+        NSLog(@"Clicked Pizza Shop");
 
-//-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Disclosure Pressed" message:@"Click Cancel to Go Back" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    [alertView show];
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coord
+                                                   addressDictionary:nil];
+    MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+
+    NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
+    MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+    [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+                   launchOptions:launchOptions];
+    }
+}
+
+//-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 //{
-//    NSString *reuseID = @"xxx";
-//    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseID];
-//    if (!view) {
-//        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];
+//    Class mapItemClass = [MKMapItem class];
+//    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+//    {
+//        // Create an MKMapItem to pass to the Maps app
+//        CLLocationCoordinate2D coordinate =
+//        CLLocationCoordinate2DMake(41.90, -87.65);
+//        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+//                                                       addressDictionary:nil];
+//        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+//        [mapItem setName:@"My Place"];
 //
-//        view.canShowCallout = YES;
-//        view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//        // Set the directions mode to "Walking"
+//        // Can use MKLaunchOptionsDirectionsModeDriving instead
+//        NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
+//        // Get the "Current User Location" MKMapItem
+//        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+//        // Pass the current location and destination map items to the Maps app
+//        // Set the direction mode in the launchOptions dictionary
+//        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+//                       launchOptions:launchOptions];
 //    }
-//    else {
-//        view.annotation = annotation;
-//    }
-//    return view;
 //}
+
+
+*/
+- (IBAction)onBackButtonTap:(id)sender {
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+
+
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+
+    //    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(41.90, -87.65);
+    MKCoordinateSpan span        = MKCoordinateSpanMake(.01, .01);
+
+    [self.myMapView setRegion:MKCoordinateRegionMake(coord, span)  animated:YES];
+
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = coord;
+
+    [self.myMapView addAnnotation:annotation];
+
+
+}
+
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    NSString *reuseID = @"xxx";
+
+    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseID];
+
+    if (!view)
+    {
+        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];      //for standard pin
+                                                                                                         //view = [[MobileMakersAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];  // for custom pin
+        view.canShowCallout = YES;
+        view.leftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    }
+    else
+    {
+        view.annotation = annotation;
+    }
+    return view;
+}
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
+
+
     Class mapItemClass = [MKMapItem class];
     if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
     {
         // Create an MKMapItem to pass to the Maps app
-        CLLocationCoordinate2D coordinate =
-        CLLocationCoordinate2DMake(41.90, -87.65);
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coord
                                                        addressDictionary:nil];
         MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-        [mapItem setName:@"My Place"];
+        [mapItem setName:[NSString stringWithFormat:@"%@", name]];
 
         // Set the directions mode to "Walking"
         // Can use MKLaunchOptionsDirectionsModeDriving instead
@@ -151,10 +210,8 @@
         [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
                        launchOptions:launchOptions];
     }
-}
-
-- (IBAction)onBackButtonTap:(id)sender {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    NSLog(@"Tapped");
 }
 
 @end
