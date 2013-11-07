@@ -112,7 +112,7 @@ WeeklyForecastVC  *wvc;
 
 - (void)fetchFavorites {
     for (int i = 1; i < locations.count; i ++) {
-        location = locations[i];
+        location = [locations objectAtIndex:i];
         zip = [location objectForKey:@"zip"];
         [self fetchPollenData];
     }
@@ -634,7 +634,8 @@ WeeklyForecastVC  *wvc;
 
 - (void)fetchPollenData {
     [self clearDisplay];
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
+    tempZip = zip;
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                if (!data) {
@@ -653,36 +654,23 @@ WeeklyForecastVC  *wvc;
                                    [message show];
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
-                                   //[self refreshDisplay];
                                    [self enableTabs];
                                    [location setObject:zip forKey:@"zip"];
                                    [self cleanDictionary];
                                    [self allergenLevelChangeFontColor];
                                    if (isAddingLocation) {
                                        [self addLocation];
-                                       //[self refreshDisplay];
                                    } else {
                                        if (currentLocationIndex == 0) {
                                            isCurrentLocation = YES;
                                            currentLocation = location;
                                            if (locations.count > 0) {
                                                [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                               //[self refreshDisplay];
                                            } else {
                                                [self addLocation];
-                                               //[locations addObject:currentLocation];
-                                               //[self refreshDisplay];
                                            }
-//                                           if (locations.count > 0)
-//                                               [locations replaceObjectAtIndex:0 withObject:currentLocation];
-//                                           else {
-//                                               [locations addObject:currentLocation];
-//                                           }
-//[self refreshDisplay];
-
                                        }
                                    }
-                                   //[self refreshDisplay];
                                }
                            }];
 }
