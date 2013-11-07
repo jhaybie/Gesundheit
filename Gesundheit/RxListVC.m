@@ -134,7 +134,7 @@ NSString               *name,
     rxLayer.strokeColor = [UIColor whiteColor].CGColor;
     rxLayer.lineWidth = 1.0f;
     [rxListDisabledButton.layer addSublayer:rxLayer];
-    [rxListDisabledButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+    [rxListDisabledButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [[searchButton layer] setCornerRadius:15.0f];
     [[searchButton layer] setBorderWidth:1.0f];
     [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
