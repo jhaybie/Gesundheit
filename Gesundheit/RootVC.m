@@ -112,7 +112,7 @@ WeeklyForecastVC  *wvc;
 
 - (void)fetchFavorites {
     for (int i = 1; i < locations.count; i ++) {
-        location = locations[i];
+        location = [locations objectAtIndex:i];
         zip = [location objectForKey:@"zip"];
         [self fetchPollenData];
     }
@@ -267,12 +267,12 @@ WeeklyForecastVC  *wvc;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    locations = [[NSMutableArray alloc] init];
     descriptionTextView.textColor = [UIColor blackColor];
     refreshButton.hidden = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [message show];
-    [self clearDisplay];
     [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
     wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
@@ -355,9 +355,9 @@ WeeklyForecastVC  *wvc;
 
 - (void)viewDidAppear:(BOOL)animated {
     isAddingLocation = NO;
-    if (location != nil) {
-        [self refreshDisplay];
-    }
+//    if (location != nil) {
+//        [self refreshDisplay];
+//    }
     [self showGifImage];
     [self rotateDandy:dandelionImage duration:1 degrees:2];
     [self makeShadowsOnButton];
@@ -479,11 +479,7 @@ WeeklyForecastVC  *wvc;
         } else
             currentLocationIndex--;
     }
-    if (currentLocationIndex == 0) {
-        location = currentLocation;
-    } else {
-        location = locations[currentLocationIndex];
-    }
+    location = locations[currentLocationIndex];
     [self refreshDisplay];
 }
 
@@ -528,7 +524,7 @@ WeeklyForecastVC  *wvc;
     hiddenSearchView.backgroundColor = [UIColor clearColor];
     goButton.hidden = YES;
     allergenLevelButton.enabled = YES;
-    if (currentLocationIndex != 0)
+    if (currentLocationIndex == 0)
         deleteButton.hidden = NO;
     changeDefaultCityButton.hidden = NO;
     isAddingLocation = YES;
@@ -551,23 +547,30 @@ WeeklyForecastVC  *wvc;
 
 - (void)refreshDisplay {
 
-    //call fade out/fade in method here
-    
-    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-    [locationManager stopUpdatingLocation];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    pageControl.currentPage = currentLocationIndex;
-    pageControl.numberOfPages = locations.count;
-    if (currentLocationIndex == 0) {
-        deleteButton.hidden = YES;
-        isCurrentLocation = YES;
-    }
-    else {
-        deleteButton.hidden = NO;
-        isCurrentLocation = NO;
+    //call fade out method here
+    if (location != nil) {
+        cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+        descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+        predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+        [self getTheDayOfTheWeek];
+        changeDefaultCityButton.hidden = NO;
+
+        // call fade in method here
+
+        [locationManager stopUpdatingLocation];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        pageControl.hidden = NO;
+        pageControl.currentPage = currentLocationIndex;
+        pageControl.numberOfPages = locations.count;
+        if (currentLocationIndex == 0) {
+            deleteButton.hidden = YES;
+            isCurrentLocation = YES;
+        }
+        else {
+            deleteButton.hidden = NO;
+            isCurrentLocation = NO;
+        }
     }
 }
 
@@ -579,6 +582,8 @@ WeeklyForecastVC  *wvc;
     [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
     [locationManager stopUpdatingLocation];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    changeDefaultCityButton.hidden = YES;
+    pageControl.hidden = YES;
     pageControl.currentPage = currentLocationIndex;
     pageControl.numberOfPages = locations.count;
     if (currentLocation == 0)
@@ -628,7 +633,9 @@ WeeklyForecastVC  *wvc;
 }
 
 - (void)fetchPollenData {
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
+    [self clearDisplay];
+    tempZip = zip;
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                if (!data) {
@@ -645,27 +652,26 @@ WeeklyForecastVC  *wvc;
                                if (connectionError) {
                                    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
                                    [message show];
-                                   [self clearDisplay];
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
+                                   [self enableTabs];
                                    [location setObject:zip forKey:@"zip"];
-                                   [self refreshDisplay];
                                    [self cleanDictionary];
+                                   [self allergenLevelChangeFontColor];
                                    if (isAddingLocation) {
                                        [self addLocation];
-                                   }
-                                   if (isCurrentLocation) {
-                                       isCurrentLocation = NO;
-                                       currentLocation = location;
-                                       if (locations.count > 0)
-                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                       else {
-                                           [self addLocation];
+                                   } else {
+                                       if (currentLocationIndex == 0) {
+                                           isCurrentLocation = YES;
+                                           currentLocation = location;
+                                           if (locations.count > 0) {
+                                               [locations replaceObjectAtIndex:0 withObject:currentLocation];
+                                           } else {
+                                               [self addLocation];
+                                           }
                                        }
                                    }
-                                   [self allergenLevelChangeFontColor];
                                }
-
                            }];
 }
 
