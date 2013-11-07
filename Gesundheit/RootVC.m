@@ -52,6 +52,7 @@
 @property (retain) UISwipeGestureRecognizer * swipeRightRecognizer;
 @property (weak, nonatomic) IBOutlet UIButton *refreshButton;
 - (IBAction)onTapGoGoRefreshData:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *hiddenSearchView;
 
 
 
@@ -62,6 +63,7 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            hiddenSearchView,
             dirtBottomPNG,
             deleteButton,
             lineBarBottom,
@@ -387,7 +389,13 @@ WeeklyForecastVC  *wvc;
     isShown = NO;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    hiddenSearchView.hidden = YES;
+    hiddenSearchView.backgroundColor = [UIColor clearColor];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
+
     if (currentLocationIndex == 0)
         deleteButton.hidden = YES;
     else deleteButton.hidden = NO;
@@ -568,11 +576,11 @@ WeeklyForecastVC  *wvc;
     deleteButton.hidden = YES;
     changeDefaultCityButton.hidden = YES;
     enterZipTextField.hidden = NO;
-    goButton.frame = CGRectMake(self.view.frame.origin.x + 320, 1000, goButton.frame.size.width, goButton.frame.size.width);
-    enterZipTextField.frame = CGRectMake(self.view.frame.origin.x, 1000, self.view.frame.size.width, enterZipTextField.frame.size.height);
+    hiddenSearchView.alpha = 0.1f;
     [UIView animateWithDuration:0.25f animations:^{
-            enterZipTextField.frame = CGRectMake(0, 324, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
-                goButton.frame = CGRectMake(280, 324, goButton.frame.size.width, goButton.frame.size.height );
+        hiddenSearchView.backgroundColor = [UIColor lightTextColor];
+        hiddenSearchView.alpha = 1.0f;
+        hiddenSearchView.hidden = NO;
     }];
     [enterZipTextField becomeFirstResponder];
     goButton.hidden = NO;
@@ -580,7 +588,8 @@ WeeklyForecastVC  *wvc;
 
 - (IBAction)onGoButtonTap:(id)sender {
     [enterZipTextField resignFirstResponder];
-    enterZipTextField.hidden = YES;
+    hiddenSearchView.hidden = YES;
+    hiddenSearchView.backgroundColor = [UIColor clearColor];
     goButton.hidden = YES;
     allergenLevelButton.enabled = YES;
     if (currentLocationIndex != 0)
