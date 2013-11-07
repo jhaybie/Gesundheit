@@ -57,28 +57,28 @@ int     weekDayValue;
 NSArray *week;
 
 
-- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
-    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        if (currentLocationIndex < locations.count - 1)
-            currentLocationIndex++;
-        else currentLocationIndex = 0;
-    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        if (currentLocationIndex == 0)
-            currentLocationIndex = locations.count - 1;
-        else
-            currentLocationIndex--;
-    }
-    location = locations[currentLocationIndex];
-    fiveDayPageControl.currentPage = currentLocationIndex;
-    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    [weeklyForecastTableView reloadData];
-}
+//- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
+//    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+//        if (currentLocationIndex < locations.count - 1)
+//            currentLocationIndex++;
+//        else currentLocationIndex = 0;
+//    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+//        if (currentLocationIndex == 0)
+//            currentLocationIndex = locations.count - 1;
+//        else
+//            currentLocationIndex--;
+//    }
+//    location = locations[currentLocationIndex];
+//    fiveDayPageControl.currentPage = currentLocationIndex;
+//    cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+//    [weeklyForecastTableView reloadData];
+//}
 
 - (void)viewDidAppear:(BOOL)animated {
     cityAndStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     descTextview.hidden = YES;
-    fiveDayPageControl.numberOfPages = locations.count;
-    fiveDayPageControl.currentPage = currentLocationIndex;
+    //fiveDayPageControl.numberOfPages = locations.count;
+    //fiveDayPageControl.currentPage = currentLocationIndex;
     [self roundedStuffs];
     [self getCurrentDate];
 }
@@ -136,12 +136,13 @@ NSArray *week;
     [self rotateDandy:dandyPng duration:1 degrees:2];
     [self buttonBorder];
     [self setUpBackgroundImages];
-    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-    swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeRecognizer];
-    [self.view addGestureRecognizer:swipeRecognizer2];
+    fiveDayPageControl.hidden = YES;
+    //UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    //swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    //UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    //swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
+    //[self.view addGestureRecognizer:swipeRecognizer];
+    //[self.view addGestureRecognizer:swipeRecognizer2];
 }
 
 - (void)showGifImage {
@@ -219,11 +220,11 @@ NSArray *week;
     descTextview.layer.cornerRadius = 20.0f;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    RxListVC *rvc = segue.destinationViewController;
-    rvc.city = [location objectForKey:@"city"];
-    rvc.state = [location objectForKey:@"state"];
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    RxListVC *rvc = segue.destinationViewController;
+//    rvc.city = [location objectForKey:@"city"];
+//    rvc.state = [location objectForKey:@"state"];
+//}
 
 #pragma mark UITableViewDelegate
 
@@ -261,21 +262,21 @@ NSArray *week;
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
-    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-    [tempLocations setObject:locations forKey:@"locations"];
-    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:tempLocations];
+    //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    //[tempLocations setObject:locations forKey:@"locations"];
+    //[tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
-    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-    [tempLocations setObject:locations forKey:@"locations"];
-    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:tempLocations];
+    //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    //[tempLocations setObject:locations forKey:@"locations"];
+    //[tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
 }
 
-- (IBAction)onSwipeChangePageSelected:(id)sender {
-}
+//- (IBAction)onSwipeChangePageSelected:(id)sender {
+//}
 
 @end
