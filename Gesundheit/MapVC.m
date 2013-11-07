@@ -27,13 +27,12 @@
              state;
 
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//    [self mapStuff];
-//    [self addButtonBorder];
-//
-//}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self mapStuff];
+    [self addButtonBorder];
+}
 
 -(void) addButtonBorder {
     [[backButton layer] setBorderColor:[UIColor darkGrayColor].CGColor];
@@ -43,7 +42,7 @@
     backButton.titleLabel.textColor = [UIColor blueColor];
 
 }
-/*
+
 -(void) mapStuff {
     MKCoordinateSpan span;
     span.latitudeDelta = 0.01;
@@ -137,84 +136,84 @@
 //}
 
 
-*/
+
 - (IBAction)onBackButtonTap:(id)sender {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
-
-
-
-
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [self addButtonBorder];
-    //    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(41.90, -87.65);
-    MKCoordinateSpan span        = MKCoordinateSpanMake(.01, .01);
-
-    [self.myMapView setRegion:MKCoordinateRegionMake(coord, span)  animated:YES];
-
-    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-    annotation.coordinate = coord;
-
-    [self.myMapView addAnnotation:annotation];
-    [myMapView selectAnnotation:annotation
-                       animated:YES];
-
-}
-
-
--(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-{
-    NSString *reuseID = @"xxx";
-
-    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseID];
-
-    if (!view)
-    {
-        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];      //for standard pin
-                                                                                                         //view = [[MobileMakersAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];  // for custom pin
-        view.canShowCallout = YES;
-        view.leftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    }
-    else
-    {
-        view.annotation = annotation;
-    }
-    return view;
-}
-
--(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
-{
-
-
-    Class mapItemClass = [MKMapItem class];
-    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
-    {
-        // Create an MKMapItem to pass to the Maps app
-        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coord
-                                                       addressDictionary:nil];
-        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-        [mapItem setName:[NSString stringWithFormat:@"%@", name]];
-
-        // Set the directions mode to "Walking"
-        // Can use MKLaunchOptionsDirectionsModeDriving instead
-        NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
-        // Get the "Current User Location" MKMapItem
-        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
-        // Pass the current location and destination map items to the Maps app
-        // Set the direction mode in the launchOptions dictionary
-        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
-                       launchOptions:launchOptions];
-    }
-    
-    NSLog(@"Tapped");
-}
+//
+//
+//
+//
+//
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+//
+//}
+//
+//-(void)viewDidAppear:(BOOL)animated
+//{
+//    [self addButtonBorder];
+//    //    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(41.90, -87.65);
+//    MKCoordinateSpan span        = MKCoordinateSpanMake(.01, .01);
+//
+//    [self.myMapView setRegion:MKCoordinateRegionMake(coord, span)  animated:YES];
+//
+//    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+//    annotation.coordinate = coord;
+//
+//    [self.myMapView addAnnotation:annotation];
+//    [myMapView selectAnnotation:annotation
+//                       animated:YES];
+//
+//}
+//
+//
+//-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+//{
+//    NSString *reuseID = @"xxx";
+//
+//    MKAnnotationView *view = [mapView dequeueReusableAnnotationViewWithIdentifier:reuseID];
+//
+//    if (!view)
+//    {
+//        view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];      //for standard pin
+//                                                                                                         //view = [[MobileMakersAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseID];  // for custom pin
+//        view.canShowCallout = YES;
+//        view.leftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//    }
+//    else
+//    {
+//        view.annotation = annotation;
+//    }
+//    return view;
+//}
+//
+//-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+//{
+//
+//
+//    Class mapItemClass = [MKMapItem class];
+//    if (mapItemClass && [mapItemClass respondsToSelector:@selector(openMapsWithItems:launchOptions:)])
+//    {
+//        // Create an MKMapItem to pass to the Maps app
+//        MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coord
+//                                                       addressDictionary:nil];
+//        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
+//        [mapItem setName:[NSString stringWithFormat:@"%@", name]];
+//
+//        // Set the directions mode to "Walking"
+//        // Can use MKLaunchOptionsDirectionsModeDriving instead
+//        NSDictionary *launchOptions = @{MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving};
+//        // Get the "Current User Location" MKMapItem
+//        MKMapItem *currentLocationMapItem = [MKMapItem mapItemForCurrentLocation];
+//        // Pass the current location and destination map items to the Maps app
+//        // Set the direction mode in the launchOptions dictionary
+//        [MKMapItem openMapsWithItems:@[currentLocationMapItem, mapItem]
+//                       launchOptions:launchOptions];
+//    }
+//    
+//    NSLog(@"Tapped");
+//}
 
 @end

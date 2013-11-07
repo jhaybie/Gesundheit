@@ -80,6 +80,7 @@ NSMutableArray         *drugstores,
                        *doctors;
 NSString               *name,
                        *address;
+UIAlertView            *message;
 
 //- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
 //
@@ -184,6 +185,7 @@ NSString               *name,
                                    [doctors addObject:tempRx];
                                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                }
+                               [message dismissWithClickedButtonIndex:0 animated:YES];
                                [drugstoresTableView reloadData];
                            }];
     if (searchResults.count == 0) { // use different Google API Key
@@ -301,6 +303,8 @@ NSString               *name,
     [self fetchSearchResults];
     [self fetchSearchResultsForDoctors];
     pageControl.hidden = YES;
+    message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Loading nearby businesses." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    [message show];
     //UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
     //swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     //UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
