@@ -162,7 +162,8 @@
     annotation.coordinate = coord;
 
     [self.myMapView addAnnotation:annotation];
-
+    [myMapView selectAnnotation:annotation
+                       animated:YES];
 
 }
 

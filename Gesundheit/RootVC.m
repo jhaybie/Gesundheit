@@ -601,4 +601,22 @@ WeeklyForecastVC  *wvc;
     [[NSNotificationCenter defaultCenter] removeObserver:weeklyForecastObserver];
 }
 
+
+
+
+- (void)refreshDisplay {
+    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+    [locationManager stopUpdatingLocation];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    pageControl.currentPage = currentLocationIndex;
+    pageControl.numberOfPages = locations.count;
+    if (currentLocationIndex == 0)
+        deleteButton.hidden = YES;
+    else
+        deleteButton.hidden = NO;
+}
+
 @end
