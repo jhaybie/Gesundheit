@@ -52,6 +52,7 @@
     [self changeAlpha];
     [self rotateDandy:dandyImagePng duration:1 degrees:2];
     [self changeColors];
+    [self roundedCorners];
 }
 
 - (void)rotateDandy:(UIImageView *)image
@@ -80,8 +81,37 @@
     grassPng.image = [UIImage imageNamed:@"grass"];
     grassPng.alpha = 0.60;
     [dandyImagePng setAlpha:.50];
+}
+- (void) roundedCorners{
+    int corner = 20.0f;
+    int lilCorner = 7.0f;
+    int borderWidth = 1.0f;
+    lowTextField.layer.cornerRadius = corner;
+    lowMedTextField.layer.cornerRadius = corner;
+    mediumTextField.layer.cornerRadius = corner;
+    medHighTextField.layer.cornerRadius = corner;
+    highTextField.layer.cornerRadius = corner;
 
+    lowLabel.layer.cornerRadius = lilCorner;
+    lowMedLabel.layer.cornerRadius = lilCorner;
+    mediumLabel.layer.cornerRadius = lilCorner;
+    medHighLabel.layer.cornerRadius = lilCorner;
+    highLabel.layer.cornerRadius = lilCorner;
 
+    lowLabel.layer.borderWidth = borderWidth;
+    lowLabel.layer.borderColor = [UIColor lowColor].CGColor;
+
+    lowMedLabel.layer.borderWidth = borderWidth;
+    lowMedLabel.layer.borderColor = [UIColor lowMedColor].CGColor;
+
+    mediumLabel.layer.borderWidth = borderWidth;
+    mediumLabel.layer.borderColor = [UIColor mediumColor].CGColor;
+
+    medHighLabel.layer.borderWidth = borderWidth;
+    medHighLabel.layer.borderColor = [UIColor medHighColor].CGColor;
+
+    highLabel.layer.borderWidth = borderWidth;
+    highLabel.layer.borderColor = [UIColor highColor].CGColor;
 }
 - (void) changeColors {
     lowLabel.textColor = [UIColor lowColor];
