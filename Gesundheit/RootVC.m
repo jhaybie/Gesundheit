@@ -156,7 +156,7 @@ WeeklyForecastVC  *wvc;
     if (!locations) {
         locations = [[NSMutableArray alloc] init];
     }
-    cityLabel.text = [location objectForKey:@"city"];
+    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
 }
@@ -225,7 +225,7 @@ WeeklyForecastVC  *wvc;
                                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
-                                   cityLabel.text = [location objectForKey:@"city"];
+                                   cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
                                    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
                                    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
@@ -328,7 +328,7 @@ WeeklyForecastVC  *wvc;
                                location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
                                pageControl.currentPage = index;
 
-                               cityLabel.text = [location objectForKey:@"city"];
+                               cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
                                descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
                                predominantTypeLabel.text = [location objectForKey:@"predominantType"];
                                [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
@@ -388,7 +388,7 @@ WeeklyForecastVC  *wvc;
     pageControl.numberOfPages = locations.count;
     pageControl.currentPage = currentLocationIndex;
     if (location != nil) {
-        cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"city"]];
+        cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
         descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
         predominantTypeLabel.text = [location objectForKey:@"predominantType"];
         [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
@@ -525,7 +525,7 @@ WeeklyForecastVC  *wvc;
         location = locations[currentLocationIndex];
     }
     pageControl.currentPage = currentLocationIndex;
-    cityLabel.text = [location objectForKey:@"city"];
+    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
     [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
@@ -551,6 +551,8 @@ WeeklyForecastVC  *wvc;
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
+    allergenLevelButton.enabled = NO;
+    deleteButton.hidden = YES;
     changeDefaultCityButton.hidden = YES;
     enterZipTextField.hidden = NO;
     goButton.frame = CGRectMake(self.view.frame.origin.x + 320, 1000, goButton.frame.size.width, goButton.frame.size.width);
@@ -567,13 +569,17 @@ WeeklyForecastVC  *wvc;
     [enterZipTextField resignFirstResponder];
     enterZipTextField.hidden = YES;
     goButton.hidden = YES;
+    allergenLevelButton.enabled = YES;
+    if (currentLocationIndex != 0)
+        deleteButton.hidden = NO;
     changeDefaultCityButton.hidden = NO;
     isAddingLocation = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (enterZipTextField.text.length == 5) {
         [[NSUserDefaults standardUserDefaults] setObject: enterZipTextField.text forKey:@"defaultLocation"];
         [self fetchPollenDataFromZip:enterZipTextField.text];
-    }
+    } else
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)dealloc {
