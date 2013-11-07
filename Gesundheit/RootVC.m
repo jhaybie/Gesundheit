@@ -579,8 +579,10 @@ WeeklyForecastVC  *wvc;
     hiddenSearchView.alpha = 0.1f;
     [UIView animateWithDuration:0.25f animations:^{
         hiddenSearchView.backgroundColor = [UIColor darkGrayColor];
+        hiddenSearchView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        hiddenSearchView.layer.borderWidth = 6.0f;
         hiddenSearchView.layer.cornerRadius = 20.0f;
-        hiddenSearchView.alpha = 1.0f;
+        hiddenSearchView.alpha = 0.8f;
         hiddenSearchView.hidden = NO;
     }];
     [enterZipTextField becomeFirstResponder];
