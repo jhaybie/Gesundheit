@@ -26,22 +26,24 @@
              name,
              state;
 
-/*
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self mapStuff];
-    [self addButtonBorder];
 
-}
+//- (void)viewDidLoad
+//{
+//    [super viewDidLoad];
+//    [self mapStuff];
+//    [self addButtonBorder];
+//
+//}
 
 -(void) addButtonBorder {
-    [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
-    [[backButton layer] setBorderWidth:1.0f];
+    [[backButton layer] setBorderColor:[UIColor darkGrayColor].CGColor];
+    [[backButton layer] setBorderWidth:2.0f];
     [[backButton layer] setCornerRadius:15.0f];
+    backButton.backgroundColor = [UIColor lightTextColor];
+    backButton.titleLabel.textColor = [UIColor blueColor];
 
 }
-
+/*
 -(void) mapStuff {
     MKCoordinateSpan span;
     span.latitudeDelta = 0.01;
@@ -152,7 +154,7 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
-
+    [self addButtonBorder];
     //    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(41.90, -87.65);
     MKCoordinateSpan span        = MKCoordinateSpanMake(.01, .01);
 
