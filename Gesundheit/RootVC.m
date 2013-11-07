@@ -149,8 +149,6 @@ WeeklyForecastVC  *wvc;
     [myFormatter setDateFormat:@"EEEE"];
     NSString *dayOfWeek = [myFormatter stringFromDate:today];
     currentDateLabel.text = [NSString stringWithFormat:@"%@", dayOfWeek];
-
-    
 }
 
 - (void)loadPList {
@@ -241,6 +239,15 @@ WeeklyForecastVC  *wvc;
                                    }
                                    [location setObject:dayList forKey:@"dayList"];
                                    [location setObject:zipCode forKey:@"zip"];
+                                   if (isAddingLocation) {
+                                       currentLocationIndex++;
+                                       pageControl.numberOfPages++;
+                                       deleteButton.hidden = NO;
+                                       [locations addObject:location];
+                                       pageControl.currentPage = locations.count;
+                                       [self savePList];
+                                       isAddingLocation = NO;
+                                   }
                                    if (currentLocationIndex == 0) {
                                        isCurrentLocation = NO;
                                        currentLocation = location;
@@ -252,15 +259,7 @@ WeeklyForecastVC  *wvc;
                                            pageControl.currentPage = locations.count;
                                        }
                                    }
-                                   if (isAddingLocation) {
-                                       currentLocationIndex++;
-                                       pageControl.numberOfPages++;
-                                       deleteButton.hidden = NO;
-                                       [locations addObject:location];
-                                       pageControl.currentPage = locations.count;
-                                       [self savePList];
-                                       isAddingLocation = NO;
-                                   }
+
                                    [self allergenLevelChangeFontColor];
                                }
 
