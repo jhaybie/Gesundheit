@@ -112,39 +112,32 @@ WeeklyForecastVC  *wvc;
 
 - (void)fetchFavorites {
     for (int i = 1; i < locations.count; i ++) {
-        tempLocation = [[NSMutableDictionary alloc] init];
-        tempLocation = locations[i];
-        tempZip = [tempLocation objectForKey:@"zip"];
-        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-
-                                   if (!data) {
-                                       UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                                       [message show];
-                                       refreshButton.hidden = NO;
-                                       weeklyForecastVCActiveButton.enabled = NO;
-                                       rxListVCActiveButton.enabled = NO;
-                                       return;
-                                   }
-                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
-                                                                                  options:NSJSONReadingMutableContainers
-                                                                                    error:&connectionError];
-                                       [tempLocation setObject:tempZip forKey:@"zip"];
-                                       [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                       NSMutableArray *dayList = [[tempLocation objectForKey:@"dayList"] mutableCopy];
-                                       for (int x = 2; x < 5; x++) {
-                                           NSMutableDictionary *tempForecast = [dayList[x] mutableCopy];
-                                           [tempForecast setObject:@"" forKey:@"desc"];
-                                           dayList[x] = tempForecast;
-                                       }
-                                       [tempLocation setObject:dayList forKey:@"dayList"];
-                                       [tempLocation setObject:tempZip forKey:@"zip"];
-                                       [locations replaceObjectAtIndex:i withObject:tempLocation];
-                                       [self savePList];
-                               }];
-                               }
+        location = locations[i];
+        zip = [location objectForKey:@"zip"];
+        [self fetchPollenData];
+    }
+//        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
+//                                           queue:[NSOperationQueue mainQueue]
+//                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//
+//
+//                                   if (!data) {
+//                                       UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+//                                       [message show];
+//                                       refreshButton.hidden = NO;
+//                                       [self disableTabs];
+//                                       return;
+//                                   }
+//                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
+//                                                                                  options:NSJSONReadingMutableContainers
+//                                                                                    error:&connectionError];
+//                                   [tempLocation setObject:tempZip forKey:@"zip"];
+//                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//                                   [self cleanDictionary];
+//                                   [tempLocation setObject:tempZip forKey:@"zip"];
+//                                   [locations replaceObjectAtIndex:i withObject:tempLocation];
+//                                   [self savePList];
+//                               }];
 }
 
 - (void) getTheDayOfTheWeek {
@@ -160,9 +153,7 @@ WeeklyForecastVC  *wvc;
     if (!locations) {
         locations = [[NSMutableArray alloc] init];
     }
-    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [self refreshDisplay];
 }
 
 - (void)savePList {
@@ -201,74 +192,49 @@ WeeklyForecastVC  *wvc;
     [message dismissWithClickedButtonIndex:0 animated:YES];
 }
 
-- (void)fetchPollenDataFromZip:(NSString *)zipCode {
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               if (!data) {
-                                   cityLabel.text = @"";
-                                   [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
-                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                                   refreshButton.hidden = NO;
-                                   weeklyForecastVCActiveButton.enabled = NO;
-                                   rxListVCActiveButton.enabled = NO;
-                                   [message show];
-
-                                   return;
-                               }
-                               location = [NSJSONSerialization JSONObjectWithData:data
-                                                                          options:NSJSONReadingMutableContainers
-                                                                            error:&connectionError];
-                               if (connectionError) {
-                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
-                                   [message show];
-                                   cityLabel.text = @"";
-                                   descriptionTextView.text = @"";
-                                   predominantTypeLabel.text = @"";
-                                   [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
-                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                   [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
-                               } else {
-                                   cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-                                   descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-                                   predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-                                   [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-                                   [locationManager stopUpdatingLocation];
-                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                   NSMutableArray *dayList = [[location objectForKey:@"dayList"] mutableCopy];
-                                   for (int i = 2; i < 5; i++) {
-                                       NSMutableDictionary *tempForecast = [dayList[i] mutableCopy];
-                                       [tempForecast setObject:@"" forKey:@"desc"];
-                                       dayList[i] = tempForecast;
-                                   }
-                                   [location setObject:dayList forKey:@"dayList"];
-                                   [location setObject:zipCode forKey:@"zip"];
-                                   if (isAddingLocation) {
-                                       currentLocationIndex++;
-                                       pageControl.numberOfPages++;
-                                       deleteButton.hidden = NO;
-                                       [locations addObject:location];
-                                       pageControl.currentPage = locations.count;
-                                       [self savePList];
-                                       isAddingLocation = NO;
-                                   }
-                                   if (currentLocationIndex == 0) {
-                                       isCurrentLocation = NO;
-                                       currentLocation = location;
-                                       if (locations.count  > 0)
-                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                       else {
-                                           deleteButton.hidden = NO;
-                                           [locations addObject:currentLocation];
-                                           pageControl.currentPage = locations.count;
-                                       }
-                                   }
-
-                                   [self allergenLevelChangeFontColor];
-                               }
-
-                           }];
-}
+//- (void)fetchPollenDataFromZip:(NSString *)zipCode {
+//    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//                               if (!data) {
+//                                   [self clearDisplay];
+//                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+//                                   [self disableTabs];
+//                                   [message show];
+//
+//                                   return;
+//                               }
+//                               location = [NSJSONSerialization JSONObjectWithData:data
+//                                                                          options:NSJSONReadingMutableContainers
+//                                                                            error:&connectionError];
+//                               if (connectionError) {
+//                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+//                                   [message show];
+//                                   [self clearDisplay];
+//                                   [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
+//                               } else {
+//                                   [self refreshDisplay];
+//                                   [self cleanDictionary];
+//                                   if (isAddingLocation) {
+//                                       [self addLocation];
+//                                   }
+//                                   if (currentLocationIndex == 0) {
+//                                       isCurrentLocation = NO;
+//                                       currentLocation = location;
+//                                       if (locations.count  > 0)
+//                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
+//                                       else {
+//                                           deleteButton.hidden = NO;
+//                                           [locations addObject:currentLocation];
+//                                           pageControl.currentPage = locations.count;
+//                                       }
+//                                   }
+//
+//                                   [self allergenLevelChangeFontColor];
+//                               }
+//
+//                           }];
+//}
 
 - (void)allergenLevelChangeFontColor {
     float level = allergenLevelButton.currentTitle.floatValue;
@@ -302,15 +268,11 @@ WeeklyForecastVC  *wvc;
 - (void)viewDidLoad {
     [super viewDidLoad];
     descriptionTextView.textColor = [UIColor blackColor];
-    refreshButton.hidden = YES;
+    refreshButton.hidden = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
     [message show];
-    cityLabel.text = @"";
-    descriptionTextView.text = @"";
-    predominantTypeLabel.text = @"";
-    [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [self clearDisplay];
     [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
     wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
@@ -337,10 +299,7 @@ WeeklyForecastVC  *wvc;
                                location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
                                pageControl.currentPage = index;
 
-                               cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-                               descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-                               predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-                               [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+                               [self refreshDisplay];
     }];
     rxListObserver = [nc addObserverForName:@"Go To RXListVC"
                                      object:nil
@@ -374,7 +333,7 @@ WeeklyForecastVC  *wvc;
                                              [self presentViewController:wvc animated:NO completion:nil];
     }];
     [self fetchFavorites];
-    [self fetchPollenDataFromZip:zip];
+    [self fetchPollenData];
 }
 
 - (void) swipeLeftGesture {
@@ -395,18 +354,9 @@ WeeklyForecastVC  *wvc;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-
-    if (currentLocationIndex == 0)
-        deleteButton.hidden = YES;
-    else deleteButton.hidden = NO;
     isAddingLocation = NO;
-    pageControl.numberOfPages = locations.count;
-    pageControl.currentPage = currentLocationIndex;
     if (location != nil) {
-        cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-        descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-        predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+        [self refreshDisplay];
     }
     [self showGifImage];
     [self rotateDandy:dandelionImage duration:1 degrees:2];
@@ -487,23 +437,13 @@ WeeklyForecastVC  *wvc;
                        if (error == nil && placemarks.count > 0) {
                            CLPlacemark *placemark = [placemarks lastObject];
                            zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
-                           [self fetchPollenDataFromZip:zip];
+                           [self fetchPollenData];
                        }
                    }];
 }
 
 - (IBAction)onTapDeleteLocation:(id)sender {
-    [locations removeObjectAtIndex:currentLocationIndex];
-    currentLocationIndex--;
-    pageControl.numberOfPages = locations.count;
-    location = locations[currentLocationIndex];
-    [self savePList];
-    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-    if (currentLocationIndex == 0)
-        deleteButton.hidden = YES;
+    [self deleteLocation];
 }
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
@@ -544,14 +484,7 @@ WeeklyForecastVC  *wvc;
     } else {
         location = locations[currentLocationIndex];
     }
-    pageControl.currentPage = currentLocationIndex;
-    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-    if (currentLocationIndex == 0)
-        deleteButton.hidden = YES;
-    else deleteButton.hidden = NO;
+    [self refreshDisplay];
 }
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
@@ -564,10 +497,9 @@ WeeklyForecastVC  *wvc;
 
 - (IBAction)onTapGoGoRefreshData:(id)sender {
     [self getCurrentLocationZip];
-    [self fetchPollenDataFromZip:zip];
+    [self fetchPollenData];
     [self fetchFavorites];
-    weeklyForecastVCActiveButton.enabled = YES;
-    rxListVCActiveButton.enabled = YES;
+    [self enableTabs];
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
@@ -602,8 +534,8 @@ WeeklyForecastVC  *wvc;
     isAddingLocation = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (enterZipTextField.text.length == 5) {
-        [[NSUserDefaults standardUserDefaults] setObject: enterZipTextField.text forKey:@"defaultLocation"];
-        [self fetchPollenDataFromZip:enterZipTextField.text];
+        zip = enterZipTextField.text;
+        [self fetchPollenData];
     } else
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -612,6 +544,128 @@ WeeklyForecastVC  *wvc;
     [[NSNotificationCenter defaultCenter] removeObserver:rootObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:rxListObserver];
     [[NSNotificationCenter defaultCenter] removeObserver:weeklyForecastObserver];
+}
+
+
+
+
+- (void)refreshDisplay {
+
+    //call fade out/fade in method here
+    
+    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+    [locationManager stopUpdatingLocation];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    pageControl.currentPage = currentLocationIndex;
+    pageControl.numberOfPages = locations.count;
+    if (currentLocationIndex == 0) {
+        deleteButton.hidden = YES;
+        isCurrentLocation = YES;
+    }
+    else {
+        deleteButton.hidden = NO;
+        isCurrentLocation = NO;
+    }
+}
+
+- (void)clearDisplay {
+    cityLabel.text = @"";
+    descriptionTextView.text = @"";
+    predominantTypeLabel.text = @"";
+    [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
+    [locationManager stopUpdatingLocation];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    pageControl.currentPage = currentLocationIndex;
+    pageControl.numberOfPages = locations.count;
+    if (currentLocation == 0)
+        deleteButton.hidden = YES;
+    else
+        deleteButton.hidden = NO;
+}
+
+- (void)disableTabs {
+    weeklyForecastVCActiveButton.enabled = NO;
+    rxListVCActiveButton.enabled = NO;
+}
+
+- (void)enableTabs {
+    weeklyForecastVCActiveButton.enabled = YES;
+    rxListVCActiveButton.enabled = YES;
+}
+
+- (void)cleanDictionary {
+    NSMutableArray *dayList = [[location objectForKey:@"dayList"] mutableCopy];
+    for (int i = 2; i < 5; i++) {
+        NSMutableDictionary *tempForecast = [dayList[i] mutableCopy];
+        [tempForecast setObject:@"" forKey:@"desc"];
+        dayList[i] = tempForecast;
+    }
+    [location setObject:dayList forKey:@"dayList"];
+    [location setObject:zip forKey:@"zip"];
+}
+
+- (void)addLocation {
+    [locations addObject:location];
+    currentLocationIndex++;
+    pageControl.numberOfPages = locations.count;
+    pageControl.currentPage = locations.count;
+    [self refreshDisplay];
+    [self savePList];
+    isAddingLocation = NO;
+}
+
+- (void)deleteLocation {
+    [locations removeObjectAtIndex:currentLocationIndex];
+    currentLocationIndex--;
+    pageControl.numberOfPages = locations.count;
+    location = locations[currentLocationIndex];
+    [self savePList];
+    [self refreshDisplay];
+}
+
+- (void)fetchPollenData {
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]]]
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (!data) {
+                                   [self clearDisplay];
+                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                                   [self disableTabs];
+                                   [message show];
+                                   return;
+                               }
+                               location = [NSJSONSerialization JSONObjectWithData:data
+                                                                          options:NSJSONReadingMutableContainers
+                                                                            error:&connectionError];
+                               [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+                               if (connectionError) {
+                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+                                   [message show];
+                                   [self clearDisplay];
+                                   [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
+                               } else {
+                                   [location setObject:zip forKey:@"zip"];
+                                   [self refreshDisplay];
+                                   [self cleanDictionary];
+                                   if (isAddingLocation) {
+                                       [self addLocation];
+                                   }
+                                   if (isCurrentLocation) {
+                                       isCurrentLocation = NO;
+                                       currentLocation = location;
+                                       if (locations.count > 0)
+                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
+                                       else {
+                                           [self addLocation];
+                                       }
+                                   }
+                                   [self allergenLevelChangeFontColor];
+                               }
+
+                           }];
 }
 
 @end

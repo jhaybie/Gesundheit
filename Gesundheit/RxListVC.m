@@ -158,7 +158,7 @@ NSString               *name,
     city = [city stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     state = [state stringByReplacingOccurrencesOfString:@" " withString:@"+"];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=allergy+doctors+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=allergy+doctors+in+%@+%@&sensor=true&key=AIzaSyCo6eD4I4gCm3oDl19-YyRJfi1NLxmMzRc", city, state]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
@@ -207,7 +207,7 @@ NSString               *name,
     state = [state stringByReplacingOccurrencesOfString:@" " withString:@"+"];
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=pharmacies+in+%@+%@&sensor=true&key=AIzaSyChk-7Q-sBiibQi8sUHWb7g3bHc2U1WdPQ", city, state]]]
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?query=pharmacies+in+%@+%@&sensor=true&key=AIzaSyCo6eD4I4gCm3oDl19-YyRJfi1NLxmMzRc", city, state]]]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                NSDictionary *initialDump = [NSJSONSerialization JSONObjectWithData:data
