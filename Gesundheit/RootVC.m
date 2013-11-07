@@ -258,8 +258,8 @@ WeeklyForecastVC  *wvc;
     geocoder = [[CLGeocoder alloc] init];
     changeDefaultCityButton.hidden = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-//    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
-//    [message show];
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+    [message show];
 
 
 
@@ -269,7 +269,7 @@ WeeklyForecastVC  *wvc;
 
 
 
-    //[self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
+    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
     wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
     //[self loadPList];
