@@ -573,6 +573,7 @@ WeeklyForecastVC  *wvc;
 
 - (void)clearDisplay {
     cityLabel.text = @"";
+    currentDateLabel.text = @"";
     descriptionTextView.text = @"";
     predominantTypeLabel.text = @"";
     [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
