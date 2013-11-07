@@ -417,7 +417,7 @@ WeeklyForecastVC  *wvc;
     oneDayLayer.path = rootVcPath.CGPath;
     oneDayLayer.fillColor = [UIColor whiteColor].CGColor;
     oneDayLayer.strokeColor = [UIColor whiteColor].CGColor;
-    oneDayLayer.lineWidth = 2;
+    oneDayLayer.lineWidth = 1;
     [rootVCDisabledButton.layer addSublayer:oneDayLayer];
     [rootVCDisabledButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
 
@@ -430,7 +430,7 @@ WeeklyForecastVC  *wvc;
     weeklyLayer.path = weeklyPath.CGPath;
     weeklyLayer.fillColor = [UIColor clearColor].CGColor;
     weeklyLayer.strokeColor = [UIColor whiteColor].CGColor;
-    weeklyLayer.lineWidth = 2;
+    weeklyLayer.lineWidth = 1;
     [weeklyForecastVCActiveButton.layer addSublayer:weeklyLayer];
 
     rxListVCActiveButton.backgroundColor = [UIColor clearColor];
@@ -442,10 +442,10 @@ WeeklyForecastVC  *wvc;
     rxLayer.path = rxPath.CGPath;
     rxLayer.fillColor = [UIColor clearColor].CGColor;
     rxLayer.strokeColor = [UIColor whiteColor].CGColor;
-    rxLayer.lineWidth = 2;
+    rxLayer.lineWidth = 1;
     [rxListVCActiveButton.layer addSublayer:rxLayer];
 
-    [[goButton layer] setBorderWidth:2.0];
+    [[goButton layer] setBorderWidth:1.0];
     [[goButton layer] setBorderColor:[UIColor blueColor].CGColor];
     [goButton setBackgroundColor:[UIColor whiteColor]];
     [goButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
