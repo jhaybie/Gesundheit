@@ -478,11 +478,7 @@ WeeklyForecastVC  *wvc;
         } else
             currentLocationIndex--;
     }
-    if (currentLocationIndex == 0) {
-        location = currentLocation;
-    } else {
-        location = locations[currentLocationIndex];
-    }
+    location = locations[currentLocationIndex];
     [self refreshDisplay];
 }
 
@@ -527,7 +523,7 @@ WeeklyForecastVC  *wvc;
     hiddenSearchView.backgroundColor = [UIColor clearColor];
     goButton.hidden = YES;
     allergenLevelButton.enabled = YES;
-    if (currentLocationIndex != 0)
+    if (currentLocationIndex == 0)
         deleteButton.hidden = NO;
     changeDefaultCityButton.hidden = NO;
     isAddingLocation = YES;
@@ -550,13 +546,17 @@ WeeklyForecastVC  *wvc;
 
 - (void)refreshDisplay {
 
-    //call fade out/fade in method here
+    //call fade out method here
     
     cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
     descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
     predominantTypeLabel.text = [location objectForKey:@"predominantType"];
     [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     [self getTheDayOfTheWeek];
+    changeDefaultCityButton.hidden = NO;
+
+    // call fade in method here
+
     [locationManager stopUpdatingLocation];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     pageControl.hidden = NO;
@@ -659,12 +659,12 @@ WeeklyForecastVC  *wvc;
                                        [self addLocation];
                                    }
                                    if (currentLocationIndex == 0) {
-                                       isCurrentLocation = NO;
+                                       isCurrentLocation = YES;
                                        currentLocation = location;
                                        if (locations.count > 0)
                                            [locations replaceObjectAtIndex:0 withObject:currentLocation];
                                        else {
-                                           [self addLocation];
+                                           [locations addObject:currentLocation];
                                        }
                                    }
                                    [self allergenLevelChangeFontColor];
