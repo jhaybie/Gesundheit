@@ -578,7 +578,8 @@ WeeklyForecastVC  *wvc;
     enterZipTextField.hidden = NO;
     hiddenSearchView.alpha = 0.1f;
     [UIView animateWithDuration:0.25f animations:^{
-        hiddenSearchView.backgroundColor = [UIColor lightTextColor];
+        hiddenSearchView.backgroundColor = [UIColor darkGrayColor];
+        hiddenSearchView.layer.cornerRadius = 20.0f;
         hiddenSearchView.alpha = 1.0f;
         hiddenSearchView.hidden = NO;
     }];
@@ -588,6 +589,7 @@ WeeklyForecastVC  *wvc;
 
 - (IBAction)onGoButtonTap:(id)sender {
     [enterZipTextField resignFirstResponder];
+    hiddenSearchView.layer.cornerRadius = 0.0f;
     hiddenSearchView.hidden = YES;
     hiddenSearchView.backgroundColor = [UIColor clearColor];
     goButton.hidden = YES;
