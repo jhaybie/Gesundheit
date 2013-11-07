@@ -267,6 +267,7 @@ WeeklyForecastVC  *wvc;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    locations = [[NSMutableArray alloc] init];
     descriptionTextView.textColor = [UIColor blackColor];
     refreshButton.hidden = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -547,28 +548,29 @@ WeeklyForecastVC  *wvc;
 - (void)refreshDisplay {
 
     //call fade out method here
-    
-    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-    [self getTheDayOfTheWeek];
-    changeDefaultCityButton.hidden = NO;
+    if (location != nil) {
+        cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+        descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+        predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+        [self getTheDayOfTheWeek];
+        changeDefaultCityButton.hidden = NO;
 
-    // call fade in method here
+        // call fade in method here
 
-    [locationManager stopUpdatingLocation];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    pageControl.hidden = NO;
-    pageControl.currentPage = currentLocationIndex;
-    pageControl.numberOfPages = locations.count;
-    if (currentLocationIndex == 0) {
-        deleteButton.hidden = YES;
-        isCurrentLocation = YES;
-    }
-    else {
-        deleteButton.hidden = NO;
-        isCurrentLocation = NO;
+        [locationManager stopUpdatingLocation];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        pageControl.hidden = NO;
+        pageControl.currentPage = currentLocationIndex;
+        pageControl.numberOfPages = locations.count;
+        if (currentLocationIndex == 0) {
+            deleteButton.hidden = YES;
+            isCurrentLocation = YES;
+        }
+        else {
+            deleteButton.hidden = NO;
+            isCurrentLocation = NO;
+        }
     }
 }
 
@@ -651,24 +653,37 @@ WeeklyForecastVC  *wvc;
                                    [message show];
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
-                                   [self refreshDisplay];
+                                   //[self refreshDisplay];
                                    [self enableTabs];
                                    [location setObject:zip forKey:@"zip"];
                                    [self cleanDictionary];
+                                   [self allergenLevelChangeFontColor];
                                    if (isAddingLocation) {
                                        [self addLocation];
-                                   }
-                                   if (currentLocationIndex == 0) {
-                                       isCurrentLocation = YES;
-                                       currentLocation = location;
-                                       if (locations.count > 0)
-                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                       else {
-                                           [locations addObject:currentLocation];
+                                       //[self refreshDisplay];
+                                   } else {
+                                       if (currentLocationIndex == 0) {
+                                           isCurrentLocation = YES;
+                                           currentLocation = location;
+                                           if (locations.count > 0) {
+                                               [locations replaceObjectAtIndex:0 withObject:currentLocation];
+                                               //[self refreshDisplay];
+                                           } else {
+                                               [self addLocation];
+                                               //[locations addObject:currentLocation];
+                                               //[self refreshDisplay];
+                                           }
+//                                           if (locations.count > 0)
+//                                               [locations replaceObjectAtIndex:0 withObject:currentLocation];
+//                                           else {
+//                                               [locations addObject:currentLocation];
+//                                           }
+//[self refreshDisplay];
+
                                        }
                                    }
-                                   [self allergenLevelChangeFontColor];
-                                   }
+                                   //[self refreshDisplay];
+                               }
                            }];
 }
 
