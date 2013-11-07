@@ -107,8 +107,8 @@ NSString               *name,
     oneDayLayer.frame = oneDayActiveButton.bounds;
     oneDayLayer.path = onePath.CGPath;
     oneDayLayer.lineWidth = 2.0f;
-    oneDayLayer.fillColor = [UIColor darkGreenColor].CGColor;
-    oneDayLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    oneDayLayer.fillColor = [UIColor clearColor].CGColor;
+    oneDayLayer.strokeColor = [UIColor whiteColor].CGColor;
     [oneDayActiveButton.layer addSublayer:oneDayLayer];
 
     fiveDayActiveButton.backgroundColor = [UIColor clearColor];
@@ -119,8 +119,8 @@ NSString               *name,
     fiveDayLayer.frame = fiveDayActiveButton.bounds;
     fiveDayLayer.path = fiveDayPath.CGPath;
     fiveDayLayer.lineWidth = 2.0f;
-    fiveDayLayer.fillColor = [UIColor darkGreenColor].CGColor;
-    fiveDayLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    fiveDayLayer.fillColor = [UIColor clearColor].CGColor;
+    fiveDayLayer.strokeColor = [UIColor whiteColor].CGColor;
     [fiveDayActiveButton.layer addSublayer:fiveDayLayer];
 
     rxListDisabledButton.backgroundColor = [UIColor clearColor];
@@ -130,10 +130,11 @@ NSString               *name,
     CAShapeLayer *rxLayer = [CAShapeLayer layer];
     rxLayer.frame = rxListDisabledButton.bounds;
     rxLayer.path = rxPath.CGPath;
-    rxLayer.fillColor = [UIColor veryDarkGreenColor].CGColor;
-    rxLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    rxLayer.fillColor = [UIColor whiteColor].CGColor;
+    rxLayer.strokeColor = [UIColor whiteColor].CGColor;
     rxLayer.lineWidth = 2.0f;
     [rxListDisabledButton.layer addSublayer:rxLayer];
+    [rxListDisabledButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
     [[searchButton layer] setCornerRadius:15.0f];
     [[searchButton layer] setBorderWidth:1.0f];
     [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];

@@ -414,10 +414,11 @@ WeeklyForecastVC  *wvc;
     CAShapeLayer *oneDayLayer = [CAShapeLayer layer];
     oneDayLayer.frame = rootVCDisabledButton.bounds;
     oneDayLayer.path = rootVcPath.CGPath;
-    oneDayLayer.fillColor = [UIColor veryDarkGreenColor].CGColor;
-    oneDayLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    oneDayLayer.fillColor = [UIColor whiteColor].CGColor;
+    oneDayLayer.strokeColor = [UIColor whiteColor].CGColor;
     oneDayLayer.lineWidth = 2;
     [rootVCDisabledButton.layer addSublayer:oneDayLayer];
+    [rootVCDisabledButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
 
     weeklyForecastVCActiveButton.backgroundColor = [UIColor clearColor];
     UIBezierPath *weeklyPath = [UIBezierPath bezierPathWithRoundedRect:weeklyForecastVCActiveButton.bounds
@@ -426,8 +427,8 @@ WeeklyForecastVC  *wvc;
     CAShapeLayer *weeklyLayer = [CAShapeLayer layer];
     weeklyLayer.frame = weeklyForecastVCActiveButton.bounds;
     weeklyLayer.path = weeklyPath.CGPath;
-    weeklyLayer.fillColor = [UIColor darkGreenColor].CGColor;
-    weeklyLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    weeklyLayer.fillColor = [UIColor clearColor].CGColor;
+    weeklyLayer.strokeColor = [UIColor whiteColor].CGColor;
     weeklyLayer.lineWidth = 2;
     [weeklyForecastVCActiveButton.layer addSublayer:weeklyLayer];
 
@@ -438,8 +439,8 @@ WeeklyForecastVC  *wvc;
     CAShapeLayer *rxLayer = [ CAShapeLayer layer];
     rxLayer.frame = rxListVCActiveButton.bounds;
     rxLayer.path = rxPath.CGPath;
-    rxLayer.fillColor = [UIColor darkGreenColor].CGColor;
-    rxLayer.strokeColor = [UIColor veryDarkGreenColor].CGColor;
+    rxLayer.fillColor = [UIColor clearColor].CGColor;
+    rxLayer.strokeColor = [UIColor whiteColor].CGColor;
     rxLayer.lineWidth = 2;
     [rxListVCActiveButton.layer addSublayer:rxLayer];
 
