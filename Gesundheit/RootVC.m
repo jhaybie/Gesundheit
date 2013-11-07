@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
+@property (weak, nonatomic) IBOutlet UIToolbar *blurrToolbar;
 - (IBAction)onTapDeleteLocation:(id)sender;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender;
@@ -63,6 +64,7 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            blurrToolbar,
             hiddenSearchView,
             dirtBottomPNG,
             deleteButton,
@@ -250,7 +252,7 @@ WeeklyForecastVC  *wvc;
     else
         textColor = [UIColor highColor];
     [allergenLevelButton setTitleColor:textColor forState:UIControlStateNormal];
-    descriptionTextView.textColor = [UIColor blackColor];
+
 }
 
 - (void)showGifImage {
@@ -348,7 +350,18 @@ WeeklyForecastVC  *wvc;
     isShown = NO;
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    blurrToolbar.frame = descriptionTextView.frame;
+    descriptionTextView.layer.cornerRadius = 20.0f;
+    descriptionTextView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    blurrToolbar.layer.borderWidth = 2.0f;
+    blurrToolbar.layer.cornerRadius = 20.0f;
+    blurrToolbar.alpha = .75;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
+
     hiddenSearchView.hidden = YES;
     hiddenSearchView.backgroundColor = [UIColor clearColor];
 }
@@ -369,6 +382,9 @@ WeeklyForecastVC  *wvc;
     allergenLevelButton.layer.borderWidth = 2.0f;
 
     descriptionTextView.layer.cornerRadius = 20.0f;
+
+    blurrToolbar.layer.cornerRadius = 20.0f;
+
 }
 
 - (void) buttonBorder {
