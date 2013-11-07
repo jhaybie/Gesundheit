@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
-        <!--RootVC - Gesundheit!-->
+        <!--RootVC-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController storyboardIdentifier="RootVC" id="vXZ-lx-hvc" customClass="RootVC" sceneMemberID="viewController">
@@ -32,6 +32,11 @@
                                 <rect key="frame" x="0.0" y="360" width="320" height="208"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Knq-n4-6qN">
+                                <rect key="frame" x="0.0" y="172" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items/>
+                            </toolbar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today's Forecast" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYk-qk-SSo">
                                 <rect key="frame" x="20" y="57" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -246,11 +251,11 @@
                             <constraint firstItem="Z19-3b-zYq" firstAttribute="top" secondItem="fZx-ui-Wfa" secondAttribute="bottom" id="XIB-j3-Zju"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Gesundheit!" id="Nza-Yn-c1v"/>
                     <connections>
                         <outlet property="allergenLevel" destination="2RR-Bn-o7J" id="tYp-c2-Vhk"/>
                         <outlet property="allergenLevelButton" destination="s4O-N9-MKX" id="8eS-HO-ZMf"/>
                         <outlet property="blurrToolbar" destination="yE8-7v-jFR" id="Jf2-I2-2JZ"/>
+                        <outlet property="buttonBlurr" destination="Knq-n4-6qN" id="Z4j-9L-zfv"/>
                         <outlet property="changeDefaultCityButton" destination="zmE-Ww-kPm" id="YMg-yM-CPy"/>
                         <outlet property="cityLabel" destination="WA3-vO-X0G" id="ddj-JG-nys"/>
                         <outlet property="currentDateLabel" destination="HYk-qk-SSo" id="iPm-4s-qk2"/>
