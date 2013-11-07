@@ -354,10 +354,13 @@ WeeklyForecastVC  *wvc;
     [super viewDidLayoutSubviews];
     blurrToolbar.frame = descriptionTextView.frame;
     descriptionTextView.layer.cornerRadius = 20.0f;
-    descriptionTextView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+
     blurrToolbar.layer.borderWidth = 2.0f;
     blurrToolbar.layer.cornerRadius = 20.0f;
-    blurrToolbar.alpha = .75;
+    blurrToolbar.backgroundColor = [UIColor clearColor];
+    descriptionTextView.backgroundColor = [UIColor clearColor];
+    blurrToolbar.alpha = 0.85;
+    blurrToolbar.clipsToBounds = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -371,6 +374,7 @@ WeeklyForecastVC  *wvc;
 //    if (location != nil) {
 //        [self refreshDisplay];
 //    }
+        descriptionTextView.layer.borderColor = [UIColor whiteColor].CGColor;
     [self showGifImage];
     [self rotateDandy:dandelionImage duration:1 degrees:2];
     [self makeShadowsOnButton];
