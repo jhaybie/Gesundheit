@@ -44,6 +44,7 @@
 - (IBAction)onTapGoGoRxListVC:(id)sender;
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender;
+@property (weak, nonatomic) IBOutlet UIToolbar *buttonBlurr;
 
 @property (weak, nonatomic) IBOutlet UILabel *allergenLevel;
 @property (weak, nonatomic) IBOutlet UILabel *predTypeLabel;
@@ -65,6 +66,7 @@
 @implementation RootVC
 @synthesize cityLabel,
             blurrToolbar,
+            buttonBlurr,
             hiddenSearchView,
             dirtBottomPNG,
             deleteButton,
@@ -219,8 +221,10 @@ WeeklyForecastVC  *wvc;
 - (void)allergenLevelChangeFontColor {
     float level = allergenLevelButton.currentTitle.floatValue;
     UIColor *textColor;
+
     if (level >= 0 && level < 2.5)
         textColor = [UIColor lowColor];
+
     else if (level >= 2.5 && level < 4.9)
         textColor = [UIColor lowMedColor];
     else if (level >= 4.9 && level < 7.3)
@@ -230,6 +234,8 @@ WeeklyForecastVC  *wvc;
     else
         textColor = [UIColor highColor];
     [allergenLevelButton setTitleColor:textColor forState:UIControlStateNormal];
+    buttonBlurr.layer.borderColor = textColor.CGColor;
+    allergenLevelButton.layer.borderColor = textColor.CGColor;
 
 }
 
@@ -352,10 +358,25 @@ WeeklyForecastVC  *wvc;
 
     blurrToolbar.layer.borderWidth = 2.0f;
     blurrToolbar.layer.cornerRadius = 20.0f;
-    blurrToolbar.backgroundColor = [UIColor clearColor];
+
     descriptionTextView.backgroundColor = [UIColor clearColor];
     blurrToolbar.alpha = 0.85;
     blurrToolbar.clipsToBounds = YES;
+    blurrToolbar.layer.borderColor = [UIColor whiteColor].CGColor;
+
+    buttonBlurr.frame = allergenLevelButton.frame;
+    buttonBlurr.layer.borderWidth = 3.0f;
+    buttonBlurr.layer.cornerRadius = 45.0f;
+
+    buttonBlurr.alpha = 0.85;
+    buttonBlurr.clipsToBounds = YES;
+    buttonBlurr.layer.borderColor = [UIColor whiteColor].CGColor;
+
+    allergenLevelButton.backgroundColor = [UIColor lightTextColor];
+
+
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -384,9 +405,17 @@ WeeklyForecastVC  *wvc;
 
     blurrToolbar.layer.cornerRadius = 20.0f;
 
+    goButton.titleLabel.textColor = [UIColor grayColor];
+    goButton.backgroundColor = [UIColor clearColor];
+    goButton.layer.borderColor = [UIColor grayColor].CGColor;
+    goButton.layer.borderWidth = 1.0f;
+    goButton.layer.cornerRadius = 15.0f;
+
 }
 
 - (void) buttonBorder {
+
+    enterZipTextField.layer.cornerRadius = 15.0f;
     rootVCDisabledButton.backgroundColor = [UIColor clearColor];
     UIBezierPath *rootVcPath = [UIBezierPath bezierPathWithRoundedRect:rootVCDisabledButton.bounds
                                                      byRoundingCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight
@@ -559,13 +588,13 @@ WeeklyForecastVC  *wvc;
     deleteButton.hidden = YES;
     changeDefaultCityButton.hidden = YES;
     enterZipTextField.hidden = NO;
-    hiddenSearchView.alpha = 0.1f;
+    hiddenSearchView.alpha = 0.9f;
     [UIView animateWithDuration:0.25f animations:^{
         hiddenSearchView.backgroundColor = [UIColor darkGrayColor];
         hiddenSearchView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         hiddenSearchView.layer.borderWidth = 6.0f;
         hiddenSearchView.layer.cornerRadius = 20.0f;
-        hiddenSearchView.alpha = 0.8f;
+        hiddenSearchView.alpha = .9f;
         hiddenSearchView.hidden = NO;
     }];
     [enterZipTextField becomeFirstResponder];
