@@ -121,7 +121,7 @@ NSArray *week;
     shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
     shapeLayer.lineWidth = 1;
     [fiveDayTabButton.layer addSublayer:shapeLayer];
-    [fiveDayTabButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+    [fiveDayTabButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad {

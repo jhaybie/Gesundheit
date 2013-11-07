@@ -419,7 +419,7 @@ WeeklyForecastVC  *wvc;
     oneDayLayer.strokeColor = [UIColor whiteColor].CGColor;
     oneDayLayer.lineWidth = 1;
     [rootVCDisabledButton.layer addSublayer:oneDayLayer];
-    [rootVCDisabledButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+    [rootVCDisabledButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
     weeklyForecastVCActiveButton.backgroundColor = [UIColor clearColor];
     UIBezierPath *weeklyPath = [UIBezierPath bezierPathWithRoundedRect:weeklyForecastVCActiveButton.bounds
