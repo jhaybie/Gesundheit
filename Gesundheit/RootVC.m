@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lineBarTop;
 @property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
 - (IBAction)onTapDeleteLocation:(id)sender;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender;
@@ -61,6 +62,7 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            dirtBottomPNG,
             deleteButton,
             lineBarBottom,
             lineBarTop,
@@ -287,12 +289,17 @@ WeeklyForecastVC  *wvc;
     dandelionGifImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandelionImage.image = [UIImage imageNamed:@"testDandyDan.png"];
     [dandelionImage setAlpha:.30];
+
     tabBarGrass.image = [UIImage imageNamed:@"grass.png"];
     tabBarGrass.alpha = .60;
+
+    dirtBottomPNG.image = [UIImage imageNamed:@"dirtMcGurt.png"];
+    dirtBottomPNG.alpha = 0.65f;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    descriptionTextView.textColor = [UIColor blackColor];
     refreshButton.hidden = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
@@ -564,8 +571,8 @@ WeeklyForecastVC  *wvc;
     goButton.frame = CGRectMake(self.view.frame.origin.x + 320, 1000, goButton.frame.size.width, goButton.frame.size.width);
     enterZipTextField.frame = CGRectMake(self.view.frame.origin.x, 1000, self.view.frame.size.width, enterZipTextField.frame.size.height);
     [UIView animateWithDuration:0.25f animations:^{
-            enterZipTextField.frame = CGRectMake(self.view.frame.origin.x / 2, descriptionTextView.frame.origin.y + 37, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
-                goButton.frame = CGRectMake(self.view.frame.origin.x + 281, descriptionTextView.frame.origin.y + 37, goButton.frame.size.width, goButton.frame.size.height );
+            enterZipTextField.frame = CGRectMake(0, 324, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
+                goButton.frame = CGRectMake(280, 324, goButton.frame.size.width, goButton.frame.size.height );
     }];
     [enterZipTextField becomeFirstResponder];
     goButton.hidden = NO;

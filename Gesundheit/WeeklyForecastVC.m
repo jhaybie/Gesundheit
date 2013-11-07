@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *grassPng;
 @property (weak, nonatomic) IBOutlet UIImageView *gifBackRoundImage;
 @property (weak, nonatomic) IBOutlet UIImageView *dandyPng;
+@property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
 - (IBAction)onTapGoGoRxListVC:(id)sender;
 - (IBAction)onTapGoGoRootVC:(id)sender;
 - (IBAction)onSwipeChangePageSelected:(id)sender;
@@ -37,6 +38,7 @@
 
 @implementation WeeklyForecastVC
 @synthesize gifBackRoundImage,
+            dirtBottomPNG,
             grassPng,
             oneDayTabButton,
             rxListTabButton,
@@ -148,6 +150,9 @@ NSArray *week;
     dandyPng.alpha = .50;
     grassPng.image = [UIImage imageNamed:@"grass.png"];
     grassPng.alpha = .60;
+
+    dirtBottomPNG.image = [UIImage imageNamed:@"dirtMcGurt.png"];
+    dirtBottomPNG.alpha = 0.65f;
 }
 
 - (void)setUpBackgroundImages {

@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *citynStateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *openSearchButton;
 @property (weak, nonatomic) IBOutlet UIImageView *grassPNG;
+@property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
 
 - (IBAction)onTapGoGoOpenSearch:(id)sender;
 - (IBAction)onSegmentedControlTap:(id)sender;
@@ -52,6 +53,7 @@
 @implementation RxListVC
 @synthesize  oneDayActiveButton,
              grassPNG,
+             dirtBottomPNG,
              openSearchButton,
              citynStateLabel,
              currentLocationIndex,
@@ -135,9 +137,10 @@ NSString               *name,
     rxLayer.lineWidth = 1.0f;
     [rxListDisabledButton.layer addSublayer:rxLayer];
     [rxListDisabledButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [[searchButton layer] setCornerRadius:15.0f];
+    searchButton.backgroundColor = [UIColor whiteColor];
     [[searchButton layer] setBorderWidth:1.0f];
     [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
 }
 
 - (void) roundTheCorners {
@@ -146,7 +149,7 @@ NSString               *name,
     segmentedControl.layer.cornerRadius = 20.0f;
     openSearchButton.layer.borderColor = [UIColor whiteColor].CGColor;
     openSearchButton.layer.borderWidth = 1.0f;
-    openSearchButton.backgroundColor = [UIColor clearColor];
+    openSearchButton.backgroundColor = [UIColor lightTextColor];
 
 
 }
@@ -300,6 +303,9 @@ NSString               *name,
     grassPNG.alpha = .60;
     [dandyImagePng setAlpha:.5];
     [drugstoresTableView setAlpha:.75];
+
+    dirtBottomPNG.image = [UIImage imageNamed:@"dirtMcGurt.png"];
+    dirtBottomPNG.alpha = 0.65f;
 }
 
 - (IBAction)onBackButtonTap:(id)sender {
@@ -365,8 +371,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     searchButton.frame = CGRectMake(openSearchButton.frame.origin.x + 200, openSearchButton.frame.origin.y + 400, openSearchButton.frame.size.width, openSearchButton.frame.size.height);
     [zipCodeTextField becomeFirstResponder];
     [UIView animateWithDuration:0.25f animations:^{
-        zipCodeTextField.frame = CGRectMake(drugstoresTableView.frame.origin.x -24 , drugstoresTableView.frame.origin.y + 232, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
-        searchButton.frame = CGRectMake(drugstoresTableView.frame.origin.x + 245 , drugstoresTableView.frame.origin.y + 228, openSearchButton.frame.size.width, searchButton.frame.size.height);
+        zipCodeTextField.frame = CGRectMake( 0, 324, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
+        searchButton.frame = CGRectMake(280 , 324, openSearchButton.frame.size.width, searchButton.frame.size.height);
     }];
 }
 
