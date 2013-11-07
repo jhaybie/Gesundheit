@@ -456,7 +456,7 @@ WeeklyForecastVC  *wvc;
     changeDefaultCityButton.layer.borderColor = [UIColor whiteColor].CGColor;
     changeDefaultCityButton.layer.borderWidth = 1.0f;
 
-    refreshButton.layer.cornerRadius = 25.0f;
+    refreshButton.layer.cornerRadius = 20.0f;
     refreshButton.layer.borderWidth = 1.0f;
     refreshButton.layer.borderColor = [UIColor whiteColor].CGColor;
 
