@@ -345,10 +345,24 @@ WeeklyForecastVC  *wvc;
 //    isShown = NO;
 //}
 
-- (void)viewDidAppear:(BOOL)animated {
-    //isAddingLocation = NO;
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    blurrToolbar.frame = descriptionTextView.frame;
+    descriptionTextView.layer.cornerRadius = 20.0f;
+    descriptionTextView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    blurrToolbar.layer.borderWidth = 2.0f;
+    blurrToolbar.layer.cornerRadius = 20.0f;
+    blurrToolbar.alpha = .75;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
     hiddenSearchView.hidden = YES;
     hiddenSearchView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    isAddingLocation = NO;
 //    if (location != nil) {
 //        [self refreshDisplay];
 //    }
@@ -496,6 +510,27 @@ WeeklyForecastVC  *wvc;
 //    } else {
 //        location = locations[currentLocationIndex];
 //    }
+//    [self refreshDisplay];
+//}
+
+
+
+//        if (currentLocationIndex < locations.count - 1) {
+//            currentLocationIndex++;
+//        } else currentLocationIndex = 0;
+//    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+        // animation Right goes here
+
+
+
+
+
+//        if (currentLocationIndex == 0) {
+//            currentLocationIndex = locations.count - 1;
+//        } else
+//            currentLocationIndex--;
+//    }
+//    location = locations[currentLocationIndex];
 //    [self refreshDisplay];
 //}
 
@@ -680,6 +715,7 @@ WeeklyForecastVC  *wvc;
                                    [self enableTabs];
                                    [location setObject:zip forKey:@"zip"];
                                    [self cleanDictionary];
+                                   [self refreshDisplay];
 //                                   if (isAddingLocation) {
 //                                       [self addLocation];
 //                                   }
@@ -693,6 +729,19 @@ WeeklyForecastVC  *wvc;
 //                                       }
 //                                   }
                                    [self allergenLevelChangeFontColor];
+//                                   if (isAddingLocation) {
+//                                       [self addLocation];
+//                                   } else {
+//                                       if (currentLocationIndex == 0) {
+//                                           isCurrentLocation = YES;
+//                                           currentLocation = location;
+//                                           if (locations.count > 0) {
+//                                               [locations replaceObjectAtIndex:0 withObject:currentLocation];
+//                                           } else {
+//                                               [self addLocation];
+//                                           }
+//                                       }
+//                                   }
                                }
                            }];
 }
