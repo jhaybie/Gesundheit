@@ -69,19 +69,24 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPO-31-HrN">
-                                <rect key="frame" x="18" y="285" width="280" height="129"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aG8-3Q-aD7">
                                 <rect key="frame" x="0.0" y="511" width="320" height="7"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yE8-7v-jFR">
+                                <rect key="frame" x="18" y="306" width="280" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items/>
+                                <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                            </toolbar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPO-31-HrN">
+                                <rect key="frame" x="18" y="262" width="280" height="129"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J2P-eN-w75">
                                 <rect key="frame" x="0.0" y="520" width="320" height="5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -202,7 +207,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UrR-5o-scJ">
-                                <rect key="frame" x="13" y="25" width="296" height="327"/>
+                                <rect key="frame" x="60" y="-147" width="304" height="338"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter zip here..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kAc-Qk-4Au">
@@ -246,6 +251,7 @@
                     <connections>
                         <outlet property="allergenLevel" destination="2RR-Bn-o7J" id="tYp-c2-Vhk"/>
                         <outlet property="allergenLevelButton" destination="s4O-N9-MKX" id="8eS-HO-ZMf"/>
+                        <outlet property="blurrToolbar" destination="yE8-7v-jFR" id="Jf2-I2-2JZ"/>
                         <outlet property="changeDefaultCityButton" destination="zmE-Ww-kPm" id="YMg-yM-CPy"/>
                         <outlet property="cityLabel" destination="WA3-vO-X0G" id="ddj-JG-nys"/>
                         <outlet property="currentDateLabel" destination="HYk-qk-SSo" id="iPm-4s-qk2"/>
