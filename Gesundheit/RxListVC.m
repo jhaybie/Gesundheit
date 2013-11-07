@@ -379,7 +379,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     zipCodeTextField.hidden = YES;
     searchButton.hidden = YES;
     openSearchButton.hidden = NO;
-    if ([zipCodeTextField.text isEqualToString:@""]) {
+    if (![zipCodeTextField.text isEqualToString:@""]) {
         city = zipCodeTextField.text;
         state = @"";
         [self fetchSearchResults];
