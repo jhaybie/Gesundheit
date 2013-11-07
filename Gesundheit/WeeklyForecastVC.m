@@ -156,12 +156,10 @@ NSArray *week;
 }
 
 - (void)getCurrentDate {
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-    NSString *interval = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"dateTime"];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:(interval.doubleValue/1000)];
-    NSString *formattedDateString = [dateFormatter stringFromDate:date];
-    NSString *day = [[formattedDateString componentsSeparatedByString:@","] firstObject];
+    NSDate *today = [NSDate date];
+    NSDateFormatter *myFormatter = [[NSDateFormatter alloc] init];
+    [myFormatter setDateFormat:@"EEEE"];
+    NSString *day = [myFormatter stringFromDate:today];
     if ([day isEqualToString:@"Sunday"])
         weekDayValue = 0;
     else if ([day isEqualToString:@"Monday"])
