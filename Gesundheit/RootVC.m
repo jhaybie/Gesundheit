@@ -479,9 +479,13 @@ WeeklyForecastVC  *wvc;
 - (IBAction)onTapDeleteLocation:(id)sender {
     [locations removeObjectAtIndex:currentLocationIndex];
     currentLocationIndex--;
+    pageControl.numberOfPages = locations.count;
     location = locations[currentLocationIndex];
-    [self viewDidAppear: NO];
     [self savePList];
+    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
     if (currentLocationIndex == 0)
         deleteButton.hidden = YES;
 }
@@ -551,6 +555,7 @@ WeeklyForecastVC  *wvc;
 }
 
 - (IBAction)onChangeDefaultCityButtonTap:(id)sender {
+    enterZipTextField.text = @"";
     allergenLevelButton.enabled = NO;
     deleteButton.hidden = YES;
     changeDefaultCityButton.hidden = YES;
