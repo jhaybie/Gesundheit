@@ -102,7 +102,7 @@ NSArray           *week;
 NSMutableDictionary *currentLocation,
                   *tempLocation,
                   *location;
-NSMutableArray    *locations;
+//NSMutableArray    *locations;
 NSString          *city,
                   *state,
                   *tempZip,
@@ -112,35 +112,13 @@ RxListVC          *rvc;
 WeeklyForecastVC  *wvc;
 
 
-- (void)fetchFavorites {
-    for (int i = 1; i < locations.count; i ++) {
-        location = [locations objectAtIndex:i];
-        zip = [location objectForKey:@"zip"];
-        [self fetchPollenData];
-    }
-//        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
-//                                           queue:[NSOperationQueue mainQueue]
-//                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//
-//
-//                                   if (!data) {
-//                                       UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-//                                       [message show];
-//                                       refreshButton.hidden = NO;
-//                                       [self disableTabs];
-//                                       return;
-//                                   }
-//                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
-//                                                                                  options:NSJSONReadingMutableContainers
-//                                                                                    error:&connectionError];
-//                                   [tempLocation setObject:tempZip forKey:@"zip"];
-//                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//                                   [self cleanDictionary];
-//                                   [tempLocation setObject:tempZip forKey:@"zip"];
-//                                   [locations replaceObjectAtIndex:i withObject:tempLocation];
-//                                   [self savePList];
-//                               }];
-}
+//- (void)fetchFavorites {
+//    for (int i = 1; i < locations.count; i ++) {
+//        location = locations[i];
+//        zip = [location objectForKey:@"zip"];
+//        [self fetchPollenData];
+//    }
+//}
 
 - (void) getTheDayOfTheWeek {
     NSDate *today = [NSDate date];
@@ -150,17 +128,17 @@ WeeklyForecastVC  *wvc;
     currentDateLabel.text = [NSString stringWithFormat:@"%@", dayOfWeek];
 }
 
-- (void)loadPList {
-    locations = [[NSUserDefaults standardUserDefaults] objectForKey:@"locations"];
-    if (!locations) {
-        locations = [[NSMutableArray alloc] init];
-    }
-    [self refreshDisplay];
-}
-
-- (void)savePList {
-    [[NSUserDefaults standardUserDefaults] setObject:locations forKey:@"locations"];
-}
+//- (void)loadPList {
+//    locations = [[NSUserDefaults standardUserDefaults] objectForKey:@"locations"];
+//    if (!locations) {
+//        locations = [[NSMutableArray alloc] init];
+//    }
+//    [self refreshDisplay];
+//}
+//
+//- (void)savePList {
+//    [[NSUserDefaults standardUserDefaults] setObject:locations forKey:@"locations"];
+//}
 
 - (void)getCurrentLocationZip {
     zip = [[NSString alloc] init];
@@ -269,22 +247,36 @@ WeeklyForecastVC  *wvc;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    locations = [[NSMutableArray alloc] init];
+    [self clearDisplay];
     descriptionTextView.textColor = [UIColor blackColor];
     refreshButton.hidden = NO;
+    geocoder = [[CLGeocoder alloc] init];
+    changeDefaultCityButton.hidden = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
-    [message show];
-    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
+//    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+//    [message show];
+
+
+
+
+    //[self clearDisplay];
+
+
+
+
+    //[self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
     wvc = [self.storyboard instantiateViewControllerWithIdentifier:@"WeeklyForecastVC"];
     rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"RxListVC"];
-    [self loadPList];
+    //[self loadPList];
     [self buttonBorder];
     [self getTheDayOfTheWeek];
+
+    pageControl.hidden = YES;
+    //changeDefaultCityButton.hidden = YES;
     deleteButton.hidden = YES;
-    isCurrentLocation = YES;
-    pageControl.numberOfPages = locations.count;
-    [self swipeLeftGesture];
+    //isCurrentLocation = YES;
+    //pageControl.numberOfPages = locations.count;
+    //[self swipeLeftGesture];
     locationManager = [[CLLocationManager alloc] init];
     [self getCurrentLocationZip];
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
@@ -294,12 +286,12 @@ WeeklyForecastVC  *wvc;
                            usingBlock:^(NSNotification *note) {
                                [rvc dismissViewControllerAnimated:NO completion:nil];
                                [wvc dismissViewControllerAnimated:NO completion:nil];
-                               NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-                               tempLocations = (NSMutableDictionary *) note.object;
-                               int index = [[tempLocations objectForKey:@"index"] intValue];
-                               currentLocationIndex = index;
-                               location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
-                               pageControl.currentPage = index;
+                               //NSMutableDictionary *tempLocation = [[NSMutableDictionary alloc] init];;
+                               //tempLocation = (NSMutableDictionary *) note.object;
+                               //int index = [[tempLocation objectForKey:@"index"] intValue];
+                               //currentLocationIndex = index;
+                               location = note.object; //[[tempLocations objectForKey:@"locations"] objectAtIndex:index];
+                               //pageControl.currentPage = index;
 
                                [self refreshDisplay];
     }];
@@ -307,13 +299,15 @@ WeeklyForecastVC  *wvc;
                                      object:nil
                                       queue:[NSOperationQueue mainQueue]
                                  usingBlock:^(NSNotification *note) {
-                                     NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-                                     tempLocations = (NSMutableDictionary *) note.object;
-                                     int index = [[tempLocations objectForKey:@"index"] intValue];
-                                     location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
+                                     //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+                                     //tempLocations = (NSMutableDictionary *) note.object;
+                                     location = note.object;
+                                     //int index = [[tempLocations objectForKey:@"index"] intValue];
+                                     //location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
                                      rvc.location = location;
-                                     rvc.locations = [tempLocations objectForKey:@"locations"];
-                                     rvc.currentLocationIndex = index;
+                                     
+                                     //rvc.locations = [tempLocations objectForKey:@"locations"];
+                                     //rvc.currentLocationIndex = index;
                                      rvc.city = [location objectForKey:@"city"];
                                      rvc.state = [location objectForKey:@"state"];
                                      [wvc dismissViewControllerAnimated:NO completion:nil];
@@ -323,32 +317,33 @@ WeeklyForecastVC  *wvc;
                                              object:nil
                                               queue:[NSOperationQueue mainQueue]
                                          usingBlock:^(NSNotification *note) {
-                                             NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-                                             tempLocations = (NSMutableDictionary *) note.object;
-                                             int index = [[tempLocations objectForKey:@"index"] intValue];
-                                             location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
-                                             wvc.currentLocationIndex = index;
+                                             //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+                                             //tempLocations = (NSMutableDictionary *) note.object;
+                                             location = note.object;
+                                             //int index = [[tempLocations objectForKey:@"index"] intValue];
+                                             //location = [[tempLocations objectForKey:@"locations"] objectAtIndex:index];
+                                             //wvc.currentLocationIndex = index;
                                              wvc.location = location;
-                                             wvc.locations = [tempLocations objectForKey:@"locations"];
+                                             //wvc.locations = [tempLocations objectForKey:@"locations"];
                                              [self dismissViewControllerAnimated:NO completion:nil];
                                              [rvc dismissViewControllerAnimated:NO completion:nil];
                                              [self presentViewController:wvc animated:NO completion:nil];
     }];
-    [self fetchFavorites];
-    [self fetchPollenData];
+    //[self fetchFavorites];
+    //[self fetchPollenData];
 }
 
-- (void) swipeLeftGesture {
-    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-    swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeRecognizer];
-    [self.view addGestureRecognizer:swipeRecognizer2];
-    geocoder = [[CLGeocoder alloc] init];
-    currentLocationIndex = 0;
-    isShown = NO;
-}
+//- (void) swipeLeftGesture {
+//    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+//    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+//    UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+//    swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
+//    [self.view addGestureRecognizer:swipeRecognizer];
+//    [self.view addGestureRecognizer:swipeRecognizer2];
+//    geocoder = [[CLGeocoder alloc] init];
+//    currentLocationIndex = 0;
+//    isShown = NO;
+//}
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
@@ -448,73 +443,113 @@ WeeklyForecastVC  *wvc;
 
 }
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation {
-    CLLocation *currentLocation = newLocation;
-    [geocoder reverseGeocodeLocation:currentLocation
-                   completionHandler:^(NSArray* placemarks, NSError* error) {
-                       if (error == nil && placemarks.count > 0) {
-                           CLPlacemark *placemark = [placemarks lastObject];
-                           zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
-                           [self fetchPollenData];
-                       }
-                   }];
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *currentLocation = [locations lastObject];
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error == nil & placemarks.count > 0) {
+            [locationManager stopUpdatingLocation];
+            CLPlacemark *placemark = [placemarks lastObject];
+            zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
+            [self fetchPollenData];
+        }
+    }];
+
 }
 
-- (IBAction)onTapDeleteLocation:(id)sender {
-    [self deleteLocation];
-}
+
+//- (void)locationManager:(CLLocationManager *)manager
+//    didUpdateToLocation:(CLLocation *)newLocation
+//           fromLocation:(CLLocation *)oldLocation {
+//    CLLocation *currentLocation = newLocation;
+//    [geocoder reverseGeocodeLocation:currentLocation
+//                   completionHandler:^(NSArray* placemarks, NSError* error) {
+//                       if (error == nil && placemarks.count > 0) {
+//                           [locationManager stopUpdatingLocation];
+//                           CLPlacemark *placemark = [placemarks lastObject];
+//                           zip = [NSString stringWithFormat:@"%@", placemark.postalCode];
+//                           [self fetchPollenData];
+//                       }
+//                   }];
+//}
+
+//- (IBAction)onTapDeleteLocation:(id)sender {
+//    [self deleteLocation];
+//}
 
 - (IBAction)onTapGoGoRxListVC:(id)sender {
-    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
 
 
-    [tempLocations setObject:locations forKey:@"locations"];
-    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:tempLocations];
+    //[tempLocations setObject:locations forKey:@"locations"];
+    //[tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RXListVC" object:location];
 }
 
-- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
-    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        // animation Left goes here
+//- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
+//    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+//        // animation Left goes here
+//
+//
+//
+//
+//
+//
+//        if (currentLocationIndex < locations.count - 1) {
+//            currentLocationIndex++;
+//        } else currentLocationIndex = 0;
+//    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+//        // animation Right goes here
+//
+//
+//
+//
+//
+//        if (currentLocationIndex == 0) {
+//            currentLocationIndex = locations.count - 1;
+//        } else
+//            currentLocationIndex--;
+//    }
+//    if (currentLocationIndex == 0) {
+//        location = currentLocation;
+//    } else {
+//        location = locations[currentLocationIndex];
+//    }
+//    [self refreshDisplay];
+//}
 
 
 
-
-
-
-        if (currentLocationIndex < locations.count - 1) {
-            currentLocationIndex++;
-        } else currentLocationIndex = 0;
-    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+//        if (currentLocationIndex < locations.count - 1) {
+//            currentLocationIndex++;
+//        } else currentLocationIndex = 0;
+//    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
         // animation Right goes here
 
 
 
 
 
-        if (currentLocationIndex == 0) {
-            currentLocationIndex = locations.count - 1;
-        } else
-            currentLocationIndex--;
-    }
-    location = locations[currentLocationIndex];
-    [self refreshDisplay];
-}
+//        if (currentLocationIndex == 0) {
+//            currentLocationIndex = locations.count - 1;
+//        } else
+//            currentLocationIndex--;
+//    }
+//    location = locations[currentLocationIndex];
+//    [self refreshDisplay];
+//}
 
 - (IBAction)onTapGoGoWeeklyForecastVC:(id)sender {
 
-    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-    [tempLocations setObject:locations forKey:@"locations"];
-    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:tempLocations];
+    //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    //[tempLocations setObject:locations forKey:@"locations"];
+    //[tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
 }
 
 - (IBAction)onTapGoGoRefreshData:(id)sender {
     [self getCurrentLocationZip];
     [self fetchPollenData];
-    [self fetchFavorites];
+    //[self fetchFavorites];
     [self enableTabs];
 }
 
@@ -544,10 +579,10 @@ WeeklyForecastVC  *wvc;
     hiddenSearchView.backgroundColor = [UIColor clearColor];
     goButton.hidden = YES;
     allergenLevelButton.enabled = YES;
-    if (currentLocationIndex == 0)
-        deleteButton.hidden = NO;
+//    if (currentLocationIndex != 0)
+//        deleteButton.hidden = NO;
     changeDefaultCityButton.hidden = NO;
-    isAddingLocation = YES;
+    //isAddingLocation = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (enterZipTextField.text.length == 5) {
         zip = enterZipTextField.text;
@@ -567,31 +602,24 @@ WeeklyForecastVC  *wvc;
 
 - (void)refreshDisplay {
 
-    //call fade out method here
-    if (location != nil) {
-        cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-        descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
-        predominantTypeLabel.text = [location objectForKey:@"predominantType"];
-        [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
-        [self getTheDayOfTheWeek];
-        changeDefaultCityButton.hidden = NO;
-
-        // call fade in method here
-
-        [locationManager stopUpdatingLocation];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        pageControl.hidden = NO;
-        pageControl.currentPage = currentLocationIndex;
-        pageControl.numberOfPages = locations.count;
-        if (currentLocationIndex == 0) {
-            deleteButton.hidden = YES;
-            isCurrentLocation = YES;
-        }
-        else {
-            deleteButton.hidden = NO;
-            isCurrentLocation = NO;
-        }
-    }
+    //call fade out/fade in method here
+    
+    cityLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+    descriptionTextView.text = [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"desc"];
+    predominantTypeLabel.text = [location objectForKey:@"predominantType"];
+    [allergenLevelButton setTitle:[NSString stringWithFormat:@"%@", [[[location objectForKey:@"dayList"] objectAtIndex:0] objectForKey:@"level"]] forState:UIControlStateNormal];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    changeDefaultCityButton.hidden = NO;
+    //pageControl.currentPage = currentLocationIndex;
+    //pageControl.numberOfPages = locations.count;
+//    if (currentLocationIndex == 0) {
+//        deleteButton.hidden = YES;
+//        isCurrentLocation = YES;
+//    }
+//    else {
+//        deleteButton.hidden = NO;
+//        isCurrentLocation = NO;
+//    }
 }
 
 - (void)clearDisplay {
@@ -600,16 +628,13 @@ WeeklyForecastVC  *wvc;
     descriptionTextView.text = @"";
     predominantTypeLabel.text = @"";
     [allergenLevelButton setTitle:@"" forState:UIControlStateNormal];
-    [locationManager stopUpdatingLocation];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    changeDefaultCityButton.hidden = YES;
-    pageControl.hidden = YES;
-    pageControl.currentPage = currentLocationIndex;
-    pageControl.numberOfPages = locations.count;
-    if (currentLocation == 0)
-        deleteButton.hidden = YES;
-    else
-        deleteButton.hidden = NO;
+    //pageControl.currentPage = currentLocationIndex;
+    //pageControl.numberOfPages = locations.count;
+    //if (currentLocation == 0)
+    //    deleteButton.hidden = YES;
+    //else
+    //    deleteButton.hidden = NO;
 }
 
 - (void)disableTabs {
@@ -633,33 +658,41 @@ WeeklyForecastVC  *wvc;
     [location setObject:zip forKey:@"zip"];
 }
 
-- (void)addLocation {
-    [locations addObject:location];
-    currentLocationIndex++;
-    pageControl.numberOfPages = locations.count;
-    pageControl.currentPage = locations.count;
-    [self refreshDisplay];
-    [self savePList];
-    isAddingLocation = NO;
-}
+//- (void)addLocation {
+//    [locations addObject:location];
+//    currentLocationIndex++;
+//    pageControl.numberOfPages = locations.count;
+//    pageControl.currentPage = locations.count;
+//    [self refreshDisplay];
+//    [self savePList];
+//    isAddingLocation = NO;
+//}
 
-- (void)deleteLocation {
-    [locations removeObjectAtIndex:currentLocationIndex];
-    currentLocationIndex--;
-    pageControl.numberOfPages = locations.count;
-    location = locations[currentLocationIndex];
-    [self savePList];
-    [self refreshDisplay];
-}
+//- (void)deleteLocation {
+//    [locations removeObjectAtIndex:currentLocationIndex];
+//    currentLocationIndex--;
+//    pageControl.numberOfPages = locations.count;
+//    location = locations[currentLocationIndex];
+//    [self savePList];
+//    [self refreshDisplay];
+//}
 
 - (void)fetchPollenData {
-    [self clearDisplay];
-    tempZip = zip;
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+    id url = [NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zip]];
+    NSLog(@"%@", url);
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:url]
+                                            queue:[NSOperationQueue mainQueue]
+                                completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                if (!data) {
-                                   [self clearDisplay];
+
+
+
+
+                                   //[self clearDisplay];
+
+
+
+
                                    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                                    [self disableTabs];
                                    [message show];
@@ -672,25 +705,47 @@ WeeklyForecastVC  *wvc;
                                if (connectionError) {
                                    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
                                    [message show];
+
+
+
+
+                                   //[self clearDisplay];
+
+
+
+
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
                                    [self enableTabs];
                                    [location setObject:zip forKey:@"zip"];
                                    [self cleanDictionary];
+                                   [self refreshDisplay];
+//                                   if (isAddingLocation) {
+//                                       [self addLocation];
+//                                   }
+//                                   if (isCurrentLocation) {
+//                                       isCurrentLocation = NO;
+//                                       currentLocation = location;
+//                                       if (locations.count > 0)
+//                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
+//                                       else {
+//                                           [self addLocation];
+//                                       }
+//                                   }
                                    [self allergenLevelChangeFontColor];
-                                   if (isAddingLocation) {
-                                       [self addLocation];
-                                   } else {
-                                       if (currentLocationIndex == 0) {
-                                           isCurrentLocation = YES;
-                                           currentLocation = location;
-                                           if (locations.count > 0) {
-                                               [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                           } else {
-                                               [self addLocation];
-                                           }
-                                       }
-                                   }
+//                                   if (isAddingLocation) {
+//                                       [self addLocation];
+//                                   } else {
+//                                       if (currentLocationIndex == 0) {
+//                                           isCurrentLocation = YES;
+//                                           currentLocation = location;
+//                                           if (locations.count > 0) {
+//                                               [locations replaceObjectAtIndex:0 withObject:currentLocation];
+//                                           } else {
+//                                               [self addLocation];
+//                                           }
+//                                       }
+//                                   }
                                }
                            }];
 }

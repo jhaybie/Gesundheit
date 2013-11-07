@@ -81,26 +81,26 @@ NSMutableArray         *drugstores,
 NSString               *name,
                        *address;
 
-- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
-
-    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        if (currentLocationIndex < locations.count - 1)
-            currentLocationIndex++;
-        else currentLocationIndex = 0;
-    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-        if (currentLocationIndex == 0)
-            currentLocationIndex = locations.count - 1;
-        else
-            currentLocationIndex--;
-    }
-    location = locations[currentLocationIndex];
-    city = [location objectForKey:@"city"];
-    state = [location objectForKey:@"state"];
-    pageControl.currentPage = currentLocationIndex;
-    citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
-    [self fetchSearchResults];
-    [self fetchSearchResultsForDoctors];
-}
+//- (void)swipeLeftDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
+//
+//    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+//        if (currentLocationIndex < locations.count - 1)
+//            currentLocationIndex++;
+//        else currentLocationIndex = 0;
+//    } else if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+//        if (currentLocationIndex == 0)
+//            currentLocationIndex = locations.count - 1;
+//        else
+//            currentLocationIndex--;
+//    }
+//    location = locations[currentLocationIndex];
+//    city = [location objectForKey:@"city"];
+//    state = [location objectForKey:@"state"];
+//    pageControl.currentPage = currentLocationIndex;
+//    citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
+//    [self fetchSearchResults];
+//    [self fetchSearchResultsForDoctors];
+//}
 
 - (void)buttonBorders {
     oneDayActiveButton.backgroundColor = [UIColor clearColor];
@@ -285,8 +285,8 @@ NSString               *name,
     hiddenSearchView.backgroundColor = [UIColor clearColor];
     [self roundTheCorners];
     segmentedControl.selectedSegmentIndex = 0;
-    pageControl.numberOfPages = locations.count;
-    pageControl.currentPage = currentLocationIndex;
+    //pageControl.numberOfPages = locations.count;
+    //pageControl.currentPage = currentLocationIndex;
     citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
 }
 
@@ -299,12 +299,13 @@ NSString               *name,
     [self rotateDandy:dandyImagePng duration:1 degrees:2];
     [self fetchSearchResults];
     [self fetchSearchResultsForDoctors];
-    UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
-    swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeRecognizer];
-    [self.view addGestureRecognizer:swipeRecognizer2];
+    pageControl.hidden = YES;
+    //UISwipeGestureRecognizer *swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    //swipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    //UISwipeGestureRecognizer *swipeRecognizer2 = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeftDetected:)];
+    //swipeRecognizer2.direction = UISwipeGestureRecognizerDirectionRight;
+    //[self.view addGestureRecognizer:swipeRecognizer];
+    //[self.view addGestureRecognizer:swipeRecognizer2];
 }
 
 - (void) showBackgroundImages {
@@ -319,10 +320,10 @@ NSString               *name,
     dirtBottomPNG.alpha = 0.65f;
 }
 
-- (IBAction)onBackButtonTap:(id)sender {
-    [self dismissViewControllerAnimated:NO
-                             completion:nil];
-}
+//- (IBAction)onBackButtonTap:(id)sender {
+//    [self dismissViewControllerAnimated:NO
+//                             completion:nil];
+//}
 
 #pragma mark UITableViewDelegate
 
@@ -411,18 +412,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)onTapGoGoRootVC:(id)sender {
-    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-    [tempLocations setObject:locations forKey:@"locations"];
-    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:tempLocations];
+    //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    //[tempLocations setObject:locations forKey:@"locations"];
+    //[tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To RootVC" object:location];
 }
 
 - (IBAction)onTapGoGoFiveDayForecastVC:(id)sender {
-    NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
-    [tempLocations setObject:locations forKey:@"locations"];
-    [tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:tempLocations];
+    //NSMutableDictionary *tempLocations = [[NSMutableDictionary alloc] init];;
+    //[tempLocations setObject:locations forKey:@"locations"];
+    //[tempLocations setObject:[NSString stringWithFormat:@"%i", currentLocationIndex] forKey:@"index"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"Go To WeeklyForecastVC" object:location];
 }
 
-- (IBAction)goGoPageControlSwipe:(id)sender {
-}
+//- (IBAction)goGoPageControlSwipe:(id)sender {
+//}
 
 @end
