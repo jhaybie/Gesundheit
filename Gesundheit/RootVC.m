@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lineBarTop;
 @property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
 - (IBAction)onTapDeleteLocation:(id)sender;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender;
@@ -61,6 +62,7 @@
 
 @implementation RootVC
 @synthesize cityLabel,
+            dirtBottomPNG,
             deleteButton,
             lineBarBottom,
             lineBarTop,
@@ -287,12 +289,17 @@ WeeklyForecastVC  *wvc;
     dandelionGifImage.image = [UIImage imageNamed:@"skyBackRound2.png"];
     dandelionImage.image = [UIImage imageNamed:@"testDandyDan.png"];
     [dandelionImage setAlpha:.30];
+
     tabBarGrass.image = [UIImage imageNamed:@"grass.png"];
     tabBarGrass.alpha = .60;
+
+    dirtBottomPNG.image = [UIImage imageNamed:@"dirtMcGurt.png"];
+    dirtBottomPNG.alpha = 0.65f;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    descriptionTextView.textColor = [UIColor blackColor];
     refreshButton.hidden = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];

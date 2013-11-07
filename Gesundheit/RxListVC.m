@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *citynStateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *openSearchButton;
 @property (weak, nonatomic) IBOutlet UIImageView *grassPNG;
+@property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
 
 - (IBAction)onTapGoGoOpenSearch:(id)sender;
 - (IBAction)onSegmentedControlTap:(id)sender;
@@ -52,6 +53,7 @@
 @implementation RxListVC
 @synthesize  oneDayActiveButton,
              grassPNG,
+             dirtBottomPNG,
              openSearchButton,
              citynStateLabel,
              currentLocationIndex,
@@ -135,9 +137,10 @@ NSString               *name,
     rxLayer.lineWidth = 1.0f;
     [rxListDisabledButton.layer addSublayer:rxLayer];
     [rxListDisabledButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    searchButton.backgroundColor = [UIColor clearColor];
+    searchButton.backgroundColor = [UIColor whiteColor];
     [[searchButton layer] setBorderWidth:1.0f];
     [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
+
 }
 
 - (void) roundTheCorners {
@@ -300,6 +303,9 @@ NSString               *name,
     grassPNG.alpha = .60;
     [dandyImagePng setAlpha:.5];
     [drugstoresTableView setAlpha:.75];
+
+    dirtBottomPNG.image = [UIImage imageNamed:@"dirtMcGurt.png"];
+    dirtBottomPNG.alpha = 0.65f;
 }
 
 - (IBAction)onBackButtonTap:(id)sender {

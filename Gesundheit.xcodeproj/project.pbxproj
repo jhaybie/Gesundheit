@@ -14,6 +14,7 @@
 		91470070181B7FC800A15B0F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9147006F181B7FC800A15B0F /* ImageIO.framework */; };
 		917A59431822D627002880B2 /* skyBackRound2.png in Resources */ = {isa = PBXBuildFile; fileRef = 917A59421822D627002880B2 /* skyBackRound2.png */; };
 		917A59451822D62F002880B2 /* testDandyDan.png in Resources */ = {isa = PBXBuildFile; fileRef = 917A59441822D62F002880B2 /* testDandyDan.png */; };
+		917EEE86182B3C680027DBF2 /* dirtMcGurt.png in Resources */ = {isa = PBXBuildFile; fileRef = 917EEE85182B3C680027DBF2 /* dirtMcGurt.png */; };
 		E46FF8EA181EFB2D0025A010 /* RxListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46FF8E9181EFB2D0025A010 /* RxListVC.m */; };
 		E46FF8ED181EFB500025A010 /* MapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46FF8EC181EFB500025A010 /* MapVC.m */; };
 		E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
@@ -56,6 +57,7 @@
 		9147006F181B7FC800A15B0F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		917A59421822D627002880B2 /* skyBackRound2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyBackRound2.png; sourceTree = "<group>"; };
 		917A59441822D62F002880B2 /* testDandyDan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testDandyDan.png; sourceTree = "<group>"; };
+		917EEE85182B3C680027DBF2 /* dirtMcGurt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirtMcGurt.png; sourceTree = "<group>"; };
 		E46FF8E8181EFB2D0025A010 /* RxListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RxListVC.h; sourceTree = "<group>"; };
 		E46FF8E9181EFB2D0025A010 /* RxListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RxListVC.m; sourceTree = "<group>"; };
 		E46FF8EB181EFB500025A010 /* MapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapVC.h; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				9126DE8F18260A5200B4A4F9 /* grass.png */,
+				917EEE85182B3C680027DBF2 /* dirtMcGurt.png */,
 				E4C8969518215158006D3B35 /* Gesundheit.plist */,
 				E494FF371818458000E1E5C3 /* AppDelegate.h */,
 				E494FF381818458000E1E5C3 /* AppDelegate.m */,
@@ -291,6 +294,7 @@
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
 				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
 				E4C8969618215158006D3B35 /* Gesundheit.plist in Resources */,
+				917EEE86182B3C680027DBF2 /* dirtMcGurt.png in Resources */,
 				917A59431822D627002880B2 /* skyBackRound2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
