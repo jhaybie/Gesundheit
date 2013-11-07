@@ -113,31 +113,31 @@ WeeklyForecastVC  *wvc;
 - (void)fetchFavorites {
     for (int i = 1; i < locations.count; i ++) {
         location = locations[i];
-        zip = [tempLocation objectForKey:@"zip"];
+        zip = [location objectForKey:@"zip"];
         [self fetchPollenData];
-        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
-                                           queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-
-
-                                   if (!data) {
-                                       UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                                       [message show];
-                                       refreshButton.hidden = NO;
-                                       [self disableTabs];
-                                       return;
-                                   }
-                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
-                                                                                  options:NSJSONReadingMutableContainers
-                                                                                    error:&connectionError];
-                                   [tempLocation setObject:tempZip forKey:@"zip"];
-                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-                                   [self cleanDictionary];
-                                   [tempLocation setObject:tempZip forKey:@"zip"];
-                                   [locations replaceObjectAtIndex:i withObject:tempLocation];
-                                   [self savePList];
-                               }];
     }
+//        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", tempZip]]]
+//                                           queue:[NSOperationQueue mainQueue]
+//                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//
+//
+//                                   if (!data) {
+//                                       UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+//                                       [message show];
+//                                       refreshButton.hidden = NO;
+//                                       [self disableTabs];
+//                                       return;
+//                                   }
+//                                   tempLocation = [NSJSONSerialization JSONObjectWithData:data
+//                                                                                  options:NSJSONReadingMutableContainers
+//                                                                                    error:&connectionError];
+//                                   [tempLocation setObject:tempZip forKey:@"zip"];
+//                                   [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//                                   [self cleanDictionary];
+//                                   [tempLocation setObject:tempZip forKey:@"zip"];
+//                                   [locations replaceObjectAtIndex:i withObject:tempLocation];
+//                                   [self savePList];
+//                               }];
 }
 
 - (void) getTheDayOfTheWeek {
@@ -192,49 +192,49 @@ WeeklyForecastVC  *wvc;
     [message dismissWithClickedButtonIndex:0 animated:YES];
 }
 
-- (void)fetchPollenDataFromZip:(NSString *)zipCode {
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               if (!data) {
-                                   [self clearDisplay];
-                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                                   [self disableTabs];
-                                   [message show];
-
-                                   return;
-                               }
-                               location = [NSJSONSerialization JSONObjectWithData:data
-                                                                          options:NSJSONReadingMutableContainers
-                                                                            error:&connectionError];
-                               if (connectionError) {
-                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
-                                   [message show];
-                                   [self clearDisplay];
-                                   [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
-                               } else {
-                                   [self refreshDisplay];
-                                   [self cleanDictionary];
-                                   if (isAddingLocation) {
-                                       [self addLocation];
-                                   }
-                                   if (currentLocationIndex == 0) {
-                                       isCurrentLocation = NO;
-                                       currentLocation = location;
-                                       if (locations.count  > 0)
-                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
-                                       else {
-                                           deleteButton.hidden = NO;
-                                           [locations addObject:currentLocation];
-                                           pageControl.currentPage = locations.count;
-                                       }
-                                   }
-
-                                   [self allergenLevelChangeFontColor];
-                               }
-
-                           }];
-}
+//- (void)fetchPollenDataFromZip:(NSString *)zipCode {
+//    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://direct.weatherbug.com/DataService/GetPollen.ashx?zip=%@", zipCode]]]
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//                               if (!data) {
+//                                   [self clearDisplay];
+//                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot connect to server." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+//                                   [self disableTabs];
+//                                   [message show];
+//
+//                                   return;
+//                               }
+//                               location = [NSJSONSerialization JSONObjectWithData:data
+//                                                                          options:NSJSONReadingMutableContainers
+//                                                                            error:&connectionError];
+//                               if (connectionError) {
+//                                   UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+//                                   [message show];
+//                                   [self clearDisplay];
+//                                   [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
+//                               } else {
+//                                   [self refreshDisplay];
+//                                   [self cleanDictionary];
+//                                   if (isAddingLocation) {
+//                                       [self addLocation];
+//                                   }
+//                                   if (currentLocationIndex == 0) {
+//                                       isCurrentLocation = NO;
+//                                       currentLocation = location;
+//                                       if (locations.count  > 0)
+//                                           [locations replaceObjectAtIndex:0 withObject:currentLocation];
+//                                       else {
+//                                           deleteButton.hidden = NO;
+//                                           [locations addObject:currentLocation];
+//                                           pageControl.currentPage = locations.count;
+//                                       }
+//                                   }
+//
+//                                   [self allergenLevelChangeFontColor];
+//                               }
+//
+//                           }];
+//}
 
 - (void)allergenLevelChangeFontColor {
     float level = allergenLevelButton.currentTitle.floatValue;
@@ -534,7 +534,6 @@ WeeklyForecastVC  *wvc;
     isAddingLocation = YES;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (enterZipTextField.text.length == 5) {
-        [[NSUserDefaults standardUserDefaults] setObject: enterZipTextField.text forKey:@"defaultLocation"];
         zip = enterZipTextField.text;
         [self fetchPollenData];
     } else
@@ -562,10 +561,14 @@ WeeklyForecastVC  *wvc;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     pageControl.currentPage = currentLocationIndex;
     pageControl.numberOfPages = locations.count;
-    if (currentLocationIndex == 0)
+    if (currentLocationIndex == 0) {
         deleteButton.hidden = YES;
-    else
+        isCurrentLocation = YES;
+    }
+    else {
         deleteButton.hidden = NO;
+        isCurrentLocation = NO;
+    }
 }
 
 - (void)clearDisplay {
@@ -637,12 +640,14 @@ WeeklyForecastVC  *wvc;
                                location = [NSJSONSerialization JSONObjectWithData:data
                                                                           options:NSJSONReadingMutableContainers
                                                                             error:&connectionError];
+                               [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                if (connectionError) {
                                    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Please wait" message:@"Refreshing pollen data." delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
                                    [message show];
                                    [self clearDisplay];
                                    [self performSelector:@selector(dismissAlert:) withObject:message afterDelay:2.0f];
                                } else {
+                                   [location setObject:zip forKey:@"zip"];
                                    [self refreshDisplay];
                                    [self cleanDictionary];
                                    if (isAddingLocation) {
