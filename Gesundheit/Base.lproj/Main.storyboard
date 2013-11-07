@@ -75,9 +75,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMX-kt-Twv">
-                                <rect key="frame" x="20" y="242" width="280" height="26"/>
+                                <rect key="frame" x="20" y="244" width="280" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="10"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aG8-3Q-aD7">
@@ -85,15 +85,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yE8-7v-jFR">
-                                <rect key="frame" x="18" y="306" width="280" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items/>
-                                <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
-                            </toolbar>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPO-31-HrN">
                                 <rect key="frame" x="18" y="264" width="280" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <color key="textColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -254,7 +249,6 @@
                     <connections>
                         <outlet property="allergenLevel" destination="2RR-Bn-o7J" id="tYp-c2-Vhk"/>
                         <outlet property="allergenLevelButton" destination="s4O-N9-MKX" id="8eS-HO-ZMf"/>
-                        <outlet property="blurrToolbar" destination="yE8-7v-jFR" id="Jf2-I2-2JZ"/>
                         <outlet property="buttonBlurr" destination="Knq-n4-6qN" id="Z4j-9L-zfv"/>
                         <outlet property="changeDefaultCityButton" destination="zmE-Ww-kPm" id="YMg-yM-CPy"/>
                         <outlet property="cityLabel" destination="WA3-vO-X0G" id="ddj-JG-nys"/>

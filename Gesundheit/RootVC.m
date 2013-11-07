@@ -38,7 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lineBarBottom;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
-@property (weak, nonatomic) IBOutlet UIToolbar *blurrToolbar;
+
 - (IBAction)onTapDeleteLocation:(id)sender;
 
 - (IBAction)onTapGoGoRxListVC:(id)sender;
@@ -65,7 +65,6 @@
 
 @implementation RootVC
 @synthesize cityLabel,
-            blurrToolbar,
             buttonBlurr,
             hiddenSearchView,
             dirtBottomPNG,
@@ -353,17 +352,8 @@ WeeklyForecastVC  *wvc;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    blurrToolbar.frame = descriptionTextView.frame;
+
     descriptionTextView.layer.cornerRadius = 20.0f;
-
-    blurrToolbar.layer.borderWidth = 2.0f;
-    blurrToolbar.layer.cornerRadius = 20.0f;
-
-    descriptionTextView.backgroundColor = [UIColor clearColor];
-    blurrToolbar.alpha = 0.85;
-    blurrToolbar.clipsToBounds = YES;
-    blurrToolbar.layer.borderColor = [UIColor whiteColor].CGColor;
-
     buttonBlurr.frame = allergenLevelButton.frame;
     buttonBlurr.layer.borderWidth = 3.0f;
     buttonBlurr.layer.cornerRadius = 45.0f;
@@ -380,7 +370,7 @@ WeeklyForecastVC  *wvc;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-
+    
     hiddenSearchView.hidden = YES;
     hiddenSearchView.backgroundColor = [UIColor clearColor];
 }
@@ -403,7 +393,7 @@ WeeklyForecastVC  *wvc;
 
     descriptionTextView.layer.cornerRadius = 20.0f;
 
-    blurrToolbar.layer.cornerRadius = 20.0f;
+
 
     goButton.titleLabel.textColor = [UIColor grayColor];
     goButton.backgroundColor = [UIColor clearColor];
