@@ -285,6 +285,7 @@ NSString               *name,
     hiddenSearchView.backgroundColor = [UIColor clearColor];
     [self roundTheCorners];
     segmentedControl.selectedSegmentIndex = 0;
+    [drugstoresTableView reloadData];
     //pageControl.numberOfPages = locations.count;
     //pageControl.currentPage = currentLocationIndex;
     citynStateLabel.text = [NSString stringWithFormat:@"%@, %@", [location objectForKey:@"city"], [location objectForKey:@"state"]];
