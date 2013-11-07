@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *openSearchButton;
 @property (weak, nonatomic) IBOutlet UIImageView *grassPNG;
 @property (weak, nonatomic) IBOutlet UIImageView *dirtBottomPNG;
+@property (weak, nonatomic) IBOutlet UIView *hiddenSearchView;
 
 - (IBAction)onTapGoGoOpenSearch:(id)sender;
 - (IBAction)onSegmentedControlTap:(id)sender;
@@ -53,6 +54,7 @@
 @implementation RxListVC
 @synthesize  oneDayActiveButton,
              grassPNG,
+             hiddenSearchView,
              dirtBottomPNG,
              openSearchButton,
              citynStateLabel,
@@ -137,9 +139,16 @@ NSString               *name,
     rxLayer.lineWidth = 1.0f;
     [rxListDisabledButton.layer addSublayer:rxLayer];
     [rxListDisabledButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    searchButton.backgroundColor = [UIColor whiteColor];
-    [[searchButton layer] setBorderWidth:1.0f];
-    [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
+    searchButton.backgroundColor = [UIColor clearColor];
+    [[searchButton layer] setBorderWidth:2.0f];
+    searchButton.titleLabel.textColor = [UIColor blackColor];
+    [[searchButton layer] setBorderColor:[UIColor lightGrayColor].CGColor];
+    searchButton.layer.cornerRadius = 15.0f;
+
+
+    zipCodeTextField.layer.cornerRadius = 15.0f;
+    zipCodeTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    zipCodeTextField.layer.borderWidth = 2.0f;
 
 }
 
@@ -149,7 +158,7 @@ NSString               *name,
     segmentedControl.layer.cornerRadius = 20.0f;
     openSearchButton.layer.borderColor = [UIColor whiteColor].CGColor;
     openSearchButton.layer.borderWidth = 1.0f;
-    openSearchButton.backgroundColor = [UIColor lightTextColor];
+    openSearchButton.backgroundColor = [UIColor clearColor];
 
 
 }
@@ -271,7 +280,9 @@ NSString               *name,
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [openSearchButton becomeFirstResponder];
+    
+    hiddenSearchView.hidden = YES;
+    hiddenSearchView.backgroundColor = [UIColor clearColor];
     [self roundTheCorners];
     segmentedControl.selectedSegmentIndex = 0;
     pageControl.numberOfPages = locations.count;
@@ -367,13 +378,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     searchButton.hidden = NO;
     zipCodeTextField.hidden = NO;
     openSearchButton.hidden = YES;
-    zipCodeTextField.frame = CGRectMake(self.view.frame.origin.x / 2, self.view.frame.origin.y + 750, self.view.frame.size.width - 20, zipCodeTextField.frame.size.height);
-    searchButton.frame = CGRectMake(openSearchButton.frame.origin.x + 200, openSearchButton.frame.origin.y + 400, openSearchButton.frame.size.width, openSearchButton.frame.size.height);
-    [zipCodeTextField becomeFirstResponder];
+    hiddenSearchView.alpha = 0.1f;
+
     [UIView animateWithDuration:0.25f animations:^{
-        zipCodeTextField.frame = CGRectMake( 0, 324, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
-        searchButton.frame = CGRectMake(280 , 324, openSearchButton.frame.size.width, searchButton.frame.size.height);
+        hiddenSearchView.backgroundColor = [UIColor darkGrayColor];
+        hiddenSearchView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        hiddenSearchView.layer.borderWidth = 6.0f;
+        hiddenSearchView.layer.cornerRadius = 20.0f;
+        hiddenSearchView.alpha = 0.8f;
+        hiddenSearchView.hidden = NO;
     }];
+    [zipCodeTextField becomeFirstResponder];
 }
 
 - (IBAction)onSegmentedControlTap:(id)sender {
@@ -384,6 +399,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [zipCodeTextField resignFirstResponder];
     zipCodeTextField.hidden = YES;
     searchButton.hidden = YES;
+    hiddenSearchView.hidden = YES;
     openSearchButton.hidden = NO;
     if (![zipCodeTextField.text isEqualToString:@""]) {
         city = zipCodeTextField.text;
