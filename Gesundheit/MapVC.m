@@ -35,10 +35,11 @@
 }
 
 -(void) addButtonBorder {
-    [[backButton layer] setBorderColor:[UIColor darkGrayColor].CGColor];
+    [[backButton layer] setBorderColor:[UIColor blueColor].CGColor];
     [[backButton layer] setBorderWidth:2.0f];
     [[backButton layer] setCornerRadius:15.0f];
     backButton.backgroundColor = [UIColor lightTextColor];
+    backButton.titleLabel.textColor = [UIColor blueColor];
     backButton.titleLabel.textColor = [UIColor blueColor];
 
 }

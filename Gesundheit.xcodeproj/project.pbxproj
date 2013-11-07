@@ -17,9 +17,10 @@
 		917EEE86182B3C680027DBF2 /* dirtMcGurt.png in Resources */ = {isa = PBXBuildFile; fileRef = 917EEE85182B3C680027DBF2 /* dirtMcGurt.png */; };
 		917EEE89182B66B10027DBF2 /* blueinfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 917EEE87182B66B10027DBF2 /* blueinfo.png */; };
 		917EEE8A182B66B10027DBF2 /* bluesearch.png in Resources */ = {isa = PBXBuildFile; fileRef = 917EEE88182B66B10027DBF2 /* bluesearch.png */; };
-		91C3EB3C182BF32200137FE0 /* gesundheitIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C3EB3B182BF32200137FE0 /* gesundheitIcon.png */; };
 		91C3EB3E182BF43E00137FE0 /* 512gesundteitIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C3EB3D182BF43E00137FE0 /* 512gesundteitIcon.png */; };
 		91C3EB40182C190100137FE0 /* gesundheit!.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C3EB3F182C190100137FE0 /* gesundheit!.png */; };
+		91C3EB42182C1BDD00137FE0 /* 8080.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C3EB41182C1BDD00137FE0 /* 8080.png */; };
+		91C3EB44182C1BE700137FE0 /* 5858.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C3EB43182C1BE700137FE0 /* 5858.png */; };
 		E46FF8EA181EFB2D0025A010 /* RxListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46FF8E9181EFB2D0025A010 /* RxListVC.m */; };
 		E46FF8ED181EFB500025A010 /* MapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E46FF8EC181EFB500025A010 /* MapVC.m */; };
 		E494FF291818458000E1E5C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF281818458000E1E5C3 /* Foundation.framework */; };
@@ -67,9 +68,10 @@
 		917EEE85182B3C680027DBF2 /* dirtMcGurt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirtMcGurt.png; sourceTree = "<group>"; };
 		917EEE87182B66B10027DBF2 /* blueinfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueinfo.png; sourceTree = "<group>"; };
 		917EEE88182B66B10027DBF2 /* bluesearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluesearch.png; sourceTree = "<group>"; };
-		91C3EB3B182BF32200137FE0 /* gesundheitIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gesundheitIcon.png; sourceTree = "<group>"; };
 		91C3EB3D182BF43E00137FE0 /* 512gesundteitIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 512gesundteitIcon.png; sourceTree = "<group>"; };
 		91C3EB3F182C190100137FE0 /* gesundheit!.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gesundheit!.png"; sourceTree = "<group>"; };
+		91C3EB41182C1BDD00137FE0 /* 8080.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8080.png; sourceTree = "<group>"; };
+		91C3EB43182C1BE700137FE0 /* 5858.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5858.png; sourceTree = "<group>"; };
 		E46FF8E8181EFB2D0025A010 /* RxListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RxListVC.h; sourceTree = "<group>"; };
 		E46FF8E9181EFB2D0025A010 /* RxListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RxListVC.m; sourceTree = "<group>"; };
 		E46FF8EB181EFB500025A010 /* MapVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapVC.h; sourceTree = "<group>"; };
@@ -169,12 +171,13 @@
 			children = (
 				91C3EB3F182C190100137FE0 /* gesundheit!.png */,
 				E4C19840182C15840057342E /* MagnifyingGlass.png */,
+				91C3EB41182C1BDD00137FE0 /* 8080.png */,
 				9126DE8F18260A5200B4A4F9 /* grass.png */,
+				91C3EB43182C1BE700137FE0 /* 5858.png */,
 				E4C19842182C158E0057342E /* reload.png */,
 				917EEE85182B3C680027DBF2 /* dirtMcGurt.png */,
 				917EEE87182B66B10027DBF2 /* blueinfo.png */,
 				91C3EB3D182BF43E00137FE0 /* 512gesundteitIcon.png */,
-				91C3EB3B182BF32200137FE0 /* gesundheitIcon.png */,
 				917EEE88182B66B10027DBF2 /* bluesearch.png */,
 				E4C8969518215158006D3B35 /* Gesundheit.plist */,
 				E494FF371818458000E1E5C3 /* AppDelegate.h */,
@@ -311,7 +314,7 @@
 			files = (
 				91C3EB40182C190100137FE0 /* gesundheit!.png in Resources */,
 				E4C19841182C15840057342E /* MagnifyingGlass.png in Resources */,
-				91C3EB3C182BF32200137FE0 /* gesundheitIcon.png in Resources */,
+				91C3EB44182C1BE700137FE0 /* 5858.png in Resources */,
 				9126DE9018260A5200B4A4F9 /* grass.png in Resources */,
 				917EEE8A182B66B10027DBF2 /* bluesearch.png in Resources */,
 				917A59451822D62F002880B2 /* testDandyDan.png in Resources */,
@@ -320,6 +323,7 @@
 				91C3EB3E182BF43E00137FE0 /* 512gesundteitIcon.png in Resources */,
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
+				91C3EB42182C1BDD00137FE0 /* 8080.png in Resources */,
 				E494FF3C1818458000E1E5C3 /* Main.storyboard in Resources */,
 				E4C8969618215158006D3B35 /* Gesundheit.plist in Resources */,
 				917EEE86182B3C680027DBF2 /* dirtMcGurt.png in Resources */,
