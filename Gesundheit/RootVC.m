@@ -558,8 +558,8 @@ WeeklyForecastVC  *wvc;
     goButton.frame = CGRectMake(self.view.frame.origin.x + 320, 1000, goButton.frame.size.width, goButton.frame.size.width);
     enterZipTextField.frame = CGRectMake(self.view.frame.origin.x, 1000, self.view.frame.size.width, enterZipTextField.frame.size.height);
     [UIView animateWithDuration:0.25f animations:^{
-            enterZipTextField.frame = CGRectMake(self.view.frame.origin.x / 2, descriptionTextView.frame.origin.y + 37, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
-                goButton.frame = CGRectMake(self.view.frame.origin.x + 281, descriptionTextView.frame.origin.y + 37, goButton.frame.size.width, goButton.frame.size.height );
+            enterZipTextField.frame = CGRectMake(0, 324, self.view.frame.size.width - 40, enterZipTextField.frame.size.height);
+                goButton.frame = CGRectMake(280, 324, goButton.frame.size.width, goButton.frame.size.height );
     }];
     [enterZipTextField becomeFirstResponder];
     goButton.hidden = NO;

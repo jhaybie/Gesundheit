@@ -135,7 +135,7 @@ NSString               *name,
     rxLayer.lineWidth = 1.0f;
     [rxListDisabledButton.layer addSublayer:rxLayer];
     [rxListDisabledButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [[searchButton layer] setCornerRadius:15.0f];
+    searchButton.backgroundColor = [UIColor clearColor];
     [[searchButton layer] setBorderWidth:1.0f];
     [[searchButton layer] setBorderColor:[UIColor blueColor].CGColor];
 }
@@ -146,7 +146,7 @@ NSString               *name,
     segmentedControl.layer.cornerRadius = 20.0f;
     openSearchButton.layer.borderColor = [UIColor whiteColor].CGColor;
     openSearchButton.layer.borderWidth = 1.0f;
-    openSearchButton.backgroundColor = [UIColor clearColor];
+    openSearchButton.backgroundColor = [UIColor lightTextColor];
 
 
 }
@@ -365,8 +365,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     searchButton.frame = CGRectMake(openSearchButton.frame.origin.x + 200, openSearchButton.frame.origin.y + 400, openSearchButton.frame.size.width, openSearchButton.frame.size.height);
     [zipCodeTextField becomeFirstResponder];
     [UIView animateWithDuration:0.25f animations:^{
-        zipCodeTextField.frame = CGRectMake(drugstoresTableView.frame.origin.x -24 , drugstoresTableView.frame.origin.y + 232, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
-        searchButton.frame = CGRectMake(drugstoresTableView.frame.origin.x + 245 , drugstoresTableView.frame.origin.y + 228, openSearchButton.frame.size.width, searchButton.frame.size.height);
+        zipCodeTextField.frame = CGRectMake( 0, 324, self.view.frame.size.width - 34, zipCodeTextField.frame.size.height);
+        searchButton.frame = CGRectMake(280 , 324, openSearchButton.frame.size.width, searchButton.frame.size.height);
     }];
 }
 
