@@ -37,6 +37,8 @@
 		E494FF541818458000E1E5C3 /* GesundheitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E494FF531818458000E1E5C3 /* GesundheitTests.m */; };
 		E494FF6118186EA400E1E5C3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF6018186EA400E1E5C3 /* MapKit.framework */; };
 		E494FF631818723600E1E5C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E494FF621818723600E1E5C3 /* CoreLocation.framework */; };
+		E4C19841182C15840057342E /* MagnifyingGlass.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C19840182C15840057342E /* MagnifyingGlass.png */; };
+		E4C19843182C158E0057342E /* reload.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C19842182C158E0057342E /* reload.png */; };
 		E4C8969618215158006D3B35 /* Gesundheit.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4C8969518215158006D3B35 /* Gesundheit.plist */; };
 		E4F7767D181AE6FA0009F30A /* WeeklyForecastVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E4F7767C181AE6FA0009F30A /* WeeklyForecastVC.m */; };
 /* End PBXBuildFile section */
@@ -91,6 +93,8 @@
 		E494FF531818458000E1E5C3 /* GesundheitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GesundheitTests.m; sourceTree = "<group>"; };
 		E494FF6018186EA400E1E5C3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E494FF621818723600E1E5C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E4C19840182C15840057342E /* MagnifyingGlass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MagnifyingGlass.png; sourceTree = "<group>"; };
+		E4C19842182C158E0057342E /* reload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reload.png; sourceTree = "<group>"; };
 		E4C8969518215158006D3B35 /* Gesundheit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Gesundheit.plist; sourceTree = "<group>"; };
 		E4F7767B181AE6FA0009F30A /* WeeklyForecastVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeeklyForecastVC.h; sourceTree = "<group>"; };
 		E4F7767C181AE6FA0009F30A /* WeeklyForecastVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeeklyForecastVC.m; sourceTree = "<group>"; };
@@ -161,7 +165,9 @@
 		E494FF2E1818458000E1E5C3 /* Gesundheit */ = {
 			isa = PBXGroup;
 			children = (
+				E4C19840182C15840057342E /* MagnifyingGlass.png */,
 				9126DE8F18260A5200B4A4F9 /* grass.png */,
+				E4C19842182C158E0057342E /* reload.png */,
 				917EEE85182B3C680027DBF2 /* dirtMcGurt.png */,
 				917EEE87182B66B10027DBF2 /* blueinfo.png */,
 				91C3EB3D182BF43E00137FE0 /* 512gesundteitIcon.png */,
@@ -300,11 +306,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4C19841182C15840057342E /* MagnifyingGlass.png in Resources */,
 				91C3EB3C182BF32200137FE0 /* gesundheitIcon.png in Resources */,
 				9126DE9018260A5200B4A4F9 /* grass.png in Resources */,
 				917EEE8A182B66B10027DBF2 /* bluesearch.png in Resources */,
 				917A59451822D62F002880B2 /* testDandyDan.png in Resources */,
 				917EEE89182B66B10027DBF2 /* blueinfo.png in Resources */,
+				E4C19843182C158E0057342E /* reload.png in Resources */,
 				91C3EB3E182BF43E00137FE0 /* 512gesundteitIcon.png in Resources */,
 				E494FF411818458000E1E5C3 /* Images.xcassets in Resources */,
 				E494FF331818458000E1E5C3 /* InfoPlist.strings in Resources */,
