@@ -91,7 +91,7 @@ NSArray *week;
     oneDayLayer.path = oneDayPath.CGPath;
     oneDayLayer.fillColor = [UIColor clearColor].CGColor;
     oneDayLayer.strokeColor = [UIColor whiteColor].CGColor;
-    oneDayLayer.lineWidth = 2;
+    oneDayLayer.lineWidth = 1;
     [oneDayTabButton.layer addSublayer:oneDayLayer];
 
 
@@ -105,7 +105,7 @@ NSArray *week;
     rxListLayer.path = rxListPath.CGPath;
     rxListLayer.fillColor = [UIColor clearColor].CGColor;
     rxListLayer.strokeColor = [UIColor whiteColor].CGColor;
-    rxListLayer.lineWidth = 2;
+    rxListLayer.lineWidth = 1;
     [rxListTabButton.layer addSublayer:rxListLayer];
 
     fiveDayTabButton.backgroundColor = [UIColor clearColor];
@@ -119,7 +119,7 @@ NSArray *week;
     shapeLayer.path = shapePath.CGPath;
     shapeLayer.fillColor = [UIColor whiteColor].CGColor;
     shapeLayer.strokeColor = [UIColor whiteColor].CGColor;
-    shapeLayer.lineWidth = 2;
+    shapeLayer.lineWidth = 1;
     [fiveDayTabButton.layer addSublayer:shapeLayer];
     [fiveDayTabButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
 }
